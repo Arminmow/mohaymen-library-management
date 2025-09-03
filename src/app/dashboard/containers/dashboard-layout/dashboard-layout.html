@@ -1,1 +1,27 @@
-<p>dashboard-layout works!</p>
+<nz-layout>
+  <nz-sider
+    nzCollapsible
+    nzBreakpoint="lg"
+    [nzCollapsedWidth]="0"
+    [nzWidth]="230"
+  >
+    <div class="logo">ArminMow</div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item>
+        <nz-icon nzType="user" nzTheme="outline" class="menu-icon" />
+        <span class="menu-item">Users</span>
+      </li>
+
+      <li nz-menu-item>
+        <nz-icon nzType="book" nzTheme="outline" class="menu-icon" />
+        <span class="menu-item">Books</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <div class="inner-content">Content Will be here</div>
+    </nz-content>
+    <nz-footer>Ant Design Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>
