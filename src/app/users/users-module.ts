@@ -6,6 +6,7 @@ import { UsersLayout } from './containers/users-layout/users-layout';
 import { UserTable } from './components/user-table/user-table';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { UserService } from './services/user-service';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     UsersRoutingModule,
     NzTableModule,
     NzDividerModule
-  ]
+  ],
+  providers: [UserService]
 })
 export class UsersModule { }
