@@ -7,7 +7,7 @@
   >
     <div class="logo">ArminMow</div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-      <li nz-menu-item>
+      <li nz-menu-item [routerLink]="['/users']">
         <nz-icon nzType="user" nzTheme="outline" class="menu-icon" />
         <span class="menu-item">Users</span>
       </li>
@@ -20,7 +20,7 @@
   </nz-sider>
   <nz-layout>
     <nz-content>
-      <div class="inner-content">Content Will be here</div>
+      <router-outlet></router-outlet>
     </nz-content>
     <nz-footer>Ant Design Implement By Angular</nz-footer>
   </nz-layout>
