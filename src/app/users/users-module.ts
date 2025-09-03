@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing-module';
-import { Users } from './users';
+import { UsersLayout } from './containers/users-layout/users-layout';
 
 
 @NgModule({
   declarations: [
-    Users
+    UsersLayout
   ],
   imports: [
     CommonModule,
