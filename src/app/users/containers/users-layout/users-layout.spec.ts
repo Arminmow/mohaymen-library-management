@@ -1,9 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersLayout } from './users-layout';
-import { UserTable } from '../../components/user-table/user-table';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { Component } from '@angular/core';
+
+@Component({ selector: 'app-user-table', template: '', standalone: false })
+class UsersTableStub {}
 
 describe('UsersLayout', () => {
   let component: UsersLayout;
@@ -11,10 +14,9 @@ describe('UsersLayout', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UsersLayout , UserTable],
-      imports: [NzTableModule , NzDividerModule]
-    })
-    .compileComponents();
+      declarations: [UsersLayout, UsersTableStub],
+      imports: [NzTableModule, NzDividerModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UsersLayout);
     component = fixture.componentInstance;

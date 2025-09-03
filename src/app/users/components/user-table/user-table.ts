@@ -1,30 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User, UsersStore } from '../../stores/users.store';
 
 @Component({
   selector: 'app-user-table',
   standalone: false,
   templateUrl: './user-table.html',
-  styleUrl: './user-table.scss'
+  styleUrl: './user-table.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserTable {
-listOfData: any = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
+  users$: Observable<User[]>;
+
+  constructor(private usersStore: UsersStore) {
+    this.users$ = this.usersStore.users$;
+  }
 }
