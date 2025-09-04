@@ -1,14 +1,41 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserTable } from './user-table';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { User, UsersStore } from '../../stores/users.store';
 import { Observable, of } from 'rxjs';
+import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'nz-table',
+  standalone: false,
+  template: `<table>
+    <ng-content></ng-content>
+  </table>`,
+})
+class NzTableStubComponent {
+  @Input('nzData') nzData: any;
+
+  get data() {
+    return this.nzData;
+  }
+}
+
+@Component({
+  selector: 'nz-dropdown-menu',
+  standalone: false,
+  template: '<ng-content></ng-content>',
+  exportAs: 'nzDropdownMenu',
+})
+class NzDropdownMenuStubComponent {}
+
+@Component({ selector: 'nz-divider', template: '', standalone: false })
+class NzDividerStubComponent {}
 
 describe('UserTable', () => {
   let component: UserTable;
   let fixture: ComponentFixture<UserTable>;
   let mockStore: Partial<UsersStore>;
+  let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
 
   const mockData: User[] = [
     { id: 1, name: 'Armin', age: 25, role: 'admin' },
@@ -16,14 +43,24 @@ describe('UserTable', () => {
   ];
 
   beforeEach(async () => {
+    nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
+
     mockStore = {
       users$: of(mockData) as Observable<User[]>,
     };
 
     await TestBed.configureTestingModule({
-      declarations: [UserTable],
-      imports: [NzTableModule, NzDividerModule],
-      providers: [{ provide: UsersStore, useValue: mockStore }],
+      declarations: [
+        UserTable,
+        NzTableStubComponent,
+        NzDividerStubComponent,
+        NzDropdownMenuStubComponent,
+      ],
+      imports: [],
+      providers: [
+        { provide: UsersStore, useValue: mockStore },
+        { provide: NzContextMenuService, useValue: nzContextMenuSpy },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserTable);
@@ -40,7 +77,7 @@ describe('UserTable', () => {
     expect(headers.length).toBe(4);
     expect(headers[0].textContent).toContain('Name');
     expect(headers[1].textContent).toContain('Age');
-    expect(headers[2].textContent).toContain('Role'); 
+    expect(headers[2].textContent).toContain('Role');
     expect(headers[3].textContent).toContain('Action');
   });
 
@@ -55,9 +92,34 @@ describe('UserTable', () => {
       const cells = row.querySelectorAll('td');
       expect(cells[0].textContent).toContain(mockData[index].name);
       expect(cells[1].textContent).toContain(mockData[index].age.toString());
-      expect(cells[2].textContent).toContain(mockData[index].role); 
-      expect(cells[3].textContent).toContain(`Action 一 ${mockData[index].name}`);
+      expect(cells[2].textContent).toContain(mockData[index].role);
+      expect(cells[3].textContent).toContain(
+        `Action 一 ${mockData[index].name}`
+      );
       expect(cells[3].textContent).toContain('Delete');
     });
+  });
+
+  it('SHOULD set contextUser AND call NzContextMenuService.create WHEN contextMenu is invoked', () => {
+    // Arrange
+    const user = mockData[1];
+    const menuDebug =
+      fixture.debugElement.nativeElement.querySelector('nz-dropdown-menu');
+    expect(menuDebug).toBeTruthy();
+    const menuInstance = menuDebug as any;
+    const fakeEvent = new MouseEvent('contextmenu', {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    // Act
+    component.contextMenu(fakeEvent, menuInstance, user);
+
+    // Assert
+    expect(component.contextUser).toBe(user);
+    expect(nzContextMenuSpy.create).toHaveBeenCalledWith(
+      fakeEvent,
+      menuInstance
+    );
   });
 });

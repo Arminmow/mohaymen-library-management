@@ -9,7 +9,9 @@
   </thead>
   <tbody>
     @for (data of basicTable.data; track data) {
-    <tr>
+    <tr
+      (contextmenu)="contextMenu($event, menu , data)"
+    >
       <td>{{ data.name }}</td>
       <td>{{ data.age }}</td>
       <td>{{ data.role }}</td>
@@ -22,3 +24,10 @@
     }
   </tbody>
 </nz-table>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="editUser(contextUser)">Edit</li>
+    <li nz-menu-item (click)="deleteUser(contextUser)">Delete</li>
+  </ul>
+</nz-dropdown-menu>
