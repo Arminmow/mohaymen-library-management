@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserTable } from './user-table';
 import { User, UsersStore } from '../../stores/users.store';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'nz-table',
@@ -13,7 +15,8 @@ import { Component, Input } from '@angular/core';
   </table>`,
 })
 class NzTableStubComponent {
-  @Input('nzData') nzData: any;
+  @Input() nzData: any;
+  @Input() nzShowPagination: boolean = false;
 
   get data() {
     return this.nzData;
@@ -36,6 +39,7 @@ describe('UserTable', () => {
   let fixture: ComponentFixture<UserTable>;
   let mockStore: Partial<UsersStore>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
+  let nzModalServiceSpy: jasmine.SpyObj<NzModalService>;
 
   const mockData: User[] = [
     { id: 1, name: 'Armin', age: 25, role: 'admin' },
@@ -44,9 +48,13 @@ describe('UserTable', () => {
 
   beforeEach(async () => {
     nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
+    nzModalServiceSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
 
     mockStore = {
-      users$: of(mockData) as Observable<User[]>,
+      users$: of(mockData),
+      deleteUser: jasmine.createSpy('deleteUser'),
+      addUser: jasmine.createSpy('addUser'),
+      updateUser: jasmine.createSpy('updateUser'),
     };
 
     await TestBed.configureTestingModule({
@@ -60,6 +68,8 @@ describe('UserTable', () => {
       providers: [
         { provide: UsersStore, useValue: mockStore },
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
+        { provide: NzModalService, useValue: nzModalServiceSpy },
+        UserService,
       ],
     }).compileComponents();
 

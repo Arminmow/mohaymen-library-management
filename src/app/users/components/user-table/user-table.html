@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzData]="(users$ | async) ?? []">
+<nz-table #basicTable [nzData]="(users$ | async) ?? []" [nzShowPagination]="false">
   <thead>
     <tr>
       <th>Name</th>
@@ -28,6 +28,6 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item (click)="editUser(contextUser)">Edit</li>
-    <li nz-menu-item (click)="deleteUser(contextUser)">Delete</li>
+    <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
   </ul>
 </nz-dropdown-menu>

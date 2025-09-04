@@ -5,6 +5,7 @@ import {
   NzContextMenuService,
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-user-table',
@@ -19,7 +20,8 @@ export class UserTable {
 
   constructor(
     private usersStore: UsersStore,
-    private nzContextMenuService: NzContextMenuService
+    private nzContextMenuService: NzContextMenuService,
+    private userService: UserService
   ) {
     this.users$ = this.usersStore.users$;
   }
@@ -33,11 +35,11 @@ export class UserTable {
     this.nzContextMenuService.create($event, menu);
   }
 
-  editUser(user: User): void {
-    console.log('Editing user:', user);
+  showDeleteConfirm() {
+    this.userService.confirmDelete(this.contextUser);
   }
 
-  deleteUser(user: User): void {
-    console.log('Deleting user:', user);
+  editUser(user: User): void {
+    console.log('Editing user:', user);
   }
 }
