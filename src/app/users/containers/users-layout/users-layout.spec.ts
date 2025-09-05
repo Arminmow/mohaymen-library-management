@@ -8,13 +8,20 @@ import { Component } from '@angular/core';
 @Component({ selector: 'app-user-table', template: '', standalone: false })
 class UsersTableStub {}
 
+@Component({
+  selector: 'app-add-user-modal',
+  standalone: false,
+  template: '',
+})
+class AddUserModalStub {}
+
 describe('UsersLayout', () => {
   let component: UsersLayout;
   let fixture: ComponentFixture<UsersLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UsersLayout, UsersTableStub],
+      declarations: [UsersLayout, UsersTableStub , AddUserModalStub],
       imports: [NzTableModule, NzDividerModule],
     }).compileComponents();
 

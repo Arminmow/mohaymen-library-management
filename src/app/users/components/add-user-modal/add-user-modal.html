@@ -1,0 +1,13 @@
+<button nz-button [nzType]="'primary'" (click)="showModal()">
+  <span>Add User</span>
+</button>
+<nz-modal
+  [nzFooter]="null"
+  [(nzVisible)]="isVisible"
+  nzTitle="Add New User"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <h3>User Form Will Be Here :)</h3>
+  </ng-container>
+</nz-modal>
