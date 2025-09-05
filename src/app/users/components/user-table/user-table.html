@@ -1,4 +1,8 @@
-<nz-table #basicTable [nzData]="(users$ | async) ?? []" [nzShowPagination]="false">
+<nz-table
+  #basicTable
+  [nzData]="(users$ | async) ?? []"
+  [nzShowPagination]="false"
+>
   <thead>
     <tr>
       <th>Name</th>
@@ -9,9 +13,7 @@
   </thead>
   <tbody>
     @for (data of basicTable.data; track data) {
-    <tr
-      (contextmenu)="contextMenu($event, menu , data)"
-    >
+    <tr (contextmenu)="contextMenu($event, userMenu.menu , data)">
       <td>{{ data.name }}</td>
       <td>{{ data.age }}</td>
       <td>{{ data.role }}</td>
@@ -25,9 +27,4 @@
   </tbody>
 </nz-table>
 
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <ul nz-menu>
-    <li nz-menu-item (click)="editUser(contextUser)">Edit</li>
-    <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
-  </ul>
-</nz-dropdown-menu>
+<app-user-actions #userMenu [contextUser]="contextUser"></app-user-actions>

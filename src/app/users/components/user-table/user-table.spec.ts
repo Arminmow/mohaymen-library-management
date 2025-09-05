@@ -24,6 +24,15 @@ class NzTableStubComponent {
 }
 
 @Component({
+  selector: 'app-user-actions',
+  standalone: false,
+  template: ``,
+})
+class UserActionsStub {
+  @Input() contextUser!: User;
+}
+
+@Component({
   selector: 'nz-dropdown-menu',
   standalone: false,
   template: '<ng-content></ng-content>',
@@ -39,7 +48,6 @@ describe('UserTable', () => {
   let fixture: ComponentFixture<UserTable>;
   let mockStore: Partial<UsersStore>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
-  let nzModalServiceSpy: jasmine.SpyObj<NzModalService>;
 
   const mockData: User[] = [
     { id: 1, name: 'Armin', age: 25, role: 'admin' },
@@ -48,7 +56,6 @@ describe('UserTable', () => {
 
   beforeEach(async () => {
     nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
-    nzModalServiceSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
 
     mockStore = {
       users$: of(mockData),
@@ -63,12 +70,12 @@ describe('UserTable', () => {
         NzTableStubComponent,
         NzDividerStubComponent,
         NzDropdownMenuStubComponent,
+        UserActionsStub,
       ],
       imports: [],
       providers: [
         { provide: UsersStore, useValue: mockStore },
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
-        { provide: NzModalService, useValue: nzModalServiceSpy },
         UserService,
       ],
     }).compileComponents();
@@ -114,7 +121,7 @@ describe('UserTable', () => {
     // Arrange
     const user = mockData[1];
     const menuDebug =
-      fixture.debugElement.nativeElement.querySelector('nz-dropdown-menu');
+      fixture.debugElement.nativeElement.querySelector('app-user-actions');
     expect(menuDebug).toBeTruthy();
     const menuInstance = menuDebug as any;
     const fakeEvent = new MouseEvent('contextmenu', {

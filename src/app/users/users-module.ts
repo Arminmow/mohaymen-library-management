@@ -11,9 +11,10 @@ import { UsersStore } from './stores/users.store';
 import { NzContextMenuService, NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserActions } from './components/user-actions/user-actions/user-actions';
 
 @NgModule({
-  declarations: [UsersLayout, UserTable],
+  declarations: [UsersLayout, UserTable, UserActions],
   imports: [
     CommonModule,
     UsersRoutingModule,
