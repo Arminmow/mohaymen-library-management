@@ -19,9 +19,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { EditUserModal } from './components/edit-user-modal/edit-user-modal';
 
 @NgModule({
-  declarations: [UsersLayout, UserTable, UserActions, AddUserModal, AddUserForm],
+  declarations: [UsersLayout, UserTable, UserActions, AddUserModal, AddUserForm, EditUserModal],
   imports: [
     CommonModule,
     UsersRoutingModule,

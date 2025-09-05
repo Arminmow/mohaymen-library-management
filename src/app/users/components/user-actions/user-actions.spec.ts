@@ -13,6 +13,13 @@ import { User } from '../../stores/users.store';
 })
 class NzDropDownMenuStub {}
 
+@Component({
+  selector: 'app-edit-user-modal',
+  template: '',
+  standalone: false
+})
+class UserEditModalStub {}
+
 describe('UserActions', () => {
   let component: UserActions;
   let fixture: ComponentFixture<UserActions>;
@@ -32,7 +39,7 @@ describe('UserActions', () => {
     ]);
 
     await TestBed.configureTestingModule({
-      declarations: [UserActions, NzDropDownMenuStub],
+      declarations: [UserActions, NzDropDownMenuStub , UserEditModalStub],
       providers: [{ provide: UserService, useValue: userServiceSpy }],
     }).compileComponents();
 

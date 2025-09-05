@@ -1,0 +1,11 @@
+<span (click)="showModal()">Edit</span>
+<nz-modal
+  [nzFooter]="null"
+  [(nzVisible)]="isVisible"
+  nzTitle="Edit User"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+   <span>Test</span>
+  </ng-container>
+</nz-modal>
