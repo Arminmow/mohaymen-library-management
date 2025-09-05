@@ -18,16 +18,33 @@ export class AddUserForm implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      age: [null, [Validators.required, Validators.min(0)]],
+      age: [null, [Validators.required, Validators.min(18)]],
       role: ['user', Validators.required],
     });
   }
 
   submit() {
     console.log(this.form.value);
-    
+
     if (this.form.valid) {
       console.log('ok bro');
     }
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (!control || !control.errors) return '';
+
+    if (control.errors['required']) return 'This field is required';
+    if (control.errors['minlength'])
+      return `Minimum ${control.errors['minlength'].requiredLength} characters required`;
+    if (control.errors['maxlength'])
+      return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
+    if (control.errors['min'])
+      return `${controlName} must be at least ${control.errors['min'].min}`;
+    if (control.errors['max'])
+      return `Value cannot exceed ${control.errors['max'].max}`;
+
+    return 'Invalid value';
   }
 }
