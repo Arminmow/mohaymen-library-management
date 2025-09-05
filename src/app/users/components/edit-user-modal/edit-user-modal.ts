@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '../../stores/users.store';
 
 @Component({
   selector: 'app-edit-user-modal',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './edit-user-modal.scss',
 })
 export class EditUserModal {
+
+  @Input() user!: User;
+
   isVisible: boolean = false;
 
   showModal() {

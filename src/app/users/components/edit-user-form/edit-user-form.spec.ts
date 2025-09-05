@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUserForm } from './edit-user-form';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('EditUserForm', () => {
   let component: EditUserForm;
@@ -9,6 +10,7 @@ describe('EditUserForm', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [EditUserForm],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditUserForm);

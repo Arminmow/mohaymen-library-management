@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../stores/users.store';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -8,14 +9,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './edit-user-form.scss',
 })
 export class EditUserForm implements OnInit {
+
+  @Input() user!: User;
+
   constructor(private fb: FormBuilder) {}
 
   form!: FormGroup;
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      age: ['', [Validators.required, Validators.min(18)]],
+      name: [this.user?.name, [Validators.required, Validators.minLength(3)]],
+      age: [this.user?.age, [Validators.required, Validators.min(18)]],
     });
   }
 

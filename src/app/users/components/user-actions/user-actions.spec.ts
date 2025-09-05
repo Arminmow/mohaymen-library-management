@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserActions } from './user-actions';
 import { UserService } from '../../services/user-service';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from '../../stores/users.store';
 
 @Component({
@@ -18,7 +18,9 @@ class NzDropDownMenuStub {}
   template: '',
   standalone: false
 })
-class UserEditModalStub {}
+class UserEditModalStub {
+  @Input() user!: User;
+}
 
 describe('UserActions', () => {
   let component: UserActions;

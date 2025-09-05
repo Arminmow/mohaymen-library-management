@@ -1,7 +1,7 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item>
-      <app-edit-user-modal />
+      <app-edit-user-modal [user]="contextUser" />
     </li>
     <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
 
