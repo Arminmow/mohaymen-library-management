@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
-import { UserService } from '../../../services/user-service';
-import { User } from '../../../stores/users.store';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { UserService } from '../../services/user-service';
+import { User } from '../../stores/users.store';
 
 @Component({
   selector: 'app-user-actions',
