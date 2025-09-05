@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 
@@ -11,6 +11,7 @@ export type UserRole = 'admin' | 'user' | 'writer';
   styleUrl: './add-user-form.scss',
 })
 export class AddUserForm implements OnInit {
+  @Output() onClose = new EventEmitter<void>();
   roles: UserRole[] = ['admin', 'user', 'writer'];
   form!: FormGroup;
 
@@ -29,6 +30,7 @@ export class AddUserForm implements OnInit {
 
     if (this.form.valid) {
       this.userService.addUser(this.form.value);
+      this.onClose.emit();
     }
   }
 
