@@ -1,15 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddUserForm } from './add-user-form';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { UserService } from '../../services/user-service';
 
 describe('AddUserForm', () => {
   let component: AddUserForm;
   let fixture: ComponentFixture<AddUserForm>;
+  let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
+    userServiceSpy = jasmine.createSpyObj('UserService', ['addUser']);
+
     await TestBed.configureTestingModule({
       declarations: [AddUserForm],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: UserService, useValue: userServiceSpy }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddUserForm);
@@ -37,10 +44,10 @@ describe('AddUserForm', () => {
   });
 
   it('SHOULD mark age as invalid when negative', () => {
-    component.form.controls['age'].setValue(-1);
+    component.form.controls['age'].setValue(10);
     expect(component.form.controls['age'].valid).toBeFalse();
     expect(component.form.controls['age'].errors).toEqual({
-      min: { min: 0, actual: -1 },
+      min: { min: 18, actual: 10 },
     });
   });
 
@@ -85,10 +92,10 @@ describe('AddUserForm', () => {
 
   it('SHOULD return min value message', () => {
     component.form.controls['age'].setErrors({
-      min: { min: 0, actual: -1 },
+      min: { min: 18, actual: -1 },
     });
     const msg = component.getErrorMessage('age');
-    expect(msg).toBe('Value must be at least 0');
+    expect(msg).toBe('Must be at least 18');
   });
 
   it('SHOULD return max value message', () => {
@@ -103,5 +110,15 @@ describe('AddUserForm', () => {
     component.form.controls['role'].setErrors({ custom: true });
     const msg = component.getErrorMessage('role');
     expect(msg).toBe('Invalid value');
+  });
+
+  it('SHOULD call addUser on userService when form is valid and submitted', () => {
+    component.form.controls['name'].setValue('John Doe');
+    component.form.controls['age'].setValue(30);
+    component.form.controls['role'].setValue('user');
+
+    component.submit();
+
+    expect(userServiceSpy.addUser).toHaveBeenCalledWith(component.form.value);
   });
 });

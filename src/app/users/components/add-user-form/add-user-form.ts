@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user-service';
 
 export type UserRole = 'admin' | 'user' | 'writer';
 
@@ -13,7 +14,7 @@ export class AddUserForm implements OnInit {
   roles: UserRole[] = ['admin', 'user', 'writer'];
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder , private userService : UserService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -27,7 +28,7 @@ export class AddUserForm implements OnInit {
     console.log(this.form.value);
 
     if (this.form.valid) {
-      console.log('ok bro');
+      this.userService.addUser(this.form.value);
     }
   }
 
@@ -41,7 +42,7 @@ export class AddUserForm implements OnInit {
     if (control.errors['maxlength'])
       return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
     if (control.errors['min'])
-      return `${controlName} must be at least ${control.errors['min'].min}`;
+      return `Must be at least ${control.errors['min'].min}`;
     if (control.errors['max'])
       return `Value cannot exceed ${control.errors['max'].max}`;
 

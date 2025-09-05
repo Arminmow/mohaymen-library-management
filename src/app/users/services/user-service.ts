@@ -21,6 +21,10 @@ export class UserService {
     });
   }
 
+  addUser(newUser: User) {
+    this.usersStore.addUser(newUser);
+  }
+
   private deleteUser(userId: number) {
     this.usersStore.deleteUser(userId);
   }
