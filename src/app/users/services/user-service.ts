@@ -6,9 +6,8 @@ import { UsersStore, User } from '../stores/users.store';
 export class UserService {
   constructor(private modal: NzModalService, private usersStore: UsersStore) {}
 
-  editUser(user: User) {
-    console.log('Editing user:', user);
-    // could open modal, navigate, etc.
+  private editUser(user: User) {
+    this.usersStore.updateUser(user);
   }
 
   confirmDelete(user: User) {
@@ -17,6 +16,15 @@ export class UserService {
       nzOkText: 'Yes',
       nzOkDanger: true,
       nzOnOk: () => this.deleteUser(user.id),
+      nzCancelText: 'No',
+    });
+  }
+
+  confirmRoleChange(user: User, newRole: User['role']) {
+    this.modal.confirm({
+      nzTitle: `Are you sure you want to change ${user.name}'s role to ${newRole}?`,
+      nzOkText: 'Yes',
+      nzOnOk: () => this.editUser({ ...user, role: newRole }),
       nzCancelText: 'No',
     });
   }

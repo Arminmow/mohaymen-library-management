@@ -55,4 +55,21 @@ describe('UserService', () => {
     // Assert
     expect(nzModalServiceSpy.confirm).toHaveBeenCalledWith(expectedConfig);
   });
+
+  it('SHOULD call NzModalService.confirm with expected config WHEN confirmRoleChange is called', () => {
+    // Arrange
+    const user = mockData[0];
+    const newRole = 'writer';
+    const expectedConfig = jasmine.objectContaining({
+      nzTitle: `Are you sure you want to change ${user.name}'s role to ${newRole}?`,
+      nzOkText: 'Yes',
+      nzCancelText: 'No',
+    });
+
+    // Act
+    service.confirmRoleChange(user, newRole);
+
+    // Assert
+    expect(nzModalServiceSpy.confirm).toHaveBeenCalledWith(expectedConfig);
+  });
 });

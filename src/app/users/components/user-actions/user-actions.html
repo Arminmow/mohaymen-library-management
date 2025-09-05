@@ -1,7 +1,12 @@
-  
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item (click)="editUser(contextUser)">Edit</li>
     <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
+
+    @for (role of roleOptions; track role) {
+      <li nz-menu-item (click)="onChangeRole(role)">
+        Change role to {{ role | titlecase }}
+      </li>
+    }
   </ul>
 </nz-dropdown-menu>

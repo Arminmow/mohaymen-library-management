@@ -26,7 +26,10 @@ describe('UserActions', () => {
   };
 
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['confirmDelete']);
+    userServiceSpy = jasmine.createSpyObj('UserService', [
+      'confirmDelete',
+      'confirmRoleChange',
+    ]);
 
     await TestBed.configureTestingModule({
       declarations: [UserActions, NzDropDownMenuStub],
@@ -51,5 +54,20 @@ describe('UserActions', () => {
 
     // Assert
     expect(userServiceSpy.confirmDelete).toHaveBeenCalledWith(mockUser);
+  });
+
+  it('SHOULD call confirmRoleChange with correct inputs WHEN onChangeRole is called', () => {
+    // Arrange
+    fixture.componentRef.setInput('contextUser', mockUser);
+    const newRole: User['role'] = 'writer';
+
+    // Act
+    component.onChangeRole(newRole);
+
+    // Assert
+    expect(userServiceSpy.confirmRoleChange).toHaveBeenCalledWith(
+      mockUser,
+      newRole
+    );
   });
 });
