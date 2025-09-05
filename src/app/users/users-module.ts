@@ -20,9 +20,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { EditUserModal } from './components/edit-user-modal/edit-user-modal';
+import { EditUserForm } from './components/edit-user-form/edit-user-form';
 
 @NgModule({
-  declarations: [UsersLayout, UserTable, UserActions, AddUserModal, AddUserForm, EditUserModal],
+  declarations: [UsersLayout, UserTable, UserActions, AddUserModal, AddUserForm, EditUserModal, EditUserForm],
   imports: [
     CommonModule,
     UsersRoutingModule,
