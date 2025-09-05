@@ -6,7 +6,7 @@ import { UsersStore, User } from '../stores/users.store';
 export class UserService {
   constructor(private modal: NzModalService, private usersStore: UsersStore) {}
 
-  private editUser(user: User) {
+   editUser(user: User) {
     this.usersStore.updateUser(user);
   }
 

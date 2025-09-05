@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../stores/users.store';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -9,10 +10,10 @@ import { User } from '../../stores/users.store';
   styleUrl: './edit-user-form.scss',
 })
 export class EditUserForm implements OnInit {
-
   @Input() user!: User;
+  @Output() onClose = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder , private userService : UserService) {}
 
   form!: FormGroup;
 
@@ -24,8 +25,10 @@ export class EditUserForm implements OnInit {
   }
 
   submit() {
+    this.form.markAsTouched();
     if (this.form.valid) {
-      // Handle form submission
+      this.userService.editUser({ ...this.user, ...this.form.value });
+      this.onClose.emit();
     }
   }
 

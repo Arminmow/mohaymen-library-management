@@ -6,6 +6,6 @@
   (nzOnCancel)="handleCancel()"
 >
   <ng-container *nzModalContent>
-    <app-edit-user-form [user]="user" />
+    <app-edit-user-form [user]="user" (onClose)="handleCancel()" />
   </ng-container>
 </nz-modal>
