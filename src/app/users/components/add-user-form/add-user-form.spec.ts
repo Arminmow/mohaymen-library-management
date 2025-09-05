@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddUserForm } from './add-user-form';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AddUserForm', () => {
   let component: AddUserForm;
@@ -8,7 +8,8 @@ describe('AddUserForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddUserForm]
+      declarations: [AddUserForm],
+       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
