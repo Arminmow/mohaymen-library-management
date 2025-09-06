@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../stores/users.store';
 import { UserService } from '../../services/user-service';
@@ -8,6 +8,7 @@ import { UserService } from '../../services/user-service';
   standalone: false,
   templateUrl: './edit-user-form.html',
   styleUrl: './edit-user-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditUserForm implements OnInit {
   @Input() user!: User;

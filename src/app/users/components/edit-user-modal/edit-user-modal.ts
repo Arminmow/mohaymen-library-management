@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { User } from '../../stores/users.store';
 
 @Component({
@@ -6,6 +6,7 @@ import { User } from '../../stores/users.store';
   standalone: false,
   templateUrl: './edit-user-modal.html',
   styleUrl: './edit-user-modal.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditUserModal {
 

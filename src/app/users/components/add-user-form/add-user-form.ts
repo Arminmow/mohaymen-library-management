@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 
@@ -9,6 +9,7 @@ export type UserRole = 'admin' | 'user' | 'writer';
   standalone: false,
   templateUrl: './add-user-form.html',
   styleUrl: './add-user-form.scss',
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class AddUserForm implements OnInit {
   @Output() onClose = new EventEmitter<void>();
