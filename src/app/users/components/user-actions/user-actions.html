@@ -1,7 +1,14 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
     <li nz-menu-item>
-      <app-edit-user-modal [user]="contextUser" />
+      <app-generic-modal #modal title="Edit User">
+        <span modalTrigger class="edit-btn">Edit</span>
+        <app-edit-user-form
+          modalContent
+          [user]="contextUser"
+          (onClose)="modal.hideModal()"
+        ></app-edit-user-form>
+      </app-generic-modal>
     </li>
     <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
 

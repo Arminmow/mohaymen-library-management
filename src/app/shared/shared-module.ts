@@ -10,9 +10,12 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { GenericModal } from './components/generic-modal/generic-modal';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    GenericModal
+  ],
   imports: [
     CommonModule,
     NzTableModule,
@@ -38,6 +41,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzFormModule,
     NzSelectModule,
     NzInputNumberModule,
+    GenericModal
   ],
 })
 export class SharedModule {}

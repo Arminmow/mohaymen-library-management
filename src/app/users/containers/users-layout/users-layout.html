@@ -1,6 +1,14 @@
 <div class="container">
   <h1>Users Table</h1>
-  <app-add-user-modal />
+  <app-generic-modal #modal title="Add New User">
+    <button modalTrigger nz-button [nzType]="'primary'">
+      <span>Add User</span>
+    </button>
+    <app-add-user-form
+      modalContent
+      (onClose)="modal.hideModal()"
+    ></app-add-user-form>
+  </app-generic-modal>
 </div>
 
 <app-user-table />

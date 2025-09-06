@@ -14,11 +14,19 @@ import { User } from '../../stores/users.store';
 class NzDropDownMenuStub {}
 
 @Component({
-  selector: 'app-edit-user-modal',
+  selector: 'app-generic-modal',
   template: '',
   standalone: false
 })
-class UserEditModalStub {
+class UserGenericModalStub {
+}
+
+@Component({
+  selector: 'app-edit-user-form',
+  template: '',
+  standalone: false
+})
+class EditUserFormStub {
   @Input() user!: User;
 }
 
@@ -41,7 +49,7 @@ describe('UserActions', () => {
     ]);
 
     await TestBed.configureTestingModule({
-      declarations: [UserActions, NzDropDownMenuStub , UserEditModalStub],
+      declarations: [UserActions, NzDropDownMenuStub , UserGenericModalStub , EditUserFormStub],
       providers: [{ provide: UserService, useValue: userServiceSpy }],
     }).compileComponents();
 
