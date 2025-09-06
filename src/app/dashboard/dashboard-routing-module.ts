@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardLayout } from './containers/dashboard-layout/dashboard-layout';
 
-// dashboard-routing.module.ts
+
 const routes: Routes = [
   {
     path: '',
-    component: DashboardLayout, // <-- layout + sidebar always visible
+    component: DashboardLayout, 
     children: [
       {
         path: '',

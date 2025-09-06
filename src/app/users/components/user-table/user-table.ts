@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { User, UsersStore } from '../../stores/users.store';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 import {
   NzContextMenuService,
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
-import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 @Component({
   selector: 'app-user-table',
@@ -31,7 +32,6 @@ export class UserTable {
     user: User
   ): void {
     console.log(`setting context user to ${user.name}`);
-    
     this.userService.setContextUser(user);
     this.nzContextMenuService.create($event, menu);
   }

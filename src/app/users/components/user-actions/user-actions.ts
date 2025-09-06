@@ -4,10 +4,11 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { User, UsersStore } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-actions',
@@ -18,10 +19,11 @@ import { Observable } from 'rxjs';
 })
 export class UserActions {
   @Input() contextUser!: User | null;
-  private readonly allRoles = ['user', 'admin', 'writer'];
 
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
   public menu!: NzDropdownMenuComponent;
+
+  private readonly allRoles = ['user', 'admin', 'writer'];
 
   constructor(private userService: UserUiService) {}
 

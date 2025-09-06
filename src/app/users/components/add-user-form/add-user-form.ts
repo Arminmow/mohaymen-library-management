@@ -9,14 +9,16 @@ export type UserRole = 'admin' | 'user' | 'writer';
   standalone: false,
   templateUrl: './add-user-form.html',
   styleUrl: './add-user-form.scss',
-  changeDetection : ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserForm implements OnInit {
+
   @Output() onClose = new EventEmitter<void>();
+
   roles: UserRole[] = ['admin', 'user', 'writer'];
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder , private userService : UserDataService) {}
+  constructor(private fb: FormBuilder, private userService: UserDataService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -45,10 +47,8 @@ export class AddUserForm implements OnInit {
       return `Minimum ${control.errors['minlength'].requiredLength} characters required`;
     if (control.errors['maxlength'])
       return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
-    if (control.errors['min'])
-      return `Must be at least ${control.errors['min'].min}`;
-    if (control.errors['max'])
-      return `Value cannot exceed ${control.errors['max'].max}`;
+    if (control.errors['min']) return `Must be at least ${control.errors['min'].min}`;
+    if (control.errors['max']) return `Value cannot exceed ${control.errors['max'].max}`;
 
     return 'Invalid value';
   }

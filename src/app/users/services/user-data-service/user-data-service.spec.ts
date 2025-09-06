@@ -7,7 +7,6 @@ describe('UserDataService', () => {
   let usersStoreSpy: jasmine.SpyObj<UsersStore>;
 
   beforeEach(() => {
-    // create a spy object for UsersStore
     const spy = jasmine.createSpyObj('UsersStore', [
       'addUser',
       'updateUser',

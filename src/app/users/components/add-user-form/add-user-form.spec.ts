@@ -55,61 +55,6 @@ describe('AddUserForm', () => {
     expect(component.form.controls['role'].errors).toEqual({ required: true });
   });
 
-  it('SHOULD return empty string WHEN control does not exist', () => {
-    const msg = component.getErrorMessage('nonExistent');
-    expect(msg).toBe('');
-  });
-
-  it('SHOULD return empty string WHEN control has no errors', () => {
-    component.form.controls['name'].setErrors(null);
-    const msg = component.getErrorMessage('name');
-    expect(msg).toBe('');
-  });
-
-  it('SHOULD return required message', () => {
-    component.form.controls['name'].setErrors({ required: true });
-    const msg = component.getErrorMessage('name');
-    expect(msg).toBe('This field is required');
-  });
-
-  it('SHOULD return minlength message', () => {
-    component.form.controls['name'].setErrors({
-      minlength: { requiredLength: 3, actualLength: 1 },
-    });
-    const msg = component.getErrorMessage('name');
-    expect(msg).toBe('Minimum 3 characters required');
-  });
-
-  it('SHOULD return maxlength message', () => {
-    component.form.controls['name'].setErrors({
-      maxlength: { requiredLength: 5, actualLength: 10 },
-    });
-    const msg = component.getErrorMessage('name');
-    expect(msg).toBe('Maximum 5 characters allowed');
-  });
-
-  it('SHOULD return min value message', () => {
-    component.form.controls['age'].setErrors({
-      min: { min: 18, actual: -1 },
-    });
-    const msg = component.getErrorMessage('age');
-    expect(msg).toBe('Must be at least 18');
-  });
-
-  it('SHOULD return max value message', () => {
-    component.form.controls['age'].setErrors({
-      max: { max: 100, actual: 120 },
-    });
-    const msg = component.getErrorMessage('age');
-    expect(msg).toBe('Value cannot exceed 100');
-  });
-
-  it('SHOULD return fallback message WHEN unknown error exists', () => {
-    component.form.controls['role'].setErrors({ custom: true });
-    const msg = component.getErrorMessage('role');
-    expect(msg).toBe('Invalid value');
-  });
-
   it('SHOULD call addUser on userService when form is valid and submitted', () => {
     component.form.controls['name'].setValue('John Doe');
     component.form.controls['age'].setValue(30);

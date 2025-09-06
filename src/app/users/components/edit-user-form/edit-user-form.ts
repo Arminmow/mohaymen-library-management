@@ -9,9 +9,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 import { User, UsersStore } from '../../stores/users.store';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -24,6 +25,10 @@ export class EditUserForm implements OnInit, OnChanges {
   @Input() user!: User;
   @Output() onClose = new EventEmitter<void>();
 
+  readonly user$!: Observable<User | null>;
+
+  form!: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserDataService,
@@ -31,9 +36,6 @@ export class EditUserForm implements OnInit, OnChanges {
   ) {
     this.user$ = this.userStore.contextUser$;
   }
-
-  readonly user$!: Observable<User | null>;
-  form!: FormGroup;
 
   ngOnInit() {
     this.form = this.fb.group({

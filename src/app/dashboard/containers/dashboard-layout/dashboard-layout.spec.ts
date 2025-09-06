@@ -26,7 +26,7 @@ describe('DashboardLayout', () => {
     fixture = TestBed.createComponent(DashboardLayout);
     component = fixture.componentInstance;
 
-    // Register icons before rendering
+
     iconService = TestBed.inject(NzIconService);
     iconService.addIcon(UserOutline, BookOutline);
 

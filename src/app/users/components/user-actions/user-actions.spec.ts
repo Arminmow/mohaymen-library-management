@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
 
 import { UserActions } from './user-actions';
-import { Component, Input } from '@angular/core';
 import { User } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 
+// stub components
 @Component({
   selector: 'nz-dropdown-menu',
   template: '',
@@ -16,15 +17,14 @@ class NzDropDownMenuStub {}
 @Component({
   selector: 'app-generic-modal',
   template: '',
-  standalone: false
+  standalone: false,
 })
-class UserGenericModalStub {
-}
+class UserGenericModalStub {}
 
 @Component({
   selector: 'app-edit-user-form',
   template: '',
-  standalone: false
+  standalone: false,
 })
 class EditUserFormStub {
   @Input() user!: User;
@@ -49,7 +49,12 @@ describe('UserActions', () => {
     ]);
 
     await TestBed.configureTestingModule({
-      declarations: [UserActions, NzDropDownMenuStub , UserGenericModalStub , EditUserFormStub],
+      declarations: [
+        UserActions, 
+        NzDropDownMenuStub, 
+        UserGenericModalStub, 
+        EditUserFormStub
+      ],
       providers: [{ provide: UserUiService, useValue: userServiceSpy }],
     }).compileComponents();
 
@@ -62,7 +67,7 @@ describe('UserActions', () => {
     expect(component).toBeTruthy();
   });
 
-  it('SHOULD call confirmDelete with corret user WHEN showDeleteConfirm is called', () => {
+  it('SHOULD call confirmDelete with correct user WHEN showDeleteConfirm is called', () => {
     // Arrange
     fixture.componentRef.setInput('contextUser', mockUser);
 

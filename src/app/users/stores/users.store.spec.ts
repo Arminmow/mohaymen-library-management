@@ -26,7 +26,6 @@ describe('UsersStore', () => {
       PersistenceService
     ) as jasmine.SpyObj<PersistenceService>;
 
-    // reset spies before each test
     persistenceService.get.calls.reset();
     persistenceService.save.calls.reset();
   });

@@ -1,17 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { of } from 'rxjs';
+
 import { UserTable } from './user-table';
 import { User, UsersStore } from '../../stores/users.store';
-import { of } from 'rxjs';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
-import { Component, Input } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
 
+// stub Components
 @Component({
   selector: 'nz-table',
   standalone: false,
-  template: `<table>
-    <ng-content></ng-content>
-  </table>`,
+  template: `
+    <table>
+      <ng-content></ng-content>
+    </table>
+  `,
 })
 class NzTableStubComponent {
   @Input() nzData: any;
@@ -71,7 +74,6 @@ describe('UserTable', () => {
         NzDropdownMenuStubComponent,
         UserActionsStub,
       ],
-      imports: [],
       providers: [
         { provide: UsersStore, useValue: mockStore },
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
@@ -98,7 +100,7 @@ describe('UserTable', () => {
 
   it('should render the correct number of rows', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
-    expect(rows.length).toBe(mockData.length); // use mockData here
+    expect(rows.length).toBe(mockData.length);
   });
 
   it('should render correct data in each row', () => {
@@ -114,27 +116,4 @@ describe('UserTable', () => {
       expect(cells[3].textContent).toContain('Delete');
     });
   });
-
-  // it('SHOULD set contextUser AND call NzContextMenuService.create WHEN contextMenu is invoked', () => {
-  //   // Arrange
-  //   const user = mockData[1];
-  //   const menuDebug =
-  //     fixture.debugElement.nativeElement.querySelector('app-user-actions');
-  //   expect(menuDebug).toBeTruthy();
-  //   const menuInstance = menuDebug as any;
-  //   const fakeEvent = new MouseEvent('contextmenu', {
-  //     bubbles: true,
-  //     cancelable: true,
-  //   });
-
-  //   // Act
-  //   component.contextMenu(fakeEvent, menuInstance, user);
-
-  //   // Assert
-  //   expect(component.contextUser).toBe(user);
-  //   expect(nzContextMenuSpy.create).toHaveBeenCalledWith(
-  //     fakeEvent,
-  //     menuInstance
-  //   );
-  // });
 });

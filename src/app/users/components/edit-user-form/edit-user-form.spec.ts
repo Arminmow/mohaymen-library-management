@@ -22,9 +22,6 @@ describe('EditUserForm', () => {
     contextUser$: of(mockUser),
   };
 
-  // -------------------------
-  // TestBed Setup
-  // -------------------------
   beforeEach(async () => {
     userServiceSpy = jasmine.createSpyObj('UserDataService', ['editUser']);
 
@@ -44,16 +41,10 @@ describe('EditUserForm', () => {
     fixture.detectChanges();
   });
 
-  // -------------------------
-  // Component Creation
-  // -------------------------
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  // -------------------------
-  // Form Initialization
-  // -------------------------
   describe('Form Initialization', () => {
     it('should initialize the form with input user values', () => {
       expect(component.form.value).toEqual({
@@ -82,9 +73,6 @@ describe('EditUserForm', () => {
     });
   });
 
-  // -------------------------
-  // Form Validation
-  // -------------------------
   describe('Form Validation', () => {
     it('should mark name as invalid when empty', () => {
       component.form.controls['name'].setValue('');
@@ -114,12 +102,8 @@ describe('EditUserForm', () => {
     });
   });
 
-  // -------------------------
-  // Submit Behavior
-  // -------------------------
   describe('Submit', () => {
     beforeEach(() => {
-      // Set valid form values
       component.form.controls['name'].setValue('John Doe');
       component.form.controls['age'].setValue(30);
     });
