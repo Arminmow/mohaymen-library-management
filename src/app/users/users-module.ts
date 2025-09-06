@@ -9,6 +9,7 @@ import { UserDataService } from "./services/user-data-service/user-data-service"
 import { UserUiService } from "./services/user-ui-service/user-ui-service";
 import { UsersStore } from "./stores/users.store";
 import { UsersRoutingModule } from "./users-routing-module";
+import { PersistenceService } from "./services/persitence-service/persistence-service";
 
 
 @NgModule({
@@ -20,6 +21,6 @@ import { UsersRoutingModule } from "./users-routing-module";
     EditUserForm,
   ],
   imports: [UsersRoutingModule, SharedModule],
-  providers: [ UsersStore , UserDataService , UserUiService],
+  providers: [ UsersStore , UserDataService , UserUiService , PersistenceService],
 })
 export class UsersModule {}

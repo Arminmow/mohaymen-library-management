@@ -1,73 +1,84 @@
 import { TestBed } from '@angular/core/testing';
-
-import { User, UsersStore } from './users.store';
-import { take } from 'rxjs';
+import { UsersStore, User, UsersState } from './users.store';
+import { PersistenceService } from '../services/persitence-service/persistence-service';
+import { of, firstValueFrom } from 'rxjs';
 
 describe('UsersStore', () => {
-  let service: UsersStore;
+  let store: UsersStore;
+  let persistenceService: jasmine.SpyObj<PersistenceService>;
 
   beforeEach(() => {
+    const persistenceSpy = jasmine.createSpyObj('PersistenceService', [
+      'get',
+      'save',
+      'remove',
+    ]);
+
     TestBed.configureTestingModule({
-      providers: [UsersStore],
+      providers: [
+        UsersStore,
+        { provide: PersistenceService, useValue: persistenceSpy },
+      ],
     });
-    service = TestBed.inject(UsersStore);
+
+    store = TestBed.inject(UsersStore);
+    persistenceService = TestBed.inject(
+      PersistenceService
+    ) as jasmine.SpyObj<PersistenceService>;
+
+    // reset spies before each test
+    persistenceService.get.calls.reset();
+    persistenceService.save.calls.reset();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should have the correct initial state', (done) => {
-    service.users$.pipe(take(1)).subscribe((users) => {
-      expect(users).toEqual([{ id: 1, name: 'armin', age: 25, role: 'admin' }]);
-      done();
-    });
-  });
-
-  it('SHOULD add new user WHEN addUser is called', (done) => {
+  it('SHOULD initialize with persisted state WHEN persistence contains data', async () => {
     // Arrange
-    const newUser: User = { id: 2, name: 'test', age: 999, role: 'admin' };
+    const fakeState : UsersState = { users: [{ id: 99, name: 'armin', age: 25, role: 'admin' }] };
+    persistenceService.get.and.returnValue(fakeState);
+
+    // recreate store to trigger constructor logic with mocked data
+    store = new UsersStore(persistenceService);
 
     // Act
-    service.addUser(newUser);
+    const users = await firstValueFrom(store.users$);
 
     // Assert
-    service.users$.pipe(take(1)).subscribe((users) => {
-      expect(users).toContain(newUser);
-      done();
-    });
+    expect(users).toEqual(fakeState.users);
   });
 
-  it('SHOULD remove user WHEN deleteUser is called', (done) => {
+  it('SHOULD add new user WHEN addUser is called', async () => {
     // Arrange
+    const newUser = { name: 'test', age: 42, role: 'writer' } as Omit<User, 'id'>;
 
     // Act
-    service.deleteUser(1);
+    store.addUser(newUser);
+    const users = await firstValueFrom(store.users$);
 
     // Assert
-    service.users$.pipe(take(1)).subscribe((users) => {
-      expect(users).toEqual([]);
-      done();
-    });
+    expect(users.some((u) => u.name === 'test' && u.role === 'writer')).toBeTrue();
+    expect(persistenceService.save).toHaveBeenCalled();
   });
 
-  it('SHOULD update user WHEN updateUser is called', (done) => {
-    // Arrange
-    const updatedUser: User = {
-      id: 1,
-      name: 'armin',
-      age: 25,
-      role: 'user',
-    };
-
+  it('SHOULD remove user WHEN deleteUser is called', async () => {
     // Act
-
-    service.updateUser(updatedUser);
+    store.deleteUser(1);
+    const users = await firstValueFrom(store.users$);
 
     // Assert
-    service.users$.pipe(take(1)).subscribe((users) => {
-      expect(users[0].role).toBe('user');
-      done();
-    });
+    expect(users.find((u) => u.id === 1)).toBeUndefined();
+    expect(persistenceService.save).toHaveBeenCalled();
+  });
+
+  it('SHOULD update user WHEN updateUser is called', async () => {
+    // Arrange
+    const updatedUser: User = { id: 1, name: 'armin', age: 25, role: 'user' };
+
+    // Act
+    store.updateUser(updatedUser);
+    const users = await firstValueFrom(store.users$);
+
+    // Assert
+    expect(users[0]).toEqual(updatedUser);
+    expect(persistenceService.save).toHaveBeenCalled();
   });
 });
