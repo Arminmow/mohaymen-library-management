@@ -16,10 +16,9 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
 })
 export class UserTable {
   users$: Observable<User[]>;
-  contextUser!: User;
 
   constructor(
-    private usersStore: UsersStore,
+    public usersStore: UsersStore,
     private nzContextMenuService: NzContextMenuService,
     private userService: UserDataService
   ) {
@@ -31,6 +30,8 @@ export class UserTable {
     menu: NzDropdownMenuComponent,
     user: User
   ): void {
+    console.log(`setting context user to ${user.name}`);
+    
     this.userService.setContextUser(user);
     this.nzContextMenuService.create($event, menu);
   }

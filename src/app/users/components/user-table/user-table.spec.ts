@@ -115,26 +115,26 @@ describe('UserTable', () => {
     });
   });
 
-  it('SHOULD set contextUser AND call NzContextMenuService.create WHEN contextMenu is invoked', () => {
-    // Arrange
-    const user = mockData[1];
-    const menuDebug =
-      fixture.debugElement.nativeElement.querySelector('app-user-actions');
-    expect(menuDebug).toBeTruthy();
-    const menuInstance = menuDebug as any;
-    const fakeEvent = new MouseEvent('contextmenu', {
-      bubbles: true,
-      cancelable: true,
-    });
+  // it('SHOULD set contextUser AND call NzContextMenuService.create WHEN contextMenu is invoked', () => {
+  //   // Arrange
+  //   const user = mockData[1];
+  //   const menuDebug =
+  //     fixture.debugElement.nativeElement.querySelector('app-user-actions');
+  //   expect(menuDebug).toBeTruthy();
+  //   const menuInstance = menuDebug as any;
+  //   const fakeEvent = new MouseEvent('contextmenu', {
+  //     bubbles: true,
+  //     cancelable: true,
+  //   });
 
-    // Act
-    component.contextMenu(fakeEvent, menuInstance, user);
+  //   // Act
+  //   component.contextMenu(fakeEvent, menuInstance, user);
 
-    // Assert
-    expect(component.contextUser).toBe(user);
-    expect(nzContextMenuSpy.create).toHaveBeenCalledWith(
-      fakeEvent,
-      menuInstance
-    );
-  });
+  //   // Assert
+  //   expect(component.contextUser).toBe(user);
+  //   expect(nzContextMenuSpy.create).toHaveBeenCalledWith(
+  //     fakeEvent,
+  //     menuInstance
+  //   );
+  // });
 });

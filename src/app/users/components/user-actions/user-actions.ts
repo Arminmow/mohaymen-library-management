@@ -17,19 +17,13 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserActions {
+  @Input() contextUser!: User | null;
   private readonly allRoles = ['user', 'admin', 'writer'];
 
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
   public menu!: NzDropdownMenuComponent;
 
-  contextUser!: User | null;
-
-  constructor(
-    private userService: UserUiService,
-    private userStore: UsersStore
-  ) {
-    this.userStore.contextUser$.subscribe((user) => (this.contextUser = user));
-  }
+  constructor(private userService: UserUiService) {}
 
   get roleOptions(): User['role'][] {
     if (!this.contextUser) return [];

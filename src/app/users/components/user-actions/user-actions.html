@@ -4,8 +4,10 @@
       <app-generic-modal #modal title="Edit User">
         <span modalTrigger class="edit-btn">Edit</span>
         <app-edit-user-form
+          *ngIf="contextUser"
           modalContent
           (onClose)="modal.hideModal()"
+          [user]="contextUser"
         ></app-edit-user-form>
       </app-generic-modal>
     </li>

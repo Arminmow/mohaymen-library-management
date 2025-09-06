@@ -27,4 +27,4 @@
   </tbody>
 </nz-table>
 
-<app-user-actions #userMenu [contextUser]="contextUser"></app-user-actions>
+<app-user-actions #userMenu [contextUser]="usersStore.contextUser$ | async"></app-user-actions>

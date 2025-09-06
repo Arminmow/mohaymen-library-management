@@ -3,8 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, UsersStore } from '../../stores/users.store';
@@ -18,7 +20,7 @@ import { Observable } from 'rxjs';
   styleUrl: './edit-user-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditUserForm implements OnInit {
+export class EditUserForm implements OnInit, OnChanges {
   @Input() user!: User;
   @Output() onClose = new EventEmitter<void>();
 
@@ -38,6 +40,15 @@ export class EditUserForm implements OnInit {
       name: [this.user?.name, [Validators.required, Validators.minLength(3)]],
       age: [this.user?.age, [Validators.required, Validators.min(18)]],
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user'] && this.form) {
+      this.form.patchValue({
+        name: this.user?.name,
+        age: this.user?.age,
+      });
+    }
   }
 
   submit() {
