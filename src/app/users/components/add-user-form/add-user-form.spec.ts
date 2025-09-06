@@ -14,9 +14,7 @@ describe('AddUserForm', () => {
     await TestBed.configureTestingModule({
       declarations: [AddUserForm],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [
-        { provide: UserDataService, useValue: userServiceSpy }
-      ]
+      providers: [{ provide: UserDataService, useValue: userServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddUserForm);
@@ -117,8 +115,10 @@ describe('AddUserForm', () => {
     component.form.controls['age'].setValue(30);
     component.form.controls['role'].setValue('user');
 
+    const expected = { ...component.form.value }; // capture a snapshot - cuz we reset the form in the component and we get null values
+
     component.submit();
 
-    expect(userServiceSpy.addUser).toHaveBeenCalledWith(component.form.value);
+    expect(userServiceSpy.addUser).toHaveBeenCalledWith(expected);
   });
 });
