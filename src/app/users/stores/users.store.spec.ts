@@ -33,7 +33,7 @@ describe('UsersStore', () => {
 
   it('SHOULD initialize with persisted state WHEN persistence contains data', async () => {
     // Arrange
-    const fakeState : UsersState = { users: [{ id: 99, name: 'armin', age: 25, role: 'admin' }] };
+    const fakeState : UsersState = { users: [{ id: 99, name: 'armin', age: 25, role: 'admin' }] , contextUser: null };
     persistenceService.get.and.returnValue(fakeState);
 
     // recreate store to trigger constructor logic with mocked data

@@ -14,6 +14,7 @@ const STORAGE_KEY = 'users-state';
 
 export interface UsersState {
   users: User[];
+  contextUser: User | null;
 }
 
 @Injectable()
@@ -27,6 +28,7 @@ export class UsersStore
     super(
       persistenceService.get<UsersState>(STORAGE_KEY) ?? {
         users: [{ id: 1, name: 'armin', age: 25, role: 'admin' }],
+        contextUser: null,
       }
     );
 
@@ -45,6 +47,13 @@ export class UsersStore
   }
 
   readonly users$ = this.select((state) => state.users);
+
+   readonly contextUser$ = this.select((s) => s.contextUser);
+
+  readonly setContextUser = this.updater((state, user: User | null) => ({
+    ...state,
+    contextUser: user,
+  }));
 
   readonly addUser = this.updater((state, newUser: Omit<User, 'id'>) => {
     const nextId = this.getNextId(state.users);

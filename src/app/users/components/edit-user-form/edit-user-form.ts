@@ -7,8 +7,9 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../stores/users.store';
+import { User, UsersStore } from '../../stores/users.store';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -21,8 +22,15 @@ export class EditUserForm implements OnInit {
   @Input() user!: User;
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder, private userService: UserDataService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserDataService,
+    private userStore: UsersStore
+  ) {
+    this.user$ = this.userStore.contextUser$;
+  }
 
+  readonly user$!: Observable<User | null>;
   form!: FormGroup;
 
   ngOnInit() {

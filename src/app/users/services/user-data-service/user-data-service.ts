@@ -18,4 +18,8 @@ export class UserDataService {
   deleteUser(userId: number) {
     this.usersStore.deleteUser(userId);
   }
+
+  setContextUser(user: User | null) {
+    this.usersStore.setContextUser(user);
+  }
 }
