@@ -31,6 +31,7 @@ export class AddUserForm implements OnInit {
 
     if (this.form.valid) {
       this.userService.addUser(this.form.value);
+      this.form.reset();
       this.onClose.emit();
     }
   }

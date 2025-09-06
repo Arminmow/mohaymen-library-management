@@ -20,12 +20,23 @@ export class UsersStore extends ComponentStore<UsersState> {
     });
   }
 
+  private getNextId(users: User[]): number {
+    if (users.length === 0) return 1;
+    return Math.max(...users.map((u) => u.id)) + 1;
+  }
+
   readonly users$ = this.select((state) => state.users);
 
-  readonly addUser = this.updater((state, newUser: User) => ({
-    ...state,
-    users: [...state.users, newUser],
-  }));
+  readonly addUser = this.updater((state, newUser: Omit<User, 'id'>) => {
+    const nextId = this.getNextId(state.users);
+
+    const userWithId: User = { ...newUser, id: nextId };
+
+    return {
+      ...state,
+      users: [...state.users, userWithId],
+    };
+  });
 
   readonly deleteUser = this.updater((state, id: number) => ({
     ...state,
