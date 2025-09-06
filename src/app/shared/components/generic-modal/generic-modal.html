@@ -1,0 +1,17 @@
+<span (click)="showModal()" class="generic-modal-trigger">
+  @if (triggerText) { {{ triggerText }} } @else {
+  <ng-content select="[modalTrigger]"></ng-content>
+  }
+</span>
+
+<!-- Modal -->
+<nz-modal
+  [nzFooter]="null"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="title"
+  (nzOnCancel)="hideModal()"
+>
+  <ng-container *nzModalContent>
+    <ng-content select="[modalContent]"></ng-content>
+  </ng-container>
+</nz-modal>
