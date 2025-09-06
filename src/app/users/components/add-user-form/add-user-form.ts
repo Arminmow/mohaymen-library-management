@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/user-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 export type UserRole = 'admin' | 'user' | 'writer';
 
@@ -16,7 +16,7 @@ export class AddUserForm implements OnInit {
   roles: UserRole[] = ['admin', 'user', 'writer'];
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder , private userService : UserService) {}
+  constructor(private fb: FormBuilder , private userService : UserDataService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

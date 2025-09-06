@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddUserForm } from './add-user-form';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { UserService } from '../../services/user-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 describe('AddUserForm', () => {
   let component: AddUserForm;
   let fixture: ComponentFixture<AddUserForm>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let userServiceSpy: jasmine.SpyObj<UserDataService>;
 
   beforeEach(async () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['addUser']);
@@ -15,7 +15,7 @@ describe('AddUserForm', () => {
       declarations: [AddUserForm],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: UserService, useValue: userServiceSpy }
+        { provide: UserDataService, useValue: userServiceSpy }
       ]
     }).compileComponents();
 

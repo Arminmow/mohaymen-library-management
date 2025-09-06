@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserActions } from './user-actions';
-import { UserService } from '../../services/user-service';
 import { Component, Input } from '@angular/core';
 import { User } from '../../stores/users.store';
+import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 
 @Component({
   selector: 'nz-dropdown-menu',
@@ -33,7 +33,7 @@ class EditUserFormStub {
 describe('UserActions', () => {
   let component: UserActions;
   let fixture: ComponentFixture<UserActions>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let userServiceSpy: jasmine.SpyObj<UserUiService>;
 
   const mockUser: User = {
     id: 1,
@@ -50,7 +50,7 @@ describe('UserActions', () => {
 
     await TestBed.configureTestingModule({
       declarations: [UserActions, NzDropDownMenuStub , UserGenericModalStub , EditUserFormStub],
-      providers: [{ provide: UserService, useValue: userServiceSpy }],
+      providers: [{ provide: UserUiService, useValue: userServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserActions);

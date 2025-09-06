@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUserForm } from './edit-user-form';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { UserService } from '../../services/user-service';
 import { User } from '../../stores/users.store';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 describe('EditUserForm', () => {
   let component: EditUserForm;
   let fixture: ComponentFixture<EditUserForm>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let userServiceSpy: jasmine.SpyObj<UserDataService>;
 
   const mockUser: User = {
     id: 1,
@@ -23,7 +23,7 @@ describe('EditUserForm', () => {
     await TestBed.configureTestingModule({
       declarations: [EditUserForm],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: UserService, useValue: userServiceSpy }],
+      providers: [{ provide: UserDataService, useValue: userServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditUserForm);

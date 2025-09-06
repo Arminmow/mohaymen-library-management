@@ -5,8 +5,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { UserService } from '../../services/user-service';
 import { User } from '../../stores/users.store';
+import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 
 @Component({
   selector: 'app-user-actions',
@@ -23,7 +23,7 @@ export class UserActions {
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
   public menu!: NzDropdownMenuComponent;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserUiService) {}
 
   get roleOptions(): User['role'][] {
     if (!this.contextUser) return [];

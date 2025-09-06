@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'nz-table',
@@ -76,7 +75,6 @@ describe('UserTable', () => {
       providers: [
         { provide: UsersStore, useValue: mockStore },
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
-        UserService,
       ],
     }).compileComponents();
 

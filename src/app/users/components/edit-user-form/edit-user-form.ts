@@ -1,20 +1,27 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../stores/users.store';
-import { UserService } from '../../services/user-service';
+import { UserDataService } from '../../services/user-data-service/user-data-service';
 
 @Component({
   selector: 'app-edit-user-form',
   standalone: false,
   templateUrl: './edit-user-form.html',
   styleUrl: './edit-user-form.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserForm implements OnInit {
   @Input() user!: User;
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder , private userService : UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserDataService) {}
 
   form!: FormGroup;
 
