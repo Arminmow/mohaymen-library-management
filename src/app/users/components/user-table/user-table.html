@@ -8,7 +8,6 @@
       <th>Name</th>
       <th>Age</th>
       <th>Role</th>
-      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -17,14 +16,12 @@
       <td>{{ data.name }}</td>
       <td>{{ data.age }}</td>
       <td>{{ data.role }}</td>
-      <td>
-        <a>Action 一 {{ data.name }}</a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
-      </td>
     </tr>
     }
   </tbody>
 </nz-table>
 
-<app-user-actions #userMenu [contextUser]="usersStore.contextUser$ | async"></app-user-actions>
+<app-user-actions
+  #userMenu
+  [contextUser]="usersStore.contextUser$ | async"
+></app-user-actions>

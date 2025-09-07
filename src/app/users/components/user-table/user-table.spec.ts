@@ -91,11 +91,10 @@ describe('UserTable', () => {
 
   it('should render table headers correctly', () => {
     const headers = fixture.nativeElement.querySelectorAll('th');
-    expect(headers.length).toBe(4);
+    expect(headers.length).toBe(3);
     expect(headers[0].textContent).toContain('Name');
     expect(headers[1].textContent).toContain('Age');
     expect(headers[2].textContent).toContain('Role');
-    expect(headers[3].textContent).toContain('Action');
   });
 
   it('should render the correct number of rows', () => {
@@ -110,10 +109,6 @@ describe('UserTable', () => {
       expect(cells[0].textContent).toContain(mockData[index].name);
       expect(cells[1].textContent).toContain(mockData[index].age.toString());
       expect(cells[2].textContent).toContain(mockData[index].role);
-      expect(cells[3].textContent).toContain(
-        `Action 一 ${mockData[index].name}`
-      );
-      expect(cells[3].textContent).toContain('Delete');
     });
   });
 });
