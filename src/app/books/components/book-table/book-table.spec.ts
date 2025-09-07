@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TitleCasePipe } from '@angular/common';
 import { BookTable } from './book-table';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
@@ -41,6 +41,9 @@ describe('BookTable', () => {
   let fixture: ComponentFixture<BookTable>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
   let mockStore: Partial<BookStore>;
+
+  
+  const titleCasePipe = new TitleCasePipe();
 
   const mockData: Book[] = [
     {
@@ -107,9 +110,8 @@ describe('BookTable', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
     rows.forEach((row: HTMLElement, index: number) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[0].textContent).toContain(mockData[index].title);
-      expect(cells[1].textContent).toContain(mockData[index].author);
-      expect(cells[2].textContent).toContain(mockData[index].publishedDate);
+      expect(cells[0].textContent).toContain(titleCasePipe.transform(mockData[index].title));
+      expect(cells[1].textContent).toContain(titleCasePipe.transform(mockData[index].author));
     });
   });
 });

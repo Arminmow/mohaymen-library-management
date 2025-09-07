@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
 import { of } from 'rxjs';
-
+import { TitleCasePipe } from '@angular/common';
 import { UserTable } from './user-table';
 import { User, UsersStore } from '../../stores/users.store';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
@@ -50,6 +50,8 @@ describe('UserTable', () => {
   let fixture: ComponentFixture<UserTable>;
   let mockStore: Partial<UsersStore>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
+
+  const titleCasePipe = new TitleCasePipe();
 
   const mockData: User[] = [
     { id: 1, name: 'Armin', age: 25, role: 'admin' },
@@ -106,9 +108,9 @@ describe('UserTable', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
     rows.forEach((row: HTMLElement, index: number) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[0].textContent).toContain(mockData[index].name);
-      expect(cells[1].textContent).toContain(mockData[index].age.toString());
-      expect(cells[2].textContent).toContain(mockData[index].role);
+      expect(cells[0].textContent).toContain(titleCasePipe.transform(mockData[index].name));
+      expect(cells[1].textContent).toContain(titleCasePipe.transform(mockData[index].age.toString()));
+      expect(cells[2].textContent).toContain(titleCasePipe.transform(mockData[index].role));
     });
   });
 });
