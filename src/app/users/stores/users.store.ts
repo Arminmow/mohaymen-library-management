@@ -18,7 +18,9 @@ export interface UsersState {
 
 const STORAGE_KEY = 'users-state';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersStore
   extends ComponentStore<UsersState>
   implements OnDestroy

@@ -48,12 +48,14 @@ describe('BookTable', () => {
       title: 'Armin book',
       author: 'armin',
       publishedDate: new Date('2023-01-01'),
+      author_id: 1,
     },
     {
       id: 2,
       title: 'Bob book',
       author: 'bob',
       publishedDate: new Date('2023-01-02'),
+      author_id: 1,
     },
   ];
 
@@ -101,7 +103,7 @@ describe('BookTable', () => {
     expect(rows.length).toBe(mockData.length);
   });
 
-    it('should render correct data in each row', () => {
+  it('should render correct data in each row', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
     rows.forEach((row: HTMLElement, index: number) => {
       const cells = row.querySelectorAll('td');

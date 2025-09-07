@@ -7,7 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 describe('BookService', () => {
   let service: BookService;
   let bookStoreSpy: jasmine.SpyObj<BookStore>;
-   let modalSpy: jasmine.SpyObj<NzModalService>;
+  let modalSpy: jasmine.SpyObj<NzModalService>;
 
   beforeEach(() => {
     bookStoreSpy = jasmine.createSpyObj('bookStore', ['addBook', 'deleteBook']);
@@ -32,6 +32,7 @@ describe('BookService', () => {
       title: '1984',
       author: 'George Orwell',
       publishedDate: new Date('1949-06-08'),
+      author_id: 1,
     };
 
     // Act
@@ -48,6 +49,7 @@ describe('BookService', () => {
       title: '1984',
       author: 'George Orwell',
       publishedDate: new Date('1949-06-08'),
+      author_id: 1,
     };
 
     // Act
