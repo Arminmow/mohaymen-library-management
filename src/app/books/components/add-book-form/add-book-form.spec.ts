@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddBookForm } from './add-book-form';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AddBookForm', () => {
   let component: AddBookForm;
@@ -9,6 +10,7 @@ describe('AddBookForm', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AddBookForm],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddBookForm);
