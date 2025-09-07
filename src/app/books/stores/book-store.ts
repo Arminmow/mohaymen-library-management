@@ -18,7 +18,14 @@ export interface BookState {
 export class BookStore extends ComponentStore<BookState> {
   constructor() {
     super({
-      books: [],
+      books: [
+        {
+          id: 1,
+          title: 'harry potter and the sorcerers stone',
+          author: 'J.K. Rowling',
+          publishedDate: new Date('1997-06-26'),
+        },
+      ],
     });
   }
 
@@ -32,5 +39,10 @@ export class BookStore extends ComponentStore<BookState> {
   readonly deleteBook = this.updater((state, book: Book) => ({
     ...state,
     books: state.books.filter((b) => b.id !== book.id),
+  }));
+
+  readonly editBook = this.updater((state, book: Book) => ({
+    ...state,
+    books: state.books.map((b) => (b.id === book.id ? book : b)),
   }));
 }

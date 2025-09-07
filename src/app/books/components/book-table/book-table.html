@@ -1,0 +1,28 @@
+<nz-table
+  #basicTable
+  [nzData]="(bookStore.books$ | async) ?? []"
+  [nzShowPagination]="false"
+>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Published Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track data.id) {
+    <tr>
+      <td>{{ data.title }}</td>
+      <td>{{ data.author}}</td>
+      <td>{{ data.publishedDate }}</td>
+      <td>
+        <a>Action 一 {{ data.title }}</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
