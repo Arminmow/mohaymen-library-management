@@ -1,22 +1,18 @@
 <form class="user-form" [formGroup]="form" (ngSubmit)="submit()">
   <nz-form-item class="form-item">
-    <nz-form-label class="form-label">Name</nz-form-label>
+    <nz-form-label class="form-label">Title</nz-form-label>
     <nz-form-control
       class="form-control"
-      [nzErrorTip]="getErrorMessage('name')"
+      [nzErrorTip]="getErrorMessage('title')"
     >
-      <input nz-input formControlName="name" placeholder="Name" />
+      <input nz-input formControlName="title" placeholder="Title" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item class="form-item">
-    <nz-form-label class="form-label">Age</nz-form-label>
-    <nz-form-control class="form-control" [nzErrorTip]="getErrorMessage('age')">
-      <nz-input-number
-        formControlName="age"
-        [nzMin]="0"
-        class="input-number"
-      ></nz-input-number>
+    <nz-form-label class="form-label">Author</nz-form-label>
+    <nz-form-control class="form-control" [nzErrorTip]="getErrorMessage('author')">
+      <input nz-input formControlName="author" placeholder="Author" />
     </nz-form-control>
   </nz-form-item>
 
