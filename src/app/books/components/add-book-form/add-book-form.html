@@ -11,8 +11,17 @@
 
   <nz-form-item class="form-item">
     <nz-form-label class="form-label">Author</nz-form-label>
-    <nz-form-control class="form-control" [nzErrorTip]="getErrorMessage('author')">
-      <input nz-input formControlName="author" placeholder="Author" />
+    <nz-form-control
+      class="form-control"
+      [nzErrorTip]="getErrorMessage('author')"
+    >
+      <nz-select nzPlaceHolder="Select The Author" formControlName="author_id">
+        @for (user of userStore.users$ | async ; track user.id){<nz-option
+          [nzValue]="user.id"
+          [nzLabel]="user.name"
+        ></nz-option
+        >}
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 

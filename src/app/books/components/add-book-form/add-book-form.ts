@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book-service';
+import { UsersStore } from '../../../users/stores/users.store';
 
 @Component({
   selector: 'app-add-book-form',
@@ -9,7 +10,11 @@ import { BookService } from '../../services/book-service';
   styleUrl: './add-book-form.scss',
 })
 export class AddBookForm implements OnInit {
-  constructor(private fb: FormBuilder, private bookService: BookService) {}
+  constructor(
+    private fb: FormBuilder,
+    private bookService: BookService,
+    public userStore: UsersStore
+  ) {}
   @Output() onClose = new EventEmitter<void>();
 
   form!: FormGroup;
@@ -17,7 +22,7 @@ export class AddBookForm implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
-      author: ['', [Validators.required]],
+      author_id: [null, [Validators.required]],
     });
   }
 
