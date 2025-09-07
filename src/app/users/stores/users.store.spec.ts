@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UsersStore, User, UsersState } from './users.store';
-import { PersistenceService } from '../services/persitence-service/persistence-service';
+import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
 import { of, firstValueFrom } from 'rxjs';
 
 describe('UsersStore', () => {

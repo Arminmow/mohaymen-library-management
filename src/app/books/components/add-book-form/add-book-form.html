@@ -1,0 +1,28 @@
+<form class="book-form" [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item class="form-item">
+    <nz-form-label class="form-label">Title</nz-form-label>
+    <nz-form-control
+      class="form-control"
+      [nzErrorTip]="getErrorMessage('title')"
+    >
+      <input nz-input formControlName="title" placeholder="Title" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="form-item">
+    <nz-form-label class="form-label">Author</nz-form-label>
+    <nz-form-control class="form-control" [nzErrorTip]="getErrorMessage('author')">
+      <input nz-input formControlName="author" placeholder="Author" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <button
+    nz-button
+    nzType="primary"
+    type="submit"
+    class="submit-btn"
+    [disabled]="form.invalid"
+  >
+    Submit
+  </button>
+</form>

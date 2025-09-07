@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Books Table</h1>
+  <app-generic-modal #modal title="Add A New Book">
+    <button modalTrigger nz-button [nzType]="'primary'">
+      <span>Add Book</span>
+    </button>
+    <app-add-book-form
+      (onClose)="modal.hideModal()"
+      modalContent
+    ></app-add-book-form>
+  </app-generic-modal>
+</div>
+<app-book-table></app-book-table>

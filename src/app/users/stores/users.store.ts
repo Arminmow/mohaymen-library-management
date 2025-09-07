@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Subscription } from 'rxjs';
 
-import { PersistenceService } from '../services/persitence-service/persistence-service';
+import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
 
 export interface User {
   id: number;
@@ -26,38 +26,30 @@ export class UsersStore
   readonly users$ = this.select((state) => state.users);
   readonly contextUser$ = this.select((s) => s.contextUser);
 
-  readonly setContextUser = this.updater(
-    (state, user: User | null) => ({
+  readonly setContextUser = this.updater((state, user: User | null) => ({
+    ...state,
+    contextUser: user,
+  }));
+
+  readonly addUser = this.updater((state, newUser: Omit<User, 'id'>) => {
+    const nextId = this.getNextId(state.users);
+    const userWithId: User = { ...newUser, id: nextId };
+
+    return {
       ...state,
-      contextUser: user,
-    })
-  );
+      users: [...state.users, userWithId],
+    };
+  });
 
-  readonly addUser = this.updater(
-    (state, newUser: Omit<User, 'id'>) => {
-      const nextId = this.getNextId(state.users);
-      const userWithId: User = { ...newUser, id: nextId };
+  readonly deleteUser = this.updater((state, id: number) => ({
+    ...state,
+    users: state.users.filter((user) => user.id !== id),
+  }));
 
-      return {
-        ...state,
-        users: [...state.users, userWithId],
-      };
-    }
-  );
-
-  readonly deleteUser = this.updater(
-    (state, id: number) => ({
-      ...state,
-      users: state.users.filter((user) => user.id !== id),
-    })
-  );
-
-  readonly updateUser = this.updater(
-    (state, user: User) => ({
-      ...state,
-      users: state.users.map((u) => (u.id === user.id ? user : u)),
-    })
-  );
+  readonly updateUser = this.updater((state, user: User) => ({
+    ...state,
+    users: state.users.map((u) => (u.id === user.id ? user : u)),
+  }));
 
   private subscription: Subscription;
 
