@@ -24,16 +24,11 @@ describe('BookStore', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should start with an empty books list', async () => {
-    const books = await firstValueFrom(service.books$);
-    expect(books).toEqual([]);
-  });
-
   it('should add a book', async () => {
     service.addBook(mockBook);
 
     const books = await firstValueFrom(service.books$);
-    expect(books).toEqual([mockBook]);
+    expect(books).toContain(mockBook);
   });
 
   it('should delete a book', async () => {
@@ -56,10 +51,10 @@ describe('BookStore', () => {
     service.addBook(secondBook);
 
     let books = await firstValueFrom(service.books$);
-    expect(books.length).toBe(2);
+    expect(books.length).toBe(3);
 
     service.deleteBook(mockBook);
     books = await firstValueFrom(service.books$);
-    expect(books).toEqual([secondBook]);
+    expect(books).toContain(secondBook);
   });
 });

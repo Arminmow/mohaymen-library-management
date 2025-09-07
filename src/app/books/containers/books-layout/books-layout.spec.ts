@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BooksLayout } from './books-layout';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-book-table',
+  template: '',
+  standalone: false,
+})
+class BookTableStub {}
 
 describe('BooksLayout', () => {
   let component: BooksLayout;
@@ -8,9 +16,8 @@ describe('BooksLayout', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BooksLayout]
-    })
-    .compileComponents();
+      declarations: [BooksLayout, BookTableStub],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BooksLayout);
     component = fixture.componentInstance;
