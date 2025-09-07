@@ -16,7 +16,6 @@ export class AddBookForm implements OnInit {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
       author: ['', [Validators.required]],
-      publishedDate: ['', [Validators.required]],
     });
   }
 
