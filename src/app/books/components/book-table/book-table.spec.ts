@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookTable } from './book-table';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
+import { Book } from '../../stores/book-store';
 
 @Component({
   selector: 'nz-table',
@@ -25,6 +26,15 @@ class NzTableStubComponent {
 @Component({ selector: 'nz-divider', template: '', standalone: false })
 class NzDividerStubComponent {}
 
+@Component({
+  selector: 'app-book-actions',
+  standalone: false,
+  template: ``,
+})
+class BookActionsStub {
+  @Input() contextBook!: Book;
+}
+
 describe('BookTable', () => {
   let component: BookTable;
   let fixture: ComponentFixture<BookTable>;
@@ -33,7 +43,12 @@ describe('BookTable', () => {
   beforeEach(async () => {
     nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
     await TestBed.configureTestingModule({
-      declarations: [BookTable, NzTableStubComponent, NzDividerStubComponent],
+      declarations: [
+        BookTable,
+        NzTableStubComponent,
+        NzDividerStubComponent,
+        BookActionsStub,
+      ],
       providers: [
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
       ],
