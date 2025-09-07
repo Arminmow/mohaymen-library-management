@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookTable } from './book-table';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
-import { Book } from '../../stores/book-store';
+import { Book, BookStore } from '../../stores/book-store';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'nz-table',
@@ -39,9 +40,32 @@ describe('BookTable', () => {
   let component: BookTable;
   let fixture: ComponentFixture<BookTable>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
+  let mockStore: Partial<BookStore>;
+
+  const mockData: Book[] = [
+    {
+      id: 1,
+      title: 'Armin book',
+      author: 'armin',
+      publishedDate: new Date('2023-01-01'),
+    },
+    {
+      id: 2,
+      title: 'Bob book',
+      author: 'bob',
+      publishedDate: new Date('2023-01-02'),
+    },
+  ];
 
   beforeEach(async () => {
     nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
+
+    mockStore = {
+      books$: of(mockData),
+      deleteBook: jasmine.createSpy('deleteBook'),
+      addBook: jasmine.createSpy('addBook'),
+      editBook: jasmine.createSpy('editBook'),
+    };
     await TestBed.configureTestingModule({
       declarations: [
         BookTable,
@@ -51,6 +75,7 @@ describe('BookTable', () => {
       ],
       providers: [
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
+        { provide: BookStore, useValue: mockStore },
       ],
     }).compileComponents();
 
@@ -61,5 +86,28 @@ describe('BookTable', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render table headers correctly', () => {
+    const headers = fixture.nativeElement.querySelectorAll('th');
+    expect(headers.length).toBe(3);
+    expect(headers[0].textContent).toContain('Title');
+    expect(headers[1].textContent).toContain('Author');
+    expect(headers[2].textContent).toContain('Published Date');
+  });
+
+  it('should render the correct number of rows', () => {
+    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+    expect(rows.length).toBe(mockData.length);
+  });
+
+    it('should render correct data in each row', () => {
+    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+    rows.forEach((row: HTMLElement, index: number) => {
+      const cells = row.querySelectorAll('td');
+      expect(cells[0].textContent).toContain(mockData[index].title);
+      expect(cells[1].textContent).toContain(mockData[index].author);
+      expect(cells[2].textContent).toContain(mockData[index].publishedDate);
+    });
   });
 });
