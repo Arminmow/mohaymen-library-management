@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { Book } from '../../../stores/book-store';
+import { Book } from '../../stores/book-store';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { BookService } from '../../../services/book-service';
+import { BookService } from '../../services/book-service';
 
 @Component({
   selector: 'app-book-actions',
@@ -15,7 +15,6 @@ export class BookActions {
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
   public menu!: NzDropdownMenuComponent;
 
-  private readonly allRoles = ['user', 'admin', 'writer'];
 
   constructor(private bookService: BookService) {}
 
