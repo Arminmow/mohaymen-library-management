@@ -43,10 +43,15 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
 
   readonly books$ = this.select((state) => state.books);
 
-  readonly addBook = this.updater((state, book: Book) => ({
-    ...state,
-    books: [...state.books, book],
-  }));
+  readonly addBook = this.updater((state, newBook: Omit<Book, 'id'>) => {
+    const nextId = this.getNextId(state.books);
+    const bookWithId: Book = { ...newBook, id: nextId };
+
+    return {
+      ...state,
+      books: [...state.books, bookWithId],
+    };
+  });
 
   readonly deleteBook = this.updater((state, book: Book) => ({
     ...state,
@@ -57,6 +62,11 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
     ...state,
     books: state.books.map((b) => (b.id === book.id ? book : b)),
   }));
+
+  private getNextId(books: Book[]): number {
+    if (books.length === 0) return 1;
+    return Math.max(...books.map((b) => b.id)) + 1;
+  }
 
   override ngOnDestroy(): void {
     this.subscription.unsubscribe();

@@ -7,10 +7,11 @@ import { BookTable } from './components/book-table/book-table';
 import { BookStore } from './stores/book-store';
 import { SharedModule } from '../shared/shared-module';
 import { AddBookForm } from './components/add-book-form/add-book-form';
+import { BookService } from './services/book-service';
 
 @NgModule({
   declarations: [BooksLayout, BookTable, AddBookForm],
   imports: [CommonModule, BookRoutingModule, SharedModule],
-  providers: [BookStore],
+  providers: [BookStore , BookService],
 })
 export class BookModule {}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BookService } from '../../services/book-service';
 
 @Component({
   selector: 'app-add-book-form',
@@ -8,7 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './add-book-form.scss',
 })
 export class AddBookForm implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private bookService: BookService) {}
+  @Output() onClose = new EventEmitter<void>();
 
   form!: FormGroup;
 
@@ -21,6 +23,11 @@ export class AddBookForm implements OnInit {
 
   submit() {
     console.log(this.form.value);
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.bookService.addBook(this.form.value);
+      this.onClose.emit();
+    }
   }
 
   getErrorMessage(controlName: string): string {
