@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { BookStore } from '../../stores/book-store';
+import { Book, BookStore } from '../../stores/book-store';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { User } from '../../../users/stores/users.store';
 
 @Component({
   selector: 'app-book-table',
@@ -15,9 +14,10 @@ export class BookTable {
   contextMenu(
     $event: MouseEvent,
     menu: NzDropdownMenuComponent,
-    user: User
+    user: Book
   ): void {
-    console.log(`setting context user to ${user.name}`);
+    console.log(`setting context user to ${user.title}`);
+    this.bookStore.setContextBook(user);
     this.nzContextMenuService.create($event, menu);
   }
 }

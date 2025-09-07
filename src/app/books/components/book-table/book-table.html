@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     @for (data of basicTable.data; track data.id) {
-    <tr>
+    <tr (contextmenu)="contextMenu($event, bookMenu.menu , data)">
       <td>{{ data.title }}</td>
       <td>{{ data.author}}</td>
       <td>{{ data.publishedDate }}</td>
@@ -26,3 +26,8 @@
     }
   </tbody>
 </nz-table>
+
+<app-book-actions
+  #bookMenu
+  [contextBook]="bookStore.contextBook$ | async"
+></app-book-actions>

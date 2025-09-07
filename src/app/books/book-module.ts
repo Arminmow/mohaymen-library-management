@@ -8,9 +8,10 @@ import { BookStore } from './stores/book-store';
 import { SharedModule } from '../shared/shared-module';
 import { AddBookForm } from './components/add-book-form/add-book-form';
 import { BookService } from './services/book-service';
+import { BookActions } from './components/book-actions/book-actions/book-actions';
 
 @NgModule({
-  declarations: [BooksLayout, BookTable, AddBookForm],
+  declarations: [BooksLayout, BookTable, AddBookForm, BookActions],
   imports: [CommonModule, BookRoutingModule, SharedModule],
   providers: [BookStore , BookService],
 })

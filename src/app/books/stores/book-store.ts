@@ -12,6 +12,7 @@ export interface Book {
 
 export interface BookState {
   books: Book[];
+  contextBook: Book | null;
 }
 
 const STORAGE_KEY = 'books-state';
@@ -33,6 +34,7 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
             publishedDate: new Date('1997-06-26'),
           },
         ],
+        contextBook: null,
       }
     );
 
@@ -42,6 +44,7 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
   }
 
   readonly books$ = this.select((state) => state.books);
+  readonly contextBook$ = this.select((s) => s.contextBook);
 
   readonly addBook = this.updater((state, newBook: Omit<Book, 'id'>) => {
     const nextId = this.getNextId(state.books);
@@ -61,6 +64,11 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
   readonly editBook = this.updater((state, book: Book) => ({
     ...state,
     books: state.books.map((b) => (b.id === book.id ? book : b)),
+  }));
+
+  readonly setContextBook = this.updater((state, book: Book | null) => ({
+    ...state,
+    contextBook: book,
   }));
 
   private getNextId(books: Book[]): number {
