@@ -41,6 +41,7 @@ describe('AddBookForm', () => {
     // Arrange
     component.form.controls['title'].setValue('1984');
     component.form.controls['author_info'].setValue({ id: 1, name: 'mamad' });
+    component.form.controls['publishedDate'].setValue(new Date('2023-01-01'));
 
     // Act
     component.submit();
@@ -48,10 +49,12 @@ describe('AddBookForm', () => {
     // Assert
     expect(component.form.controls['title'].valid).toBeTrue();
     expect(component.form.controls['author_info'].valid).toBeTrue();
+    expect(component.form.controls['publishedDate'].valid).toBeTrue();
     expect(bookServiceSpy.addBook).toHaveBeenCalledWith({
       title: '1984',
       author_id: 1,
-      author: 'mamad'
+      author: 'mamad',
+      publishedDate: new Date('2023-01-01'),
     } as any);
   });
 });

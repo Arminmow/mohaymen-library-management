@@ -15,7 +15,7 @@
     <tr (contextmenu)="contextMenu($event, bookMenu.menu , data)">
       <td>{{ data.title }}</td>
       <td>{{ data.author}}</td>
-      <td>{{ data.publishedDate }}</td>
+      <td>{{ data.publishedDate | date:'d MMM yyyy' }}</td>
     </tr>
     }
   </tbody>

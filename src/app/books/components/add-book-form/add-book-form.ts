@@ -24,15 +24,19 @@ export class AddBookForm implements OnInit {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
       author_info: [null, [Validators.required]],
+      publishedDate: [null, [Validators.required]],
     });
   }
 
   submit() {
     this.form.markAllAsTouched();
+    console.log(this.form.value);
+    
     const newBook : Partial<Book> = {
       title: this.form.value.title,
       author: this.form.value.author_info.name,
       author_id: this.form.value.author_info.id,
+      publishedDate: this.form.value.publishedDate,
     };
     
     if (this.form.valid) {

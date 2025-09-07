@@ -11,6 +11,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { GenericModal } from './components/generic-modal/generic-modal';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { GenericModal } from './components/generic-modal/generic-modal';
     NzFormModule,
     NzSelectModule,
     NzInputNumberModule,
+    NzDatePickerModule
   ],
   exports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { GenericModal } from './components/generic-modal/generic-modal';
     NzFormModule,
     NzSelectModule,
     NzInputNumberModule,
-    GenericModal
+    GenericModal,
+    NzDatePickerModule
   ],
 })
 export class SharedModule {}
