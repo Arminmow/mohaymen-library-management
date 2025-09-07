@@ -13,8 +13,8 @@
   <tbody>
     @for (data of basicTable.data; track data.id) {
     <tr (contextmenu)="contextMenu($event, bookMenu.menu , data)">
-      <td>{{ data.title }}</td>
-      <td>{{ data.author}}</td>
+      <td>{{ data.title | titlecase}}</td>
+      <td>{{ data.author | titlecase}}</td>
       <td>{{ data.publishedDate | date:'d MMM yyyy' }}</td>
     </tr>
     }
