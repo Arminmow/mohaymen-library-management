@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book-service';
 import { UsersStore } from '../../../users/stores/users.store';
+import { Book } from '../../stores/book-store';
 
 @Component({
   selector: 'app-add-book-form',
@@ -22,15 +23,20 @@ export class AddBookForm implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
-      author_id: [null, [Validators.required]],
+      author_info: [null, [Validators.required]],
     });
   }
 
   submit() {
-    console.log(this.form.value);
     this.form.markAllAsTouched();
+    const newBook : Partial<Book> = {
+      title: this.form.value.title,
+      author: this.form.value.author_info.name,
+      author_id: this.form.value.author_info.id,
+    };
+    
     if (this.form.valid) {
-      this.bookService.addBook(this.form.value);
+      this.bookService.addBook(newBook as Book);
       this.onClose.emit();
     }
   }

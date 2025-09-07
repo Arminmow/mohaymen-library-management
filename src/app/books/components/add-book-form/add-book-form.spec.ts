@@ -40,17 +40,18 @@ describe('AddBookForm', () => {
   it('SHOULD call store.addBook WHEN form is valid and submitted', () => {
     // Arrange
     component.form.controls['title'].setValue('1984');
-    component.form.controls['author_id'].setValue(1);
+    component.form.controls['author_info'].setValue({ id: 1, name: 'mamad' });
 
     // Act
     component.submit();
 
     // Assert
     expect(component.form.controls['title'].valid).toBeTrue();
-    expect(component.form.controls['author_id'].valid).toBeTrue();
+    expect(component.form.controls['author_info'].valid).toBeTrue();
     expect(bookServiceSpy.addBook).toHaveBeenCalledWith({
       title: '1984',
-      author_id : 1
+      author_id: 1,
+      author: 'mamad'
     } as any);
   });
 });
