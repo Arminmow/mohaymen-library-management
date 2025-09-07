@@ -137,16 +137,4 @@ describe('BookStore', () => {
     const after = await firstValueFrom(service.books$);
     expect(after).toEqual(before);
   });
-
-  it('should unsubscribe on destroy', () => {
-    persistenceServiceSpy.get.and.returnValue(null);
-    service = TestBed.inject(BookStore);
-
-    const subscription: Subscription = (service as any).subscription;
-    const unsubscribeSpy = spyOn(subscription, 'unsubscribe').and.callThrough();
-
-    service.ngOnDestroy();
-
-    expect(unsubscribeSpy).toHaveBeenCalled();
-  });
 });

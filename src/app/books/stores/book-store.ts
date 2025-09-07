@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
-import { Subscription } from 'rxjs';
+import { ignoreElements, Observable, Subscription, tap } from 'rxjs';
 
 export interface Book {
   id: number;
@@ -17,11 +17,10 @@ export interface BookState {
 
 const STORAGE_KEY = 'books-state';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BookStore extends ComponentStore<BookState> implements OnDestroy {
-  private subscription: Subscription;
+  readonly books$ = this.select((state) => state.books);
+  readonly contextBook$ = this.select((s) => s.contextBook);
 
   constructor(private persistenceService: PersistenceService) {
     super(
@@ -38,13 +37,8 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
       }
     );
 
-    this.subscription = this.books$.subscribe((books) => {
-      this.persistenceService.save(STORAGE_KEY, { books });
-    });
+    this.persistBooks(this.books$);
   }
-
-  readonly books$ = this.select((state) => state.books);
-  readonly contextBook$ = this.select((s) => s.contextBook);
 
   readonly addBook = this.updater((state, newBook: Omit<Book, 'id'>) => {
     const nextId = this.getNextId(state.books);
@@ -71,12 +65,15 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
     contextBook: book,
   }));
 
+  readonly persistBooks = this.effect((books$: Observable<Book[]>) =>
+    books$.pipe(
+      tap((books) => this.persistenceService.save(STORAGE_KEY, { books })),
+      ignoreElements()
+    )
+  );
+
   private getNextId(books: Book[]): number {
     if (books.length === 0) return 1;
     return Math.max(...books.map((b) => b.id)) + 1;
-  }
-
-  override ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
