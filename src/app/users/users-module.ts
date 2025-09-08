@@ -8,6 +8,7 @@ import { UsersLayout } from "./containers/users-layout/users-layout";
 import { UserDataService } from "./services/user-data-service/user-data-service";
 import { UserUiService } from "./services/user-ui-service/user-ui-service";
 import { UsersRoutingModule } from "./users-routing-module";
+import { UserBooks } from './components/user-books/user-books';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { UsersRoutingModule } from "./users-routing-module";
     UserActions,
     AddUserForm,
     EditUserForm,
+    UserBooks,
   ],
   imports: [UsersRoutingModule, SharedModule],
   providers: [UserDataService , UserUiService ],

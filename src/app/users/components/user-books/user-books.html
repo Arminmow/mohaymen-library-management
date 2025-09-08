@@ -1,0 +1,12 @@
+<ng-container *ngIf="books$ | async as books; else noBooks">
+  <ul *ngIf="books.length; else noBooks" class="books-list">
+    <li *ngFor="let book of books" class="book-item">
+      <span class="book-title">{{ book.title }}</span>
+      <span class="book-date">{{ book.publishedDate | date:'mediumDate' }}</span>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noBooks>
+  <p class="no-books">No books found for this author.</p>
+</ng-template>

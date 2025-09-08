@@ -17,6 +17,12 @@
     <li nz-menu-item (click)="onChangeRole(role)">
       Change role to {{ role | titlecase }}
     </li>
+    } @if (contextUser?.role === 'writer'){
+    <app-generic-modal #modal [title]="`Books by ${contextUser?.name}`"
+      >>
+      <li nz-menu-item modalTrigger>Show Books</li>
+      <app-user-books *ngIf="contextUser" modalContent />
+    </app-generic-modal>
     }
   </ul>
 </nz-dropdown-menu>
