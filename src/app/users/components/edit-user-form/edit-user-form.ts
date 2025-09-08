@@ -2,11 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -21,11 +18,11 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
   styleUrl: './edit-user-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditUserForm implements OnInit, OnChanges {
-  @Input() user!: User;
+export class EditUserForm implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   readonly user$!: Observable<User | null>;
+  currentUser!: User;
 
   form!: FormGroup;
 
@@ -39,26 +36,28 @@ export class EditUserForm implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: [this.user?.name, [Validators.required, Validators.minLength(3)]],
-      age: [this.user?.age, [Validators.required, Validators.min(18)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      age: ['', [Validators.required, Validators.min(18)]],
     });
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['user'] && this.form) {
+    // patch form whenever contextUser changes
+    this.userStore.contextUser$.subscribe((user) => {
+      if (!user) return;
+
+      this.currentUser = user;
       this.form.patchValue({
-        name: this.user?.name,
-        age: this.user?.age,
+        name: user.name,
+        age: user.age,
       });
-    }
+    });
   }
 
   submit() {
     this.form.markAsTouched();
-    if (this.form.valid) {
-      this.userService.editUser({ ...this.user, ...this.form.value });
-      this.onClose.emit();
-    }
+    if (!this.form.valid) return;
+
+    this.userService.editUser({ ...this.currentUser, ...this.form.value });
+    this.onClose.emit();
   }
 
   getErrorMessage(controlName: string): string {

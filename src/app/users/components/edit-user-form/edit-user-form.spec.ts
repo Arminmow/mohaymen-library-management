@@ -37,7 +37,6 @@ describe('EditUserForm', () => {
     fixture = TestBed.createComponent(EditUserForm);
     component = fixture.componentInstance;
 
-    fixture.componentRef.setInput('user', mockUser);
     fixture.detectChanges();
   });
 
@@ -50,25 +49,6 @@ describe('EditUserForm', () => {
       expect(component.form.value).toEqual({
         name: mockUser.name,
         age: mockUser.age,
-      });
-    });
-
-    it('should patch form when user input changes', () => {
-      const newUser: User = { id: 2, name: 'John', age: 30, role: 'writer' };
-      fixture.componentRef.setInput('user', newUser);
-
-      component.ngOnChanges({
-        user: {
-          currentValue: newUser,
-          previousValue: mockUser,
-          firstChange: false,
-          isFirstChange: () => false,
-        },
-      });
-
-      expect(component.form.value).toEqual({
-        name: 'John',
-        age: 30,
       });
     });
   });
@@ -112,10 +92,10 @@ describe('EditUserForm', () => {
       component.submit();
 
       expect(userServiceSpy.editUser).toHaveBeenCalledWith({
-        id: component.user.id,
+        id: component.currentUser.id,
         name: 'John Doe',
         age: 30,
-        role: component.user.role,
+        role: component.currentUser.role,
       });
     });
 
