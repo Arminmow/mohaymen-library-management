@@ -23,14 +23,16 @@ export class BookService {
     title: string;
     author_info: { id: number; name: string };
     publishedDate: Date;
-  }): void {
-    const newBook: Book = {
+    tags: string[];
+  }) {
+    const newBook: Omit<Book, 'id'> = {
       title: formData.title,
       author: formData.author_info.name,
       author_id: formData.author_info.id,
       publishedDate: formData.publishedDate,
-    } as Book;
-    this.addBook(newBook);
+      tags: formData.tags,
+    };
+    this.bookStore.addBook(newBook);
   }
 
   editBookFromFormData(formData: {

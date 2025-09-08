@@ -9,6 +9,7 @@ export interface Book {
   author: string;
   publishedDate: Date;
   author_id: number;
+  tags? : string[]
 }
 
 export interface BookState {
@@ -50,6 +51,7 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
             author: 'J.K. Rowling',
             publishedDate: new Date('1997-06-26'),
             author_id: 1,
+             tags: ['science fiction', 'young adult'],
           },
         ],
         contextBook: null,
