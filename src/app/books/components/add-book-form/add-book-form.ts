@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../../services/book-service';
 import { UsersStore } from '../../../users/stores/users.store';
@@ -9,6 +15,7 @@ import { Book } from '../../stores/book-store';
   standalone: false,
   templateUrl: './add-book-form.html',
   styleUrl: './add-book-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddBookForm implements OnInit {
   constructor(
@@ -30,14 +37,14 @@ export class AddBookForm implements OnInit {
 
   submit() {
     this.form.markAllAsTouched();
-    
-    const newBook : Partial<Book> = {
+
+    const newBook: Partial<Book> = {
       title: this.form.value.title,
       author: this.form.value.author_info.name,
       author_id: this.form.value.author_info.id,
       publishedDate: this.form.value.publishedDate,
     };
-    
+
     if (this.form.valid) {
       this.bookService.addBook(newBook as Book);
       this.onClose.emit();

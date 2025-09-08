@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { Book, BookStore } from '../../../books/stores/book-store';
 import { User, UsersStore } from '../../stores/users.store';
@@ -8,6 +8,7 @@ import { User, UsersStore } from '../../stores/users.store';
   standalone: false,
   templateUrl: './user-books.html',
   styleUrl: './user-books.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserBooks {
   books$!: Observable<Book[]>;

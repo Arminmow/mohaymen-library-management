@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book, BookStore } from '../../stores/book-store';
 import { UsersStore } from '../../../users/stores/users.store';
@@ -8,6 +14,7 @@ import { UsersStore } from '../../../users/stores/users.store';
   standalone: false,
   templateUrl: './edit-book-form.html',
   styleUrl: './edit-book-form.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditBookForm implements OnInit {
   constructor(

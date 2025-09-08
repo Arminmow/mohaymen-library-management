@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Book, BookStore } from '../../stores/book-store';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
@@ -7,6 +7,7 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
   standalone: false,
   templateUrl: './book-table.html',
   styleUrl: './book-table.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookTable {
   // yes i know i could create a generic table component 
