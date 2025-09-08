@@ -15,13 +15,37 @@ export class BookService {
     this.bookStore.deleteBook(book);
   }
 
-  addBookFromFormData(formData: { title: string, author_info: { id: number, name: string }, publishedDate: Date }): void {
-  const newBook: Book = {
-    title: formData.title,
-    author: formData.author_info.name,
-    author_id: formData.author_info.id,
-    publishedDate: formData.publishedDate,
-  } as Book;
-  this.addBook(newBook);
-}
+  editBook(book: Book) {
+    this.bookStore.editBook(book);
+  }
+
+  addBookFromFormData(formData: {
+    title: string;
+    author_info: { id: number; name: string };
+    publishedDate: Date;
+  }): void {
+    const newBook: Book = {
+      title: formData.title,
+      author: formData.author_info.name,
+      author_id: formData.author_info.id,
+      publishedDate: formData.publishedDate,
+    } as Book;
+    this.addBook(newBook);
+  }
+
+  editBookFromFormData(formData: {
+    title: string;
+    author_info: { id: number; name: string };
+    publishedDate: Date;
+    id: number;
+  }): void {
+    const newBook: Book = {
+      id: formData.id,
+      title: formData.title,
+      author: formData.author_info.name,
+      author_id: formData.author_info.id,
+      publishedDate: formData.publishedDate,
+    } as Book;
+    this.editBook(newBook);
+  }
 }

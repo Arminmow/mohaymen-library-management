@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book, BookStore } from '../../stores/book-store';
 import { UsersStore } from '../../../users/stores/users.store';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
+import { BookService } from '../../services/book-service';
 
 @Component({
   selector: 'app-edit-book-form',
@@ -20,8 +21,9 @@ import { BaseFormComponent } from '../../../shared/base-components/base-form-com
 export class EditBookForm extends BaseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private bookStore: BookStore,
-    public userStore: UsersStore
+    private bookService: BookService,
+    public userStore: UsersStore,
+    private bookStore: BookStore
   ) {
     super();
   }
@@ -49,18 +51,15 @@ export class EditBookForm extends BaseFormComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.form.value);
+
     this.form.markAsTouched();
     if (!this.form.valid) return;
 
-    const updatedBook: Partial<Book> = {
+    this.bookService.editBookFromFormData({
       ...this.currentBook,
-      author: this.form.value.author_info.name,
-      author_id: this.form.value.author_info.id,
-      title: this.form.value.title,
-      publishedDate: this.form.value.publishedDate,
-    };
-
-    this.bookStore.editBook(updatedBook as Book);
+      ...this.form.value,
+    });
     this.form.reset();
     this.onClose.emit();
   }
