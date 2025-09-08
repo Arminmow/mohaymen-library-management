@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { SharedModule } from './shared/shared-module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
