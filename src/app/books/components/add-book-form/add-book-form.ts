@@ -30,7 +30,6 @@ export class AddBookForm implements OnInit {
 
   submit() {
     this.form.markAllAsTouched();
-    console.log(this.form.value);
     
     const newBook : Partial<Book> = {
       title: this.form.value.title,

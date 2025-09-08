@@ -16,7 +16,6 @@ export class BookTable {
     menu: NzDropdownMenuComponent,
     user: Book
   ): void {
-    console.log(`setting context user to ${user.title}`);
     this.bookStore.setContextBook(user);
     this.nzContextMenuService.create($event, menu);
   }

@@ -29,7 +29,6 @@ export class AddUserForm implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
 
     if (this.form.valid) {
       this.userService.addUser(this.form.value);

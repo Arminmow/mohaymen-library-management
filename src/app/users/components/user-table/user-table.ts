@@ -31,7 +31,6 @@ export class UserTable {
     menu: NzDropdownMenuComponent,
     user: User
   ): void {
-    console.log(`setting context user to ${user.name}`);
     this.userService.setContextUser(user);
     this.nzContextMenuService.create($event, menu);
   }

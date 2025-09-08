@@ -38,10 +38,6 @@ export class UserActions {
     if (this.contextUser) this.userService.confirmDelete(this.contextUser);
   }
 
-  editUser(user: User): void {
-    console.log('Editing user:', user);
-  }
-
   onChangeRole(newRole: User['role']) {
     if (this.contextUser)
       this.userService.confirmRoleChange(this.contextUser, newRole);
