@@ -16,7 +16,7 @@
       [nzErrorTip]="getErrorMessage('author')"
     >
       <nz-select nzPlaceHolder="Select The Author" formControlName="author_info">
-        @for (user of userStore.users$ | async ; track user.id){<nz-option
+        @for (user of userStore.writerUsers$| async ; track user.id){<nz-option
           [nzValue]="user"
           [nzLabel]="user.name"
         ></nz-option
