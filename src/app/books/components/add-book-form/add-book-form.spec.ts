@@ -10,7 +10,7 @@ describe('AddBookForm', () => {
   let bookServiceSpy: jasmine.SpyObj<BookService>;
 
   beforeEach(async () => {
-    bookServiceSpy = jasmine.createSpyObj('BookService', ['addBook']);
+    bookServiceSpy = jasmine.createSpyObj('BookService', ['addBookFromFormData']);
     await TestBed.configureTestingModule({
       declarations: [AddBookForm],
       schemas: [NO_ERRORS_SCHEMA],
@@ -50,11 +50,6 @@ describe('AddBookForm', () => {
     expect(component.form.controls['title'].valid).toBeTrue();
     expect(component.form.controls['author_info'].valid).toBeTrue();
     expect(component.form.controls['publishedDate'].valid).toBeTrue();
-    expect(bookServiceSpy.addBook).toHaveBeenCalledWith({
-      title: '1984',
-      author_id: 1,
-      author: 'mamad',
-      publishedDate: new Date('2023-01-01'),
-    } as any);
+    expect(bookServiceSpy.addBookFromFormData).toHaveBeenCalledWith(component.form.value);
   });
 });

@@ -14,4 +14,14 @@ export class BookService {
   deleteBook(book: Book) {
     this.bookStore.deleteBook(book);
   }
+
+  addBookFromFormData(formData: { title: string, author_info: { id: number, name: string }, publishedDate: Date }): void {
+  const newBook: Book = {
+    title: formData.title,
+    author: formData.author_info.name,
+    author_id: formData.author_info.id,
+    publishedDate: formData.publishedDate,
+  } as Book;
+  this.addBook(newBook);
+}
 }

@@ -37,17 +37,13 @@ export class AddBookForm implements OnInit {
 
   submit() {
     this.form.markAllAsTouched();
-
-    const newBook: Partial<Book> = {
-      title: this.form.value.title,
-      author: this.form.value.author_info.name,
-      author_id: this.form.value.author_info.id,
-      publishedDate: this.form.value.publishedDate,
-    };
-
     if (this.form.valid) {
-      this.bookService.addBook(newBook as Book);
-      this.onClose.emit();
+      try {
+        this.bookService.addBookFromFormData(this.form.value);
+        this.onClose.emit();
+      } catch (error) {
+        console.error('Failed to add book:', error);
+      }
     }
   }
 
