@@ -5,10 +5,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BookService } from '../../services/book-service';
 import { UsersStore } from '../../../users/stores/users.store';
-import { Book } from '../../stores/book-store';
+import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 
 @Component({
   selector: 'app-add-book-form',
@@ -17,15 +17,16 @@ import { Book } from '../../stores/book-store';
   styleUrl: './add-book-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddBookForm implements OnInit {
+export class AddBookForm extends BaseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
     public userStore: UsersStore
-  ) {}
+  ) {
+    super()
+  }
   @Output() onClose = new EventEmitter<void>();
 
-  form!: FormGroup;
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -47,20 +48,5 @@ export class AddBookForm implements OnInit {
     }
   }
 
-  getErrorMessage(controlName: string): string {
-    const control = this.form.get(controlName);
-    if (!control || !control.errors) return '';
 
-    if (control.errors['required']) return 'This field is required';
-    if (control.errors['minlength'])
-      return `Minimum ${control.errors['minlength'].requiredLength} characters required`;
-    if (control.errors['maxlength'])
-      return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
-    if (control.errors['min'])
-      return `Must be at least ${control.errors['min'].min}`;
-    if (control.errors['max'])
-      return `Value cannot exceed ${control.errors['max'].max}`;
-
-    return 'Invalid value';
-  }
 }

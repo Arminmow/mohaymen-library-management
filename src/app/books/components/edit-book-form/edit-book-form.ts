@@ -8,6 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book, BookStore } from '../../stores/book-store';
 import { UsersStore } from '../../../users/stores/users.store';
+import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 
 @Component({
   selector: 'app-edit-book-form',
@@ -16,21 +17,22 @@ import { UsersStore } from '../../../users/stores/users.store';
   styleUrl: './edit-book-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditBookForm implements OnInit {
+export class EditBookForm extends BaseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private bookStore: BookStore,
     public userStore: UsersStore
-  ) {}
+  ) {
+    super();
+  }
 
   @Output() onClose = new EventEmitter<void>();
 
-  form!: FormGroup;
   currentBook!: Book;
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
+      title: ['', [Validators.required]],
       author_info: ['', [Validators.required]],
       publishedDate: ['', [Validators.required]],
     });
@@ -61,22 +63,5 @@ export class EditBookForm implements OnInit {
     this.bookStore.editBook(updatedBook as Book);
     this.form.reset();
     this.onClose.emit();
-  }
-
-  getErrorMessage(controlName: string): string {
-    const control = this.form.get(controlName);
-    if (!control || !control.errors) return '';
-
-    if (control.errors['required']) return 'This field is required';
-    if (control.errors['minlength'])
-      return `Minimum ${control.errors['minlength'].requiredLength} characters required`;
-    if (control.errors['maxlength'])
-      return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
-    if (control.errors['min'])
-      return `Must be at least ${control.errors['min'].min}`;
-    if (control.errors['max'])
-      return `Value cannot exceed ${control.errors['max'].max}`;
-
-    return 'Invalid value';
   }
 }

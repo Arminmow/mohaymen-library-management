@@ -5,11 +5,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { User, UsersStore } from '../../stores/users.store';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -18,19 +19,19 @@ import { UserDataService } from '../../services/user-data-service/user-data-serv
   styleUrl: './edit-user-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditUserForm implements OnInit {
+export class EditUserForm extends BaseFormComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   readonly user$!: Observable<User | null>;
   currentUser!: User;
 
-  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserDataService,
     private userStore: UsersStore
   ) {
+    super()
     this.user$ = this.userStore.contextUser$;
   }
 
@@ -58,22 +59,5 @@ export class EditUserForm implements OnInit {
 
     this.userService.editUser({ ...this.currentUser, ...this.form.value });
     this.onClose.emit();
-  }
-
-  getErrorMessage(controlName: string): string {
-    const control = this.form.get(controlName);
-    if (!control || !control.errors) return '';
-
-    if (control.errors['required']) return 'This field is required';
-    if (control.errors['minlength'])
-      return `Minimum ${control.errors['minlength'].requiredLength} characters required`;
-    if (control.errors['maxlength'])
-      return `Maximum ${control.errors['maxlength'].requiredLength} characters allowed`;
-    if (control.errors['min'])
-      return `Must be at least ${control.errors['min'].min}`;
-    if (control.errors['max'])
-      return `Value cannot exceed ${control.errors['max'].max}`;
-
-    return 'Invalid value';
   }
 }
