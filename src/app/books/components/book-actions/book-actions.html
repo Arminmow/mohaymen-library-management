@@ -1,5 +1,11 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
-    <li nz-menu-item (click)="showDeleteConfirm()">Delete</li>
+    <li
+      nz-menu-item
+      (click)="showDeleteConfirm(book)"
+      *ngIf="bookStore.contextBook$ | async as book"
+    >
+      Delete
+    </li>
   </ul>
 </nz-dropdown-menu>
