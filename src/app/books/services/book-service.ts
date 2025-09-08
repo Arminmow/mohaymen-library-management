@@ -6,17 +6,18 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   providedIn: 'root',
 })
 export class BookService {
-  constructor(private bookStore: BookStore ,  private modal: NzModalService,) {}
+  constructor(private bookStore: BookStore, private modal: NzModalService) {}
 
-   confirmDelete(book: Book) {
-      this.modal.confirm({
-        nzTitle: `Are you sure you want to delete ${book.title}?`,
-        nzOkText: 'Yes',
-        nzOkDanger: true,
-        nzOnOk: () => this.bookStore.deleteBook(book),
-        nzCancelText: 'No',
-      });
-    }
+  // todo : move it to ui service
+  confirmDelete(book: Book) {
+    this.modal.confirm({
+      nzTitle: `Are you sure you want to delete ${book.title}?`,
+      nzOkText: 'Yes',
+      nzOkDanger: true,
+      nzOnOk: () => this.bookStore.deleteBook(book),
+      nzCancelText: 'No',
+    });
+  }
 
   addBook(book: Book) {
     this.bookStore.addBook(book);

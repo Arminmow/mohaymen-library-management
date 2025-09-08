@@ -24,5 +24,4 @@ export class BookActions {
     }
   }
 
-  editUser(book: Book): void {}
 }

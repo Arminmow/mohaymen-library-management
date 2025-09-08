@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { Book, BookStore } from '../../../books/stores/book-store';
 import { User, UsersStore } from '../../stores/users.store';

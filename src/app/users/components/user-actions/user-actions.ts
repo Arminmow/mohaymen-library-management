@@ -4,10 +4,9 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { User, UsersStore } from '../../stores/users.store';
+import { User } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 
 @Component({

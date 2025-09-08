@@ -9,6 +9,11 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
   styleUrl: './book-table.scss',
 })
 export class BookTable {
+  // yes i know i could create a generic table component 
+  // instead of 2 nearly identical table components
+  // but i think thats overkill for this scale
+  // but i did something similar with generic modal
+  // just to get the hang of it
   constructor(public bookStore: BookStore,  private nzContextMenuService: NzContextMenuService,) {}
 
   contextMenu(

@@ -37,6 +37,8 @@ export class AddUserForm implements OnInit {
     }
   }
 
+  // todo : make this reuseable
+
   getErrorMessage(controlName: string): string {
     const control = this.form.get(controlName);
     if (!control || !control.errors) return '';

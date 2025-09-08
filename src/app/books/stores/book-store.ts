@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
-import { ignoreElements, map, Observable, Subscription, tap } from 'rxjs';
+import { ignoreElements, map, Observable, tap } from 'rxjs';
 
 export interface Book {
   id: number;
@@ -91,6 +91,7 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
     )
   );
 
+  // todo : logic is wack
   private getNextId(books: Book[]): number {
     if (books.length === 0) return 1;
     return Math.max(...books.map((b) => b.id)) + 1;
