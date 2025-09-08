@@ -14,6 +14,20 @@ import { Book, BookStore } from '../../stores/book-store';
 })
 class NzDropDownMenuStub {}
 
+@Component({
+  selector: 'app-generic-modal',
+  template: '',
+  standalone: false,
+})
+class GenericModalStub {}
+
+@Component({
+  selector: 'app-edit-book-form',
+  template: '',
+  standalone: false,
+})
+class EditBookFormStub {}
+
 describe('BookActions', () => {
   let component: BookActions;
   let fixture: ComponentFixture<BookActions>;
@@ -37,7 +51,12 @@ describe('BookActions', () => {
   beforeEach(async () => {
     modalServiceSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
     await TestBed.configureTestingModule({
-      declarations: [BookActions, NzDropDownMenuStub],
+      declarations: [
+        BookActions,
+        NzDropDownMenuStub,
+        GenericModalStub,
+        EditBookFormStub,
+      ],
       providers: [
         { provide: NzModalService, useValue: modalServiceSpy },
         { provide: BookStore, useValue: mockStore },

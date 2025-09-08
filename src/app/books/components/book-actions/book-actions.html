@@ -7,5 +7,12 @@
     >
       Delete
     </li>
+
+    <li nz-menu-item>
+      <app-generic-modal #modal title="Edit User">
+        <span modalTrigger class="edit-btn">Edit</span>
+        <app-edit-book-form modalContent (onClose)="modal.hideModal()"/>
+      </app-generic-modal>
+    </li>
   </ul>
 </nz-dropdown-menu>

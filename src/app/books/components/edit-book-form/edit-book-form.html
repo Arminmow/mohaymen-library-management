@@ -1,0 +1,44 @@
+<form class="user-form" [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item class="form-item">
+    <nz-form-label class="form-label">Title</nz-form-label>
+    <nz-form-control
+      class="form-control"
+      [nzErrorTip]="getErrorMessage('name')"
+    >
+      <input nz-input formControlName="title" placeholder="Name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="form-item">
+    <nz-form-label class="form-label">Author</nz-form-label>
+    <nz-form-control
+      class="form-control"
+      [nzErrorTip]="getErrorMessage('author')"
+    >
+      <nz-select nzPlaceHolder="Select The Author" formControlName="author_info">
+        @for (user of userStore.writerUsers$| async ; track user.id){<nz-option
+          [nzValue]="user"
+          [nzLabel]="user.name"
+        ></nz-option
+        >}
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label class="form-label">Published Date</nz-form-label>
+    <nz-form-control class="form-control">
+      <nz-date-picker  formControlName="publishedDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <button
+    nz-button
+    nzType="primary"
+    type="submit"
+    class="submit-btn"
+    [disabled]="form.invalid"
+  >
+    Submit
+  </button>
+</form>
