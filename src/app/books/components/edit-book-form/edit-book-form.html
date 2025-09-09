@@ -5,7 +5,7 @@
       class="form-control"
       [nzErrorTip]="getErrorMessage('title')"
     >
-      <input nz-input formControlName="title" placeholder="Title" />
+      <input nz-input formControlName="title" placeholder="Name" />
     </nz-form-control>
   </nz-form-item>
 
@@ -28,7 +28,7 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item class="form-item">
+  <nz-form-item>
     <nz-form-label class="form-label">Published Date</nz-form-label>
     <nz-form-control class="form-control">
       <nz-date-picker formControlName="publishedDate"></nz-date-picker>
@@ -42,15 +42,13 @@
       [nzErrorTip]="getErrorMessage('tags')"
     >
       <nz-select
-        nzPlaceHolder="Select tags"
-        formControlName="tags"
         nzMode="multiple"
+        nzPlaceHolder="Select Tags"
+        formControlName="tags"
       >
-        @for (tag of bookTags ; track tag){<nz-option
-          [nzValue]="tag"
-          [nzLabel]="tag"
-        ></nz-option
-        >}
+        @for (tag of bookTags; track tag) {
+        <nz-option [nzValue]="tag" [nzLabel]="tag | titlecase"></nz-option>
+        }
       </nz-select>
     </nz-form-control>
   </nz-form-item>

@@ -14,6 +14,7 @@ describe('BookStore', () => {
     title: '1984',
     author: 'George Orwell',
     publishedDate: new Date('1949-06-08'),
+    author_id: 1
   };
 
   beforeEach(() => {
@@ -60,6 +61,7 @@ describe('BookStore', () => {
       title: 'New Book',
       author: 'Author X',
       publishedDate: new Date('2020-01-01'),
+      author_id: 1,
     };
 
     service.addBook(newBook);
@@ -81,6 +83,7 @@ describe('BookStore', () => {
       title: 'To Delete',
       author: 'Author Y',
       publishedDate: new Date(),
+      author_id: 1,
     });
 
     const addedBooks = await firstValueFrom(service.books$);
@@ -100,6 +103,7 @@ describe('BookStore', () => {
       title: 'Original',
       author: 'Author Z',
       publishedDate: new Date(),
+      author_id: 1,
     });
 
     const updatedBook: Book = {
@@ -107,6 +111,7 @@ describe('BookStore', () => {
       title: 'Updated',
       author: 'Author Z',
       publishedDate: new Date('2022-01-01'),
+      author_id: 1,
     };
 
     service.editBook(updatedBook);
@@ -123,6 +128,7 @@ describe('BookStore', () => {
       title: 'Existing',
       author: 'Author A',
       publishedDate: new Date(),
+      author_id: 1,
     });
 
     const before = await firstValueFrom(service.books$);
@@ -132,21 +138,10 @@ describe('BookStore', () => {
       title: 'Non-existent',
       author: 'None',
       publishedDate: new Date(),
+      author_id: 1,
     });
 
     const after = await firstValueFrom(service.books$);
     expect(after).toEqual(before);
-  });
-
-  it('should unsubscribe on destroy', () => {
-    persistenceServiceSpy.get.and.returnValue(null);
-    service = TestBed.inject(BookStore);
-
-    const subscription: Subscription = (service as any).subscription;
-    const unsubscribeSpy = spyOn(subscription, 'unsubscribe').and.callThrough();
-
-    service.ngOnDestroy();
-
-    expect(unsubscribeSpy).toHaveBeenCalled();
   });
 });

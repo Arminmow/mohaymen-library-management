@@ -10,7 +10,7 @@ describe('AddBookForm', () => {
   let bookServiceSpy: jasmine.SpyObj<BookService>;
 
   beforeEach(async () => {
-    bookServiceSpy = jasmine.createSpyObj('BookService', ['addBook']);
+    bookServiceSpy = jasmine.createSpyObj('BookService', ['addBookFromFormData']);
     await TestBed.configureTestingModule({
       declarations: [AddBookForm],
       schemas: [NO_ERRORS_SCHEMA],
@@ -40,17 +40,16 @@ describe('AddBookForm', () => {
   it('SHOULD call store.addBook WHEN form is valid and submitted', () => {
     // Arrange
     component.form.controls['title'].setValue('1984');
-    component.form.controls['author'].setValue('George Orwell');
+    component.form.controls['author_info'].setValue({ id: 1, name: 'mamad' });
+    component.form.controls['publishedDate'].setValue(new Date('2023-01-01'));
 
     // Act
     component.submit();
 
     // Assert
     expect(component.form.controls['title'].valid).toBeTrue();
-    expect(component.form.controls['author'].valid).toBeTrue();
-    expect(bookServiceSpy.addBook).toHaveBeenCalledWith({
-      author: 'George Orwell',
-      title: '1984',
-    } as any);
+    expect(component.form.controls['author_info'].valid).toBeTrue();
+    expect(component.form.controls['publishedDate'].valid).toBeTrue();
+    expect(bookServiceSpy.addBookFromFormData).toHaveBeenCalledWith(component.form.value);
   });
 });

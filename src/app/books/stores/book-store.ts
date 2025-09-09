@@ -1,13 +1,15 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
-import { Subscription } from 'rxjs';
+import { ignoreElements, map, Observable, tap } from 'rxjs';
 
 export interface Book {
   id: number;
   title: string;
   author: string;
   publishedDate: Date;
+  author_id: number;
+  tags? : string[]
 }
 
 export interface BookState {
@@ -21,7 +23,23 @@ const STORAGE_KEY = 'books-state';
   providedIn: 'root',
 })
 export class BookStore extends ComponentStore<BookState> implements OnDestroy {
-  private subscription: Subscription;
+  readonly books$ = this.select((state) => state.books);
+  readonly contextBook$ = this.select((s) => s.contextBook);
+
+  readonly booksByAuthor$ = this.books$.pipe(
+    map((books) => {
+      // i learned this at my interview :)
+      const map = new Map<number, Book[]>();
+
+      for (const book of books) {
+        const existing = map.get(book.author_id) ?? [];
+        existing.push(book);
+        map.set(book.author_id, existing);
+      }
+
+      return map;
+    })
+  );
 
   constructor(private persistenceService: PersistenceService) {
     super(
@@ -32,19 +50,16 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
             title: 'harry potter and the sorcerers stone',
             author: 'J.K. Rowling',
             publishedDate: new Date('1997-06-26'),
+            author_id: 1,
+             tags: ['science fiction', 'young adult'],
           },
         ],
         contextBook: null,
       }
     );
 
-    this.subscription = this.books$.subscribe((books) => {
-      this.persistenceService.save(STORAGE_KEY, { books });
-    });
+    this.persistBooks(this.books$);
   }
-
-  readonly books$ = this.select((state) => state.books);
-  readonly contextBook$ = this.select((s) => s.contextBook);
 
   readonly addBook = this.updater((state, newBook: Omit<Book, 'id'>) => {
     const nextId = this.getNextId(state.books);
@@ -71,12 +86,16 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
     contextBook: book,
   }));
 
+  readonly persistBooks = this.effect((books$: Observable<Book[]>) =>
+    books$.pipe(
+      tap((books) => this.persistenceService.save(STORAGE_KEY, { books })),
+      ignoreElements()
+    )
+  );
+
+  // todo : logic is wack
   private getNextId(books: Book[]): number {
     if (books.length === 0) return 1;
     return Math.max(...books.map((b) => b.id)) + 1;
-  }
-
-  override ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

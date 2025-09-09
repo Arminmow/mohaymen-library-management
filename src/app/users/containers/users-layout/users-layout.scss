@@ -1,5 +1,138 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Container styling */
+.container {
+  padding: 16px;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: transparent;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Heading styling */
+.container h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #2f4050;
+  letter-spacing: 0.6px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect for heading */
+.container h1:hover {
+  color: #597ef7;
+}
+
+/* Button styling */
+:host ::ng-deep .ant-btn-primary {
+  background: #2f4050;
+  border-color: #2f4050;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  height: auto;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for button */
+:host ::ng-deep .ant-btn-primary:hover {
+  background: #3c5466;
+  border-color: #3c5466;
+  transform: scale(1.03);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state for button */
+:host ::ng-deep .ant-btn-primary:focus {
+  outline: 2px solid #1890ff;
+  outline-offset: 2px;
+}
+
+/* Modal trigger button container */
+:host ::ng-deep .modal-trigger {
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+/* Modal title styling */
+:host ::ng-deep .ant-modal-header {
+  background: #2f4050;
+  border-bottom: 1px solid #597ef7;
+}
+
+:host ::ng-deep .ant-modal-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Modal content styling */
+:host ::ng-deep .ant-modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Modal close button */
+:host ::ng-deep .ant-modal-close-x {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+:host ::ng-deep .ant-modal-close-x:hover {
+  color: #e6f7ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 8px;
+  }
+
+  .container h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  :host ::ng-deep .ant-btn-primary {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  :host ::ng-deep .ant-modal-content {
+    padding: 12px;
+  }
+}
+
+/* Accessibility: Focus states for keyboard navigation */
+:host ::ng-deep .ant-btn-primary:focus-visible {
+  outline: 2px solid #1890ff;
+  outline-offset: 2px;
+}
+
+/* Smooth fade-in animation for container */
+.container {
+  animation: slickFadeIn 0.5s ease-in;
+}
+
+@keyframes slickFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

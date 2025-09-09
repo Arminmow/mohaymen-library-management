@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
 import { of } from 'rxjs';
-
+import { TitleCasePipe } from '@angular/common';
 import { UserTable } from './user-table';
 import { User, UsersStore } from '../../stores/users.store';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
@@ -51,6 +51,8 @@ describe('UserTable', () => {
   let mockStore: Partial<UsersStore>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
 
+  const titleCasePipe = new TitleCasePipe();
+
   const mockData: User[] = [
     { id: 1, name: 'Armin', age: 25, role: 'admin' },
     { id: 2, name: 'Bob', age: 30, role: 'user' },
@@ -91,11 +93,10 @@ describe('UserTable', () => {
 
   it('should render table headers correctly', () => {
     const headers = fixture.nativeElement.querySelectorAll('th');
-    expect(headers.length).toBe(4);
+    expect(headers.length).toBe(3);
     expect(headers[0].textContent).toContain('Name');
     expect(headers[1].textContent).toContain('Age');
     expect(headers[2].textContent).toContain('Role');
-    expect(headers[3].textContent).toContain('Action');
   });
 
   it('should render the correct number of rows', () => {
@@ -107,13 +108,9 @@ describe('UserTable', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
     rows.forEach((row: HTMLElement, index: number) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[0].textContent).toContain(mockData[index].name);
-      expect(cells[1].textContent).toContain(mockData[index].age.toString());
-      expect(cells[2].textContent).toContain(mockData[index].role);
-      expect(cells[3].textContent).toContain(
-        `Action 一 ${mockData[index].name}`
-      );
-      expect(cells[3].textContent).toContain('Delete');
+      expect(cells[0].textContent).toContain(titleCasePipe.transform(mockData[index].name));
+      expect(cells[1].textContent).toContain(titleCasePipe.transform(mockData[index].age.toString()));
+      expect(cells[2].textContent).toContain(titleCasePipe.transform(mockData[index].role));
     });
   });
 });

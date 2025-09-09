@@ -2,15 +2,21 @@ import { TestBed } from '@angular/core/testing';
 
 import { BookService } from './book-service';
 import { Book, BookStore } from '../stores/book-store';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 describe('BookService', () => {
   let service: BookService;
   let bookStoreSpy: jasmine.SpyObj<BookStore>;
+  let modalSpy: jasmine.SpyObj<NzModalService>;
 
   beforeEach(() => {
     bookStoreSpy = jasmine.createSpyObj('bookStore', ['addBook', 'deleteBook']);
+    modalSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
     TestBed.configureTestingModule({
-      providers: [{ provide: BookStore, useValue: bookStoreSpy }],
+      providers: [
+        { provide: BookStore, useValue: bookStoreSpy },
+        { provide: NzModalService, useValue: modalSpy },
+      ],
     });
     service = TestBed.inject(BookService);
   });
@@ -26,6 +32,7 @@ describe('BookService', () => {
       title: '1984',
       author: 'George Orwell',
       publishedDate: new Date('1949-06-08'),
+      author_id: 1,
     };
 
     // Act
@@ -42,6 +49,7 @@ describe('BookService', () => {
       title: '1984',
       author: 'George Orwell',
       publishedDate: new Date('1949-06-08'),
+      author_id: 1,
     };
 
     // Act

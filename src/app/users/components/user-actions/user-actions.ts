@@ -4,10 +4,9 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { User, UsersStore } from '../../stores/users.store';
+import { User } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 
 @Component({
@@ -36,10 +35,6 @@ export class UserActions {
 
   showDeleteConfirm() {
     if (this.contextUser) this.userService.confirmDelete(this.contextUser);
-  }
-
-  editUser(user: User): void {
-    console.log('Editing user:', user);
   }
 
   onChangeRole(newRole: User['role']) {

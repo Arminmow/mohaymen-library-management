@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Book, BookStore } from '../../stores/book-store';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
@@ -7,8 +7,14 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
   standalone: false,
   templateUrl: './book-table.html',
   styleUrl: './book-table.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookTable {
+  // yes i know i could create a generic table component 
+  // instead of 2 nearly identical table components
+  // but i think thats overkill for this scale
+  // but i did something similar with generic modal
+  // just to get the hang of it
   constructor(public bookStore: BookStore,  private nzContextMenuService: NzContextMenuService,) {}
 
   contextMenu(
@@ -16,7 +22,6 @@ export class BookTable {
     menu: NzDropdownMenuComponent,
     user: Book
   ): void {
-    console.log(`setting context user to ${user.title}`);
     this.bookStore.setContextBook(user);
     this.nzContextMenuService.create($event, menu);
   }

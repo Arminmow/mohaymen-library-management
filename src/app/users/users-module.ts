@@ -7,8 +7,8 @@ import { UserTable } from "./components/user-table/user-table";
 import { UsersLayout } from "./containers/users-layout/users-layout";
 import { UserDataService } from "./services/user-data-service/user-data-service";
 import { UserUiService } from "./services/user-ui-service/user-ui-service";
-import { UsersStore } from "./stores/users.store";
 import { UsersRoutingModule } from "./users-routing-module";
+import { UserBooks } from './components/user-books/user-books';
 
 
 @NgModule({
@@ -18,8 +18,9 @@ import { UsersRoutingModule } from "./users-routing-module";
     UserActions,
     AddUserForm,
     EditUserForm,
+    UserBooks,
   ],
   imports: [UsersRoutingModule, SharedModule],
-  providers: [ UsersStore , UserDataService , UserUiService ],
+  providers: [UserDataService , UserUiService ],
 })
 export class UsersModule {}

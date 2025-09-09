@@ -18,13 +18,18 @@ export interface UsersState {
 
 const STORAGE_KEY = 'users-state';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsersStore
   extends ComponentStore<UsersState>
   implements OnDestroy
 {
   readonly users$ = this.select((state) => state.users);
   readonly contextUser$ = this.select((s) => s.contextUser);
+  readonly writerUsers$ = this.select((state) =>
+    state.users.filter((user) => user.role === 'writer')
+  );
 
   readonly setContextUser = this.updater((state, user: User | null) => ({
     ...state,
