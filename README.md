@@ -1,6 +1,6 @@
 # Library Management Task App
 
-[Check it out](https://mohaymen-library-management.netlify.app/users)
+[Check it out](https://mohaymen-library-management.netlify.app)
 
 ## Overview & Purpose
 This project is a simple Angular application for managing users and books.  
