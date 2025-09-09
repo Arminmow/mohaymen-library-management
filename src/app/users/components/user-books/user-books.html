@@ -1,7 +1,7 @@
 <ng-container *ngIf="books$ | async as books; else noBooks">
   <ul *ngIf="books.length; else noBooks" class="books-list">
     <li *ngFor="let book of books" class="book-item">
-      <span class="book-title">{{ book.title }}</span>
+      <span class="book-title">{{ book.title | titlecase}}</span>
       <span class="book-date">{{ book.publishedDate | date:'mediumDate' }}</span>
     </li>
   </ul>

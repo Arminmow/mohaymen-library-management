@@ -1,49 +1,108 @@
-/* Use your component's stylesheet */
-
-/* Books list container */
 .books-list {
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 1rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; // spacing between items
+  gap: 10px;
+  width: 100%;
+  max-width: 720px;
+  box-sizing: border-box;
 }
 
-/* Each book item */
+/* each row */
 .book-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 1rem;
-  border-radius: 0.6rem;
-  background: #f5f7fa;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-    background: #e1e7f0;
-  }
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid #e6eef5;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  cursor: default;
 }
 
-/* Book title */
+/* keyboard focus */
+.book-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(24,144,255,0.08);
+  transform: translateY(-2px);
+}
+
+/* hover */
+.book-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(35,57,77,0.08);
+}
+
+/* left block (title + optional subtitle) */
+.book-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* allow ellipsis */
+}
+
 .book-title {
+  color: #2f4050;
   font-weight: 600;
-  color: #1a1a1a;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Published date */
+/* lighter secondary line */
+.book-sub {
+  color: #8f9aa6;
+  font-size: 13px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* right block (date) */
+.book-meta-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 110px;
+}
+
 .book-date {
-  font-size: 0.85rem;
-  color: #555;
+  color: #6b7a86;
+  font-size: 13px;
+  font-weight: 500;
 }
 
-/* No books placeholder */
+/* no-books / empty state */
 .no-books {
-  font-style: italic;
-  color: #888;
-  text-align: center;
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b7a86;
+  background: rgba(255,255,255,0.01);
+  border: 1px dashed #e6eef5;
+  padding: 12px;
+  border-radius: 10px;
+  max-width: 520px;
+}
+
+.no-books-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .book-item {
+    padding: 10px 12px;
+  }
+  .book-meta-right {
+    min-width: 90px;
+  }
+  .book-title { font-size: 14px; }
+  .book-sub, .book-date { font-size: 12px; }
 }
