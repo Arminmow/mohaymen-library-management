@@ -36,18 +36,20 @@ export class BookService {
   }
 
   editBookFromFormData(formData: {
+    id: number;
     title: string;
     author_info: { id: number; name: string };
     publishedDate: Date;
-    id: number;
-  }): void {
-    const newBook: Book = {
+    tags: string[];
+  }) {
+    const updatedBook: Book = {
       id: formData.id,
       title: formData.title,
       author: formData.author_info.name,
       author_id: formData.author_info.id,
       publishedDate: formData.publishedDate,
-    } as Book;
-    this.editBook(newBook);
+      tags: formData.tags,
+    };
+    this.bookStore.editBook(updatedBook);
   }
 }

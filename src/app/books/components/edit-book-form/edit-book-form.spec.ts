@@ -74,6 +74,7 @@ describe('EditBookForm', () => {
     component.form.controls['title'].setValue('Updated Book');
     component.form.controls['author_info'].setValue({ name: 'Jane', id: 456 });
     component.form.controls['publishedDate'].setValue(new Date('2025-01-01'));
+    component.form.controls['tags'].setValue(['Science Fiction']);
 
     spyOn(component.onClose, 'emit');
 
@@ -85,6 +86,7 @@ describe('EditBookForm', () => {
       author: 'Jane',
       author_id: 456,
       publishedDate: new Date('2025-01-01'),
+      tags : ['Science Fiction']
     });
     expect(component.form.value.title).toBeNull(); // form reset
     expect(component.onClose.emit).toHaveBeenCalled();

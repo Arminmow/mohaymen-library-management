@@ -5,11 +5,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Book, BookStore } from '../../stores/book-store';
 import { UsersStore } from '../../../users/stores/users.store';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 import { BookService } from '../../services/book-service';
+import { BOOK_TAGS } from '../../stores/book-tags';
 
 @Component({
   selector: 'app-edit-book-form',
@@ -30,6 +31,7 @@ export class EditBookForm extends BaseFormComponent implements OnInit {
 
   @Output() onClose = new EventEmitter<void>();
 
+  bookTags = BOOK_TAGS;
   currentBook!: Book;
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class EditBookForm extends BaseFormComponent implements OnInit {
       title: ['', [Validators.required]],
       author_info: ['', [Validators.required]],
       publishedDate: ['', [Validators.required]],
+      tags: [[]],
     });
 
     this.bookStore.contextBook$.subscribe((book) => {
@@ -46,6 +49,7 @@ export class EditBookForm extends BaseFormComponent implements OnInit {
       this.form.patchValue({
         title: book.title,
         publishedDate: new Date(book.publishedDate),
+        tags: book.tags,
       });
     });
   }

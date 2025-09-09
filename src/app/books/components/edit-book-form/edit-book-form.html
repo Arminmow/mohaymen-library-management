@@ -15,7 +15,10 @@
       class="form-control"
       [nzErrorTip]="getErrorMessage('author')"
     >
-      <nz-select nzPlaceHolder="Select The Author" formControlName="author_info">
+      <nz-select
+        nzPlaceHolder="Select The Author"
+        formControlName="author_info"
+      >
         @for (user of userStore.writerUsers$| async ; track user.id){<nz-option
           [nzValue]="user"
           [nzLabel]="user.name"
@@ -28,7 +31,25 @@
   <nz-form-item>
     <nz-form-label class="form-label">Published Date</nz-form-label>
     <nz-form-control class="form-control">
-      <nz-date-picker  formControlName="publishedDate"></nz-date-picker>
+      <nz-date-picker formControlName="publishedDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="form-item">
+    <nz-form-label class="form-label">Tags</nz-form-label>
+    <nz-form-control
+      class="form-control"
+      [nzErrorTip]="getErrorMessage('tags')"
+    >
+      <nz-select
+        nzMode="multiple"
+        nzPlaceHolder="Select Tags"
+        formControlName="tags"
+      >
+        @for (tag of bookTags; track tag) {
+        <nz-option [nzValue]="tag" [nzLabel]="tag | titlecase"></nz-option>
+        }
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 

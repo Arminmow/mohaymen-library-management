@@ -42,7 +42,6 @@ describe('BookTable', () => {
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
   let mockStore: Partial<BookStore>;
 
-  
   const titleCasePipe = new TitleCasePipe();
 
   const mockData: Book[] = [
@@ -95,10 +94,11 @@ describe('BookTable', () => {
 
   it('should render table headers correctly', () => {
     const headers = fixture.nativeElement.querySelectorAll('th');
-    expect(headers.length).toBe(3);
+    expect(headers.length).toBe(4);
     expect(headers[0].textContent).toContain('Title');
     expect(headers[1].textContent).toContain('Author');
     expect(headers[2].textContent).toContain('Published Date');
+    expect(headers[3].textContent).toContain('Tags');
   });
 
   it('should render the correct number of rows', () => {
@@ -110,8 +110,12 @@ describe('BookTable', () => {
     const rows = fixture.nativeElement.querySelectorAll('tbody tr');
     rows.forEach((row: HTMLElement, index: number) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[0].textContent).toContain(titleCasePipe.transform(mockData[index].title));
-      expect(cells[1].textContent).toContain(titleCasePipe.transform(mockData[index].author));
+      expect(cells[0].textContent).toContain(
+        titleCasePipe.transform(mockData[index].title)
+      );
+      expect(cells[1].textContent).toContain(
+        titleCasePipe.transform(mockData[index].author)
+      );
     });
   });
 });
