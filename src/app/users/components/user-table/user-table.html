@@ -1,26 +1,27 @@
-<nz-table
-  #basicTable
-  [nzData]="(users$ | async) ?? []"
-  [nzShowPagination]="false"
->
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (data of basicTable.data; track data.id) {
-    <tr (contextmenu)="contextMenu($event, userMenu.menu , data)">
-      <td>{{ data.name | titlecase}}</td>
-      <td>{{ data.age }}</td>
-      <td>{{ data.role | titlecase}}</td>
-    </tr>
-    }
-  </tbody>
-</nz-table>
-
+<div class="nz-table-container">
+  <nz-table
+    #basicTable
+    [nzData]="(users$ | async) ?? []"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data.id) {
+      <tr (contextmenu)="contextMenu($event, userMenu.menu, data)">
+        <td>{{ data.name | titlecase }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.role | titlecase }}</td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
 <app-user-actions
   #userMenu
   [contextUser]="usersStore.contextUser$ | async"
