@@ -149,5 +149,31 @@ describe('Users Module (integration)', () => {
 
       cy.get('@firstRow').should('contain.text', 'No Data');
     });
+
+    it('should change the first user role to "User" via context menu', () => {
+      cy.get('nz-table tbody tr').first().as('firstRow');
+      cy.get('@firstRow').find('td').eq(2).as('roleCell');
+
+      cy.get('@firstRow').rightclick();
+      cy.get('ul[nz-menu]').should('be.visible');
+
+      cy.get('ul[nz-menu] li').contains('Change role to User').click();
+      cy.get('.ant-modal-confirm').contains('Yes').click();
+
+      cy.get('@roleCell').should('contain.text', 'User');
+    });
+
+    it('should change the first user role to "Writer" via context menu', () => {
+      cy.get('nz-table tbody tr').first().as('firstRow');
+      cy.get('@firstRow').find('td').eq(2).as('roleCell');
+
+      cy.get('@firstRow').rightclick();
+      cy.get('ul[nz-menu]').should('be.visible');
+
+      cy.get('ul[nz-menu] li').contains('Change role to Writer').click();
+      cy.get('.ant-modal-confirm').contains('Yes').click();
+
+      cy.get('@roleCell').should('contain.text', 'Writer');
+    });
   });
 });
