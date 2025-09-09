@@ -8,6 +8,7 @@
       <th>Title</th>
       <th>Author</th>
       <th>Published Date</th>
+      <th>Tags</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,9 @@
       <td>{{ data.title | titlecase}}</td>
       <td>{{ data.author | titlecase}}</td>
       <td>{{ data.publishedDate | date:'d MMM yyyy' }}</td>
+      <td>
+        <nz-tag *ngFor="let tag of data.tags">{{ tag | titlecase }}</nz-tag>
+      </td>
     </tr>
     }
   </tbody>

@@ -12,6 +12,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { GenericModal } from './components/generic-modal/generic-modal';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzFormModule,
     NzSelectModule,
     NzInputNumberModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzTagModule
   ],
   exports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzSelectModule,
     NzInputNumberModule,
     GenericModal,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzTagModule
   ],
 })
 export class SharedModule {}
