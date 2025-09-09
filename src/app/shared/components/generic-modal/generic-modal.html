@@ -5,13 +5,15 @@
 </span>
 
 <!-- Modal -->
-<nz-modal
-  [nzFooter]="null"
-  [(nzVisible)]="isVisible"
-  [nzTitle]="title"
-  (nzOnCancel)="hideModal()"
->
-  <ng-container *nzModalContent>
-    <ng-content select="[modalContent]"></ng-content>
-  </ng-container>
-</nz-modal>
+<ng-container *ngIf="isVisible">
+  <nz-modal
+    [nzFooter]="null"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="title"
+    (nzOnCancel)="hideModal()"
+  >
+    <ng-container *nzModalContent>
+      <ng-content select="[modalContent]"></ng-content>
+    </ng-container>
+  </nz-modal>
+</ng-container>

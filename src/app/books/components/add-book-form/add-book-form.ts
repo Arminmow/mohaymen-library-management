@@ -45,6 +45,7 @@ export class AddBookForm extends BaseFormComponent implements OnInit {
     if (this.form.valid) {
       try {
         this.bookService.addBookFromFormData(this.form.value);
+        this.form.reset();
         this.onClose.emit();
       } catch (error) {
         console.error('Failed to add book:', error);

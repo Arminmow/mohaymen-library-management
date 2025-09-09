@@ -43,13 +43,12 @@ describe('AddBookForm', () => {
     component.form.controls['author_info'].setValue({ id: 1, name: 'mamad' });
     component.form.controls['publishedDate'].setValue(new Date('2023-01-01'));
 
+    const expected = { ...component.form.value };
+
     // Act
     component.submit();
 
     // Assert
-    expect(component.form.controls['title'].valid).toBeTrue();
-    expect(component.form.controls['author_info'].valid).toBeTrue();
-    expect(component.form.controls['publishedDate'].valid).toBeTrue();
-    expect(bookServiceSpy.addBookFromFormData).toHaveBeenCalledWith(component.form.value);
+    expect(bookServiceSpy.addBookFromFormData).toHaveBeenCalledWith(expected);
   });
 });
