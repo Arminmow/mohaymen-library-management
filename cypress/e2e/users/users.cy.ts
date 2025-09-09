@@ -137,5 +137,17 @@ describe('Users Module (integration)', () => {
       cy.get('.ant-modal-confirm').contains('No').click();
       cy.get('.ant-modal-confirm').should('not.exist');
     });
+
+    it('should remove the first user row when confirming Delete', () => {
+      cy.get('nz-table tbody tr').first().as('firstRow');
+
+      cy.get('@firstRow').rightclick();
+      cy.get('ul[nz-menu]').should('be.visible');
+
+      cy.get('ul[nz-menu] li').contains('Delete').click();
+      cy.get('.ant-modal-confirm').contains('Yes').click();
+
+      cy.get('@firstRow').should('contain.text', 'No Data');
+    });
   });
 });
