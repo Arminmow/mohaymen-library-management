@@ -35,6 +35,21 @@ describe('Users Module (integration)', () => {
     cy.get('button.submit-btn').should('not.be.disabled').click();
   };
 
+  const openContextMenu = () => {
+    cy.get('nz-table tbody tr').first().rightclick();
+    cy.get('ul[nz-menu]').should('be.visible');
+  };
+
+  const openEditUserModal = () => {
+    openContextMenu();
+
+    // Click Edit in context menu
+    cy.get('ul[nz-menu] li .edit-btn').click();
+
+    // Ensure the modal appears with its form
+    cy.get('app-edit-user-form', { timeout: 10000 }).should('exist');
+  };
+
   beforeEach(() => {
     cy.visit('/users');
   });
@@ -97,19 +112,19 @@ describe('Users Module (integration)', () => {
 
   describe('Context menu', () => {
     it('should show custom context menu when right-clicking a table row', () => {
-      // Right-click the first row in the table
-      cy.get('nz-table tbody tr').first().rightclick();
+      openContextMenu();
 
-      // The menu should now be visible
-      cy.get('ul[nz-menu]').should('be.visible');
-
-      // Check specific menu items
       cy.get('ul[nz-menu] li').contains('Edit').should('exist');
       cy.get('ul[nz-menu] li').contains('Delete').should('exist');
 
-      // Optional: check a dynamic role item exists (replace with your roles)
       cy.get('ul[nz-menu] li').contains('Change role to User').should('exist');
-      cy.get('ul[nz-menu] li').contains('Change role to Writer').should('exist');
+      cy.get('ul[nz-menu] li')
+        .contains('Change role to Writer')
+        .should('exist');
+    });
+
+    it('should open Edit User modal when clicking Edit', () => {
+      openEditUserModal();
     });
   });
 });
