@@ -1,15 +1,29 @@
 describe('Users Module (integration)', () => {
   const openAddUserModal = () => {
     cy.contains('Add User').click();
-    cy.get('app-add-user-form form.user-form', { timeout: 10000 }).should('exist');
+    cy.get('app-add-user-form form.user-form', { timeout: 10000 }).should(
+      'exist'
+    );
   };
 
-  const fillAddUserForm = (user: { name: string; age: string; role: string }) => {
-    cy.get('input[formControlName="name"]').clear().type(user.name).should('have.value', user.name);
-    cy.get('nz-input-number[formControlName="age"] input').clear({ force: true }).type(user.age).should('have.value', user.age);
+  const fillAddUserForm = (user: {
+    name: string;
+    age: string;
+    role: string;
+  }) => {
+    cy.get('input[formControlName="name"]')
+      .clear()
+      .type(user.name)
+      .should('have.value', user.name);
+    cy.get('nz-input-number[formControlName="age"] input')
+      .clear({ force: true })
+      .type(user.age)
+      .should('have.value', user.age);
     cy.get('nz-select[formControlName="role"] .ant-select-selector').click();
     cy.get('.ant-select-item-option').contains(user.role).click();
-    cy.get('nz-select[formControlName="role"] .ant-select-selection-item').should('contain.text', user.role);
+    cy.get(
+      'nz-select[formControlName="role"] .ant-select-selection-item'
+    ).should('contain.text', user.role);
   };
 
   const submitAddUserForm = () => {
@@ -65,18 +79,25 @@ describe('Users Module (integration)', () => {
       openAddUserModal();
       fillAddUserForm(user);
       submitAddUserForm();
-      cy.get('nz-table tbody tr').last().within(() => {
-        cy.get('td').eq(0).should('contain.text', user.name);
-        cy.get('td').eq(1).should('contain.text', user.age);
-        cy.get('td').eq(2).should('contain.text', 'Admin');
-      });
+      cy.get('nz-table tbody tr')
+        .last()
+        .within(() => {
+          cy.get('td').eq(0).should('contain.text', user.name);
+          cy.get('td').eq(1).should('contain.text', user.age);
+          cy.get('td').eq(2).should('contain.text', 'Admin');
+        });
     });
   });
 
   describe('Context menu', () => {
     it('should show custom context menu when right-clicking a table row', () => {
       openContextMenu();
-      ['Edit', 'Delete', 'Change role to User', 'Change role to Writer'].forEach((item) => {
+      [
+        'Edit',
+        'Delete',
+        'Change role to User',
+        'Change role to Writer',
+      ].forEach((item) => {
         cy.get('ul[nz-menu] li').contains(item).should('exist');
       });
     });
@@ -90,9 +111,31 @@ describe('Users Module (integration)', () => {
     it('should display correct fields in Edit User form', () => {
       openContextMenu();
       cy.get('ul[nz-menu] li .edit-btn').click();
-      cy.get('app-edit-user-form form.user-form', { timeout: 10000 }).should('exist');
+      cy.get('app-edit-user-form form.user-form', { timeout: 10000 }).should(
+        'exist'
+      );
       cy.get('input[formControlName="name"]').should('exist');
       cy.get('nz-input-number[formControlName="age"]').should('exist');
+    });
+
+    it('should show delete confirmation when clicking Delete in context menu', () => {
+      openContextMenu();
+
+      cy.get('ul[nz-menu] li').contains('Delete').click();
+
+      cy.get('.ant-modal-confirm')
+        .should('be.visible')
+        .within(() => {
+          cy.get('.ant-modal-confirm-title').should(
+            'contain.text',
+            'Are you sure you want to delete'
+          );
+          cy.contains('Yes').should('exist');
+          cy.contains('No').should('exist');
+        });
+
+      cy.get('.ant-modal-confirm').contains('No').click();
+      cy.get('.ant-modal-confirm').should('not.exist');
     });
   });
 });
