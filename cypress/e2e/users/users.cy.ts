@@ -79,4 +79,48 @@ describe('Users Module (integration)', () => {
   it('should display at least one row in the table', () => {
     cy.get('nz-table tbody tr').its('length').should('be.gte', 1);
   });
+
+  it('should add a new user row to the table after submitting the form', () => {
+    const userName = 'John Doe';
+    const userAge = '30';
+    const userRole = 'admin';
+
+    // Open the Add User modal
+    cy.contains('Add User').click();
+
+    // Fill Name input
+    cy.get('input[formControlName="name"]', { timeout: 10000 })
+      .clear()
+      .type(userName)
+      .should('have.value', userName);
+
+    // Fill Age input (nz-input-number)
+    cy.get('nz-input-number[formControlName="age"] input', { timeout: 10000 })
+      .clear({ force: true })
+      .type(userAge)
+      .should('have.value', userAge);
+
+    // Select Role (nz-select)
+    cy.get('nz-select[formControlName="role"] .ant-select-selector', {
+      timeout: 10000,
+    }).click();
+    cy.get('.ant-select-item-option', { timeout: 10000 })
+      .contains(userRole)
+      .click();
+    cy.get(
+      'nz-select[formControlName="role"] .ant-select-selection-item'
+    ).should('contain.text', userRole);
+
+    // Click Submit button
+    cy.get('button.submit-btn').should('not.be.disabled').click();
+
+    // Verify new row is added to the table
+    cy.get('nz-table tbody tr', { timeout: 10000 })
+      .last() // check the last row added
+      .within(() => {
+        cy.get('td').eq(0).should('contain.text', userName);
+        cy.get('td').eq(1).should('contain.text', userAge);
+        cy.get('td').eq(2).should('contain.text', 'Admin');
+      });
+  });
 });
