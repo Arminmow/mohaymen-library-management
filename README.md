@@ -113,7 +113,11 @@ npx cypress open
 npx cypress run
 ```
 
-Note: Cypress tests verify that the modules, ComponentStores, and dynamic components work together correctly in realistic scenarios
+Cypress tests verify that the modules, ComponentStores, and dynamic components work together correctly in realistic scenarios
+
+---
+
+If you are interested check out my other Angular personal project [here](https://github.com/Arminmow/Life-Deck2)
 
 
 
