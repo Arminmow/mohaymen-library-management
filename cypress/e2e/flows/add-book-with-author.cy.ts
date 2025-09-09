@@ -46,8 +46,9 @@ describe('Add Book with Author Flow', () => {
       .type(book.title, { delay: 50 })
       .should('have.value', book.title);
 
-    cy.get('nz-select[formControlName="author_info"] .ant-select-selector')
-      .click();
+    cy.get(
+      'nz-select[formControlName="author_info"] .ant-select-selector'
+    ).click();
     cy.get('.ant-select-item-option').contains(book.author).click();
 
     cy.get('nz-date-picker[formControlName="publishedDate"] input')
@@ -67,7 +68,7 @@ describe('Add Book with Author Flow', () => {
     cy.get('nz-table tbody tr').contains(book.title).should('exist');
   };
 
-  it('should add a new author and then add a book', () => {
+  it('should add a new author and then add a book with that author and show books for that author', () => {
     const author = { name: 'Ati', age: '22', role: 'writer' };
     const book = {
       title: 'My Book',
@@ -78,5 +79,16 @@ describe('Add Book with Author Flow', () => {
 
     addAuthor(author);
     addBook(book);
+
+    cy.visit('/users');
+    cy.get('nz-table tbody tr').contains('Ati').rightclick();
+    cy.get('ul[nz-menu]').should('be.visible');
+    cy.get('ul[nz-menu] li').contains('Show Books').click();
+
+    cy.get('app-user-books').should('be.visible');
+    cy.get('app-user-books .books-list .book-item .book-title').should(
+      'contain.text',
+      'My Book'
+    );
   });
 });
