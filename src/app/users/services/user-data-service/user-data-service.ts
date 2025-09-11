@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User, UsersStore } from '../../stores/users.store';
+import { UserDataServiceAbstraction } from '../abstractions/user-data-service-abstraction';
 
 @Injectable()
-export class UserDataService {
+export class UserDataService implements UserDataServiceAbstraction {
   constructor(private usersStore: UsersStore) {}
 
   editUser(user: User) {

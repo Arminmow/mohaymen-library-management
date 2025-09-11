@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { User, UsersStore } from '../../stores/users.store';
-import { UserDataService } from '../../services/user-data-service/user-data-service';
 import {
   NzContextMenuService,
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
+import {
+  USER_DATA_SERVICE,
+  UserDataServiceAbstraction,
+} from '../../services/abstractions/user-data-service-abstraction';
 
 @Component({
   selector: 'app-user-table',
@@ -21,7 +24,8 @@ export class UserTable {
   constructor(
     public usersStore: UsersStore,
     private nzContextMenuService: NzContextMenuService,
-    private userService: UserDataService
+    @Inject(USER_DATA_SERVICE)
+    private userDataService: UserDataServiceAbstraction
   ) {
     this.users$ = this.usersStore.users$;
   }
@@ -31,7 +35,7 @@ export class UserTable {
     menu: NzDropdownMenuComponent,
     user: User
   ): void {
-    this.userService.setContextUser(user);
+    this.userDataService.setContextUser(user);
     this.nzContextMenuService.create($event, menu);
   }
 }
