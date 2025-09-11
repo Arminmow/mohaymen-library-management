@@ -3,6 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { Subscription } from 'rxjs';
 
 import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
+import { UserStoreAbstraction } from './user-store-abstraction';
 
 export interface User {
   id: number;
@@ -23,7 +24,7 @@ const STORAGE_KEY = 'users-state';
 })
 export class UsersStore
   extends ComponentStore<UsersState>
-  implements OnDestroy
+  implements OnDestroy , UserStoreAbstraction
 {
   readonly users$ = this.select((state) => state.users);
   readonly contextUser$ = this.select((s) => s.contextUser);

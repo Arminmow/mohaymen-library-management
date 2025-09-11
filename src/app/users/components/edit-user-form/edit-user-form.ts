@@ -9,13 +9,16 @@ import {
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { User, UsersStore } from '../../stores/users.store';
-import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { User } from '../../stores/users.store';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 import {
   USER_DATA_SERVICE,
   UserDataServiceAbstraction,
 } from '../../services/abstractions/user-data-service-abstraction';
+import {
+  USER_STORE,
+  UserStoreAbstraction,
+} from '../../stores/user-store-abstraction';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -34,7 +37,7 @@ export class EditUserForm extends BaseFormComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(USER_DATA_SERVICE)
     private userDataService: UserDataServiceAbstraction,
-    private userStore: UsersStore
+    @Inject(USER_STORE) public userStore: UserStoreAbstraction
   ) {
     super();
     this.user$ = this.userStore.contextUser$;

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { User, UsersStore } from '../../stores/users.store';
+import { User } from '../../stores/users.store';
 import {
   NzContextMenuService,
   NzDropdownMenuComponent,
@@ -10,6 +10,7 @@ import {
   USER_DATA_SERVICE,
   UserDataServiceAbstraction,
 } from '../../services/abstractions/user-data-service-abstraction';
+import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
 
 @Component({
   selector: 'app-user-table',
@@ -22,7 +23,7 @@ export class UserTable {
   users$: Observable<User[]>;
 
   constructor(
-    public usersStore: UsersStore,
+    @Inject(USER_STORE) public usersStore: UserStoreAbstraction,
     private nzContextMenuService: NzContextMenuService,
     @Inject(USER_DATA_SERVICE)
     private userDataService: UserDataServiceAbstraction
