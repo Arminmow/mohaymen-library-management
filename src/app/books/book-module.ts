@@ -9,10 +9,17 @@ import { AddBookForm } from './components/add-book-form/add-book-form';
 import { BookService } from './services/book-service';
 import { BookActions } from './components/book-actions/book-actions';
 import { EditBookForm } from './components/edit-book-form/edit-book-form';
+import { BOOK_SERVICE } from './services/abstractions/book-service-abstraction';
 
 @NgModule({
-  declarations: [BooksLayout, BookTable, AddBookForm, BookActions, EditBookForm],
+  declarations: [
+    BooksLayout,
+    BookTable,
+    AddBookForm,
+    BookActions,
+    EditBookForm,
+  ],
   imports: [CommonModule, BookRoutingModule, SharedModule],
-  providers: [BookService],
+  providers: [{ provide: BOOK_SERVICE, useClass: BookService }],
 })
 export class BookModule {}
