@@ -3,9 +3,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserDataService } from '../user-data-service/user-data-service';
 import { User } from '../../stores/users.store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserUiService {
   constructor(
     private modal: NzModalService,

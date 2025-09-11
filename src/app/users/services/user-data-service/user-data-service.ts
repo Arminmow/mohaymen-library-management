@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User, UsersStore } from '../../stores/users.store';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserDataService {
   constructor(private usersStore: UsersStore) {}
 
