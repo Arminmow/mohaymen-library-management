@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Book, BookStore } from '../stores/book-store';
+import { Inject, Injectable } from '@angular/core';
+import { Book } from '../stores/book-store';
 import { BookServiceAbstraction } from './abstractions/book-service-abstraction';
+import {
+  BOOK_STORE,
+  BookStoreAbstraction,
+} from '../stores/book-store-abstraction';
 
 @Injectable()
 export class BookService implements BookServiceAbstraction {
-  constructor(private bookStore: BookStore) {}
+  constructor(@Inject(BOOK_STORE) private bookStore: BookStoreAbstraction) {}
 
   addBook(book: Book) {
     this.bookStore.addBook(book);

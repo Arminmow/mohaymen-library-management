@@ -3,6 +3,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { Book, BookStore } from '../../../books/stores/book-store';
 import { User } from '../../stores/users.store';
 import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
+import { BOOK_STORE, BookStoreAbstraction } from '../../../books/stores/book-store-abstraction';
 
 @Component({
   selector: 'app-user-books',
@@ -14,7 +15,7 @@ import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstra
 export class UserBooks {
   books$!: Observable<Book[]>;
 
-  constructor(private bookStore: BookStore , @Inject(USER_STORE) public userStore: UserStoreAbstraction,) {}
+  constructor(@Inject(BOOK_STORE) private bookStore: BookStoreAbstraction , @Inject(USER_STORE) public userStore: UserStoreAbstraction,) {}
 
   ngOnInit() {
     this.books$ = this.userStore.contextUser$.pipe(

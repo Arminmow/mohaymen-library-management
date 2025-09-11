@@ -15,6 +15,7 @@ import {
   BookServiceAbstraction,
 } from '../../services/abstractions/book-service-abstraction';
 import { USER_STORE, UserStoreAbstraction } from '../../../users/stores/user-store-abstraction';
+import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstraction';
 
 @Component({
   selector: 'app-edit-book-form',
@@ -28,7 +29,7 @@ export class EditBookForm extends BaseFormComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(BOOK_SERVICE) private bookService: BookServiceAbstraction,
     @Inject(USER_STORE) public userStore: UserStoreAbstraction,
-    private bookStore: BookStore
+    @Inject(BOOK_STORE) private bookStore: BookStoreAbstraction
   ) {
     super();
   }

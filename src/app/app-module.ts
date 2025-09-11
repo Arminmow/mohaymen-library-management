@@ -8,22 +8,23 @@ import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { UsersStore } from './users/stores/users.store';
 import { USER_STORE } from './users/stores/user-store-abstraction';
+import { BOOK_STORE } from './books/stores/book-store-abstraction';
+import { BookStore } from './books/stores/book-store';
 
 @NgModule({
-  declarations: [
-    App
-  ],
+  declarations: [App],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NzModalModule
+    NzModalModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    {provide : NZ_I18N , useValue : en_US},
-    { provide: USER_STORE, useExisting: UsersStore }
+    { provide: NZ_I18N, useValue: en_US },
+    { provide: USER_STORE, useExisting: UsersStore },
+    { provide: BOOK_STORE, useExisting: BookStore },
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}
