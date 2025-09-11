@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserDataService } from '../user-data-service/user-data-service';
 import { User } from '../../stores/users.store';
+import { ModalServiceAbstraction } from '../abstractions/modal-service-abstraction';
 
 @Injectable()
-export class UserUiService {
+export class UserUiService implements ModalServiceAbstraction{
   constructor(
     private modal: NzModalService,
     private userService: UserDataService
