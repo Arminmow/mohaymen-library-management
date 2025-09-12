@@ -1,24 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-import { UsersStore, User } from '../../stores/users.store';
 import { UserDataService } from './user-data-service';
+import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
+import { User } from '../../stores/users.store';
 
 describe('UserDataService', () => {
   let service: UserDataService;
-  let usersStoreSpy: jasmine.SpyObj<UsersStore>;
+  let usersStoreSpy: jasmine.SpyObj<UserStoreAbstraction>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('UsersStore', [
+    usersStoreSpy = jasmine.createSpyObj('UserStore', [
       'addUser',
       'updateUser',
       'deleteUser',
+      'setContextUser',
     ]);
 
     TestBed.configureTestingModule({
-      providers: [UserDataService, { provide: UsersStore, useValue: spy }],
+      providers: [
+        UserDataService,
+        { provide: USER_STORE, useValue: usersStoreSpy },
+      ],
     });
 
     service = TestBed.inject(UserDataService);
-    usersStoreSpy = TestBed.inject(UsersStore) as jasmine.SpyObj<UsersStore>;
   });
 
   it('should be created', () => {
@@ -41,5 +45,11 @@ describe('UserDataService', () => {
     const userId = 1;
     service.deleteUser(userId);
     expect(usersStoreSpy.deleteUser).toHaveBeenCalledOnceWith(userId);
+  });
+
+  it('should call usersStore.setContextUser when setContextUser is called', () => {
+    const user: User = { id: 3, name: 'Alice', role: 'user', age: 28 };
+    service.setContextUser(user);
+    expect(usersStoreSpy.setContextUser).toHaveBeenCalledOnceWith(user);
   });
 });

@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserDataService } from '../user-data-service/user-data-service';
 import { User } from '../../stores/users.store';
+import { ModalServiceAbstraction } from '../abstractions/modal-service-abstraction';
+import { USER_DATA_SERVICE, UserDataServiceAbstraction } from '../abstractions/user-data-service-abstraction';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UserUiService {
+@Injectable()
+export class UserUiService implements ModalServiceAbstraction{
   constructor(
     private modal: NzModalService,
-    private userService: UserDataService
+     @Inject(USER_DATA_SERVICE) private userDataService: UserDataServiceAbstraction
   ) {}
 
   confirmDelete(user: User) {
@@ -17,7 +16,7 @@ export class UserUiService {
       nzTitle: `Are you sure you want to delete ${user.name}?`,
       nzOkText: 'Yes',
       nzOkDanger: true,
-      nzOnOk: () => this.userService.deleteUser(user.id),
+      nzOnOk: () => this.userDataService.deleteUser(user.id),
       nzCancelText: 'No',
     });
   }
@@ -26,7 +25,7 @@ export class UserUiService {
     this.modal.confirm({
       nzTitle: `Are you sure you want to change ${user.name}'s role to ${newRole}?`,
       nzOkText: 'Yes',
-      nzOnOk: () => this.userService.editUser({ ...user, role: newRole }),
+      nzOnOk: () => this.userDataService.editUser({ ...user, role: newRole }),
       nzCancelText: 'No',
     });
   }

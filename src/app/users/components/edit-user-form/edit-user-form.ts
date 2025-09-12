@@ -2,15 +2,23 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Inject,
   OnInit,
   Output,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { User, UsersStore } from '../../stores/users.store';
-import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { User } from '../../stores/users.store';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
+import {
+  USER_DATA_SERVICE,
+  UserDataServiceAbstraction,
+} from '../../services/abstractions/user-data-service-abstraction';
+import {
+  USER_STORE,
+  UserStoreAbstraction,
+} from '../../stores/user-store-abstraction';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -25,13 +33,13 @@ export class EditUserForm extends BaseFormComponent implements OnInit {
   readonly user$!: Observable<User | null>;
   currentUser!: User;
 
-
   constructor(
     private fb: FormBuilder,
-    private userService: UserDataService,
-    private userStore: UsersStore
+    @Inject(USER_DATA_SERVICE)
+    private userDataService: UserDataServiceAbstraction,
+    @Inject(USER_STORE) public userStore: UserStoreAbstraction
   ) {
-    super()
+    super();
     this.user$ = this.userStore.contextUser$;
   }
 
@@ -57,7 +65,7 @@ export class EditUserForm extends BaseFormComponent implements OnInit {
     this.form.markAsTouched();
     if (!this.form.valid) return;
 
-    this.userService.editUser({ ...this.currentUser, ...this.form.value });
+    this.userDataService.editUser({ ...this.currentUser, ...this.form.value });
     this.onClose.emit();
   }
 }

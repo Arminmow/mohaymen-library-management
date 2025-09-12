@@ -5,6 +5,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { Component } from '@angular/core';
 import { of } from 'rxjs';
 import { Book, BookStore } from '../../stores/book-store';
+import { BOOK_UI_SERVICE } from '../../services/abstractions/book-ui-service-abstraction';
+import { BOOK_STORE } from '../../stores/book-store-abstraction';
 
 @Component({
   selector: 'nz-dropdown-menu',
@@ -58,8 +60,8 @@ describe('BookActions', () => {
         EditBookFormStub,
       ],
       providers: [
-        { provide: NzModalService, useValue: modalServiceSpy },
-        { provide: BookStore, useValue: mockStore },
+        { provide: BOOK_UI_SERVICE, useValue: modalServiceSpy },
+        { provide: BOOK_STORE, useValue: mockStore },
       ],
     }).compileComponents();
 

@@ -2,12 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Inject,
   OnInit,
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
+import {
+  USER_DATA_SERVICE,
+  UserDataServiceAbstraction,
+} from '../../services/abstractions/user-data-service-abstraction';
 
 export type UserRole = 'admin' | 'user' | 'writer';
 
@@ -23,7 +27,11 @@ export class AddUserForm extends BaseFormComponent implements OnInit {
 
   roles: UserRole[] = ['admin', 'user', 'writer'];
 
-  constructor(private fb: FormBuilder, private userService: UserDataService) {
+  constructor(
+    private fb: FormBuilder,
+    @Inject(USER_DATA_SERVICE)
+    private userDataService: UserDataServiceAbstraction
+  ) {
     super();
   }
 
@@ -37,7 +45,7 @@ export class AddUserForm extends BaseFormComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.userService.addUser(this.form.value);
+      this.userDataService.addUser(this.form.value);
       this.form.reset();
       this.onClose.emit();
     }

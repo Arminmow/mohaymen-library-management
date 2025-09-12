@@ -1,23 +1,26 @@
 import { TestBed } from '@angular/core/testing';
-
 import { BookService } from './book-service';
-import { Book, BookStore } from '../stores/book-store';
+import { BookStoreAbstraction, BOOK_STORE } from '../stores/book-store-abstraction';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Book } from '../stores/book-store';
 
 describe('BookService', () => {
   let service: BookService;
-  let bookStoreSpy: jasmine.SpyObj<BookStore>;
+  let bookStoreSpy: jasmine.SpyObj<BookStoreAbstraction>;
   let modalSpy: jasmine.SpyObj<NzModalService>;
 
   beforeEach(() => {
-    bookStoreSpy = jasmine.createSpyObj('bookStore', ['addBook', 'deleteBook']);
+    bookStoreSpy = jasmine.createSpyObj('BookStore', ['addBook', 'deleteBook', 'editBook']);
     modalSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
+
     TestBed.configureTestingModule({
       providers: [
-        { provide: BookStore, useValue: bookStoreSpy },
+        BookService,
+        { provide: BOOK_STORE, useValue: bookStoreSpy }, // ✅ token provider
         { provide: NzModalService, useValue: modalSpy },
       ],
     });
+
     service = TestBed.inject(BookService);
   });
 
@@ -26,7 +29,6 @@ describe('BookService', () => {
   });
 
   it('SHOULD call store.addBook WHEN addBook is called', () => {
-    // Arrange
     const book: Book = {
       id: 1,
       title: '1984',
@@ -35,15 +37,12 @@ describe('BookService', () => {
       author_id: 1,
     };
 
-    // Act
     service.addBook(book);
 
-    // Assert
     expect(bookStoreSpy.addBook).toHaveBeenCalledWith(book);
   });
 
   it('SHOULD call store.deleteBook WHEN deleteBook is called', () => {
-    // Arrange
     const book: Book = {
       id: 1,
       title: '1984',
@@ -52,10 +51,22 @@ describe('BookService', () => {
       author_id: 1,
     };
 
-    // Act
     service.deleteBook(book);
 
-    // Assert
     expect(bookStoreSpy.deleteBook).toHaveBeenCalledWith(book);
+  });
+
+  it('SHOULD call store.editBook WHEN editBook is called', () => {
+    const book: Book = {
+      id: 1,
+      title: '1984',
+      author: 'George Orwell',
+      publishedDate: new Date('1949-06-08'),
+      author_id: 1,
+    };
+
+    service.editBook(book);
+
+    expect(bookStoreSpy.editBook).toHaveBeenCalledWith(book);
   });
 });

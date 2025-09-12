@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Book, BookStore } from '../../stores/book-store';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstraction';
 
 @Component({
   selector: 'app-book-table',
@@ -15,7 +16,7 @@ export class BookTable {
   // but i think thats overkill for this scale
   // but i did something similar with generic modal
   // just to get the hang of it
-  constructor(public bookStore: BookStore,  private nzContextMenuService: NzContextMenuService,) {}
+  constructor(@Inject(BOOK_STORE) public bookStore: BookStoreAbstraction,  private nzContextMenuService: NzContextMenuService,) {}
 
   contextMenu(
     $event: MouseEvent,

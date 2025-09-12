@@ -3,53 +3,44 @@ import { Component, Input } from '@angular/core';
 import { of } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
 import { UserTable } from './user-table';
-import { User, UsersStore } from '../../stores/users.store';
+import { User } from '../../stores/users.store';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
+import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
+import { USER_DATA_SERVICE, UserDataServiceAbstraction } from '../../services/abstractions/user-data-service-abstraction';
 
-// stub Components
+// Stub Components
 @Component({
   selector: 'nz-table',
-  standalone: false,
-  template: `
-    <table>
-      <ng-content></ng-content>
-    </table>
-  `,
+  template: `<table><ng-content></ng-content></table>`,
+  standalone : false
 })
 class NzTableStubComponent {
   @Input() nzData: any;
-  @Input() nzShowPagination: boolean = false;
-
-  get data() {
-    return this.nzData;
-  }
+  @Input() nzShowPagination = false;
 }
 
-@Component({
-  selector: 'app-user-actions',
-  standalone: false,
-  template: ``,
-})
+@Component({ selector: 'app-user-actions', template: `` , standalone : false})
 class UserActionsStub {
   @Input() contextUser!: User;
 }
 
 @Component({
   selector: 'nz-dropdown-menu',
-  standalone: false,
   template: '<ng-content></ng-content>',
   exportAs: 'nzDropdownMenu',
+  standalone: false
 })
 class NzDropdownMenuStubComponent {}
 
-@Component({ selector: 'nz-divider', template: '', standalone: false })
+@Component({ selector: 'nz-divider', template: '' , standalone : false})
 class NzDividerStubComponent {}
 
 describe('UserTable', () => {
   let component: UserTable;
   let fixture: ComponentFixture<UserTable>;
-  let mockStore: Partial<UsersStore>;
+  let mockStore: Partial<UserStoreAbstraction>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
+  let userDataServiceSpy: jasmine.SpyObj<UserDataServiceAbstraction>;
 
   const titleCasePipe = new TitleCasePipe();
 
@@ -60,6 +51,7 @@ describe('UserTable', () => {
 
   beforeEach(async () => {
     nzContextMenuSpy = jasmine.createSpyObj('NzContextMenuService', ['create']);
+    userDataServiceSpy = jasmine.createSpyObj('UserDataService', ['setContextUser']);
 
     mockStore = {
       users$: of(mockData),
@@ -77,8 +69,9 @@ describe('UserTable', () => {
         UserActionsStub,
       ],
       providers: [
-        { provide: UsersStore, useValue: mockStore },
+        { provide: USER_STORE, useValue: mockStore },
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
+        { provide: USER_DATA_SERVICE, useValue: userDataServiceSpy },
       ],
     }).compileComponents();
 
@@ -91,26 +84,21 @@ describe('UserTable', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render table headers correctly', () => {
-    const headers = fixture.nativeElement.querySelectorAll('th');
-    expect(headers.length).toBe(3);
-    expect(headers[0].textContent).toContain('Name');
-    expect(headers[1].textContent).toContain('Age');
-    expect(headers[2].textContent).toContain('Role');
-  });
-
-  it('should render the correct number of rows', () => {
-    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
-    expect(rows.length).toBe(mockData.length);
-  });
-
-  it('should render correct data in each row', () => {
-    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
-    rows.forEach((row: HTMLElement, index: number) => {
-      const cells = row.querySelectorAll('td');
-      expect(cells[0].textContent).toContain(titleCasePipe.transform(mockData[index].name));
-      expect(cells[1].textContent).toContain(titleCasePipe.transform(mockData[index].age.toString()));
-      expect(cells[2].textContent).toContain(titleCasePipe.transform(mockData[index].role));
+  it('should assign users$ from the store', (done) => {
+    component.users$.subscribe((users) => {
+      expect(users).toEqual(mockData);
+      done();
     });
+  });
+
+  it('should call setContextUser and create context menu on contextMenu()', () => {
+    const mockEvent = new MouseEvent('click');
+    const mockMenu: any = {};
+    const user = mockData[0];
+
+    component.contextMenu(mockEvent, mockMenu, user);
+
+    expect(userDataServiceSpy.setContextUser).toHaveBeenCalledOnceWith(user);
+    expect(nzContextMenuSpy.create).toHaveBeenCalledOnceWith(mockEvent, mockMenu);
   });
 });

@@ -3,6 +3,7 @@ import { UserUiService } from './user-ui-service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserDataService } from '../user-data-service/user-data-service';
 import { User } from '../../stores/users.store';
+import { USER_DATA_SERVICE } from '../abstractions/user-data-service-abstraction';
 
 describe('UserUiService', () => {
   let service: UserUiService;
@@ -23,7 +24,7 @@ describe('UserUiService', () => {
       providers: [
         UserUiService,
         { provide: NzModalService, useValue: modalSpy },
-        { provide: UserDataService, useValue: userDataSpy },
+        { provide: USER_DATA_SERVICE, useValue: userDataSpy },
       ],
     });
 

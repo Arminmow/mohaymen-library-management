@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 import { UserActions } from './user-actions';
 import { User } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
+import { MODAL_ABSTRACTION } from '../../services/abstractions/modal-service-abstraction';
 
 // stub components
 @Component({
@@ -55,7 +56,7 @@ describe('UserActions', () => {
         UserGenericModalStub, 
         EditUserFormStub
       ],
-      providers: [{ provide: UserUiService, useValue: userServiceSpy }],
+      providers: [{ provide: MODAL_ABSTRACTION, useValue: userServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserActions);
