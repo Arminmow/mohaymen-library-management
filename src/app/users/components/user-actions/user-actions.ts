@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   ViewChild,
 } from '@angular/core';
 
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { User } from '../../stores/users.store';
-import { UserUiService } from '../../services/user-ui-service/user-ui-service';
+import { MODAL_ABSTRACTION, ModalServiceAbstraction } from '../../services/abstractions/modal-service-abstraction';
 
 @Component({
   selector: 'app-user-actions',
@@ -24,7 +25,7 @@ export class UserActions {
 
   private readonly allRoles = ['user', 'admin', 'writer'];
 
-  constructor(private userService: UserUiService) {}
+  constructor(@Inject(MODAL_ABSTRACTION) private modalAbstraction: ModalServiceAbstraction) {}
 
   get roleOptions(): User['role'][] {
     if (!this.contextUser) return [];
@@ -34,11 +35,11 @@ export class UserActions {
   }
 
   showDeleteConfirm() {
-    if (this.contextUser) this.userService.confirmDelete(this.contextUser);
+    if (this.contextUser) this.modalAbstraction.confirmDelete(this.contextUser);
   }
 
   onChangeRole(newRole: User['role']) {
     if (this.contextUser)
-      this.userService.confirmRoleChange(this.contextUser, newRole);
+      this.modalAbstraction.confirmRoleChange(this.contextUser, newRole);
   }
 }

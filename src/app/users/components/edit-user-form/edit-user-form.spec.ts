@@ -5,6 +5,8 @@ import { of } from 'rxjs';
 import { EditUserForm } from './edit-user-form';
 import { User, UsersStore } from '../../stores/users.store';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { USER_DATA_SERVICE } from '../../services/abstractions/user-data-service-abstraction';
+import { USER_STORE } from '../../stores/user-store-abstraction';
 
 describe('EditUserForm', () => {
   let component: EditUserForm;
@@ -29,8 +31,8 @@ describe('EditUserForm', () => {
       declarations: [EditUserForm],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: UserDataService, useValue: userServiceSpy },
-        { provide: UsersStore, useValue: usersStoreMock },
+        { provide: USER_DATA_SERVICE, useValue: userServiceSpy },
+        { provide: USER_STORE, useValue: usersStoreMock },
       ],
     }).compileComponents();
 

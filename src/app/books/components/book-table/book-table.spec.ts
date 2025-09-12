@@ -5,6 +5,7 @@ import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
 import { Book, BookStore } from '../../stores/book-store';
 import { of } from 'rxjs';
+import { BOOK_STORE } from '../../stores/book-store-abstraction';
 
 @Component({
   selector: 'nz-table',
@@ -79,7 +80,7 @@ describe('BookTable', () => {
       ],
       providers: [
         { provide: NzContextMenuService, useValue: nzContextMenuSpy },
-        { provide: BookStore, useValue: mockStore },
+        { provide: BOOK_STORE, useValue: mockStore },
       ],
     }).compileComponents();
 

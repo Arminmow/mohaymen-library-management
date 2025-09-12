@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { PersistenceService } from '../../shared/services/persistence-service/persistence-service';
 import { ignoreElements, map, Observable, tap } from 'rxjs';
+import { BookStoreAbstraction } from './book-store-abstraction';
 
 export interface Book {
   id: number;
@@ -9,7 +10,7 @@ export interface Book {
   author: string;
   publishedDate: Date;
   author_id: number;
-  tags? : string[]
+  tags?: string[];
 }
 
 export interface BookState {
@@ -22,7 +23,10 @@ const STORAGE_KEY = 'books-state';
 @Injectable({
   providedIn: 'root',
 })
-export class BookStore extends ComponentStore<BookState> implements OnDestroy {
+export class BookStore
+  extends ComponentStore<BookState>
+  implements OnDestroy, BookStoreAbstraction
+{
   readonly books$ = this.select((state) => state.books);
   readonly contextBook$ = this.select((s) => s.contextBook);
 
@@ -51,7 +55,7 @@ export class BookStore extends ComponentStore<BookState> implements OnDestroy {
             author: 'J.K. Rowling',
             publishedDate: new Date('1997-06-26'),
             author_id: 1,
-             tags: ['science fiction', 'young adult'],
+            tags: ['science fiction', 'young adult'],
           },
         ],
         contextBook: null,

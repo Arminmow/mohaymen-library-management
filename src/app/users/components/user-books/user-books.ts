@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { Book, BookStore } from '../../../books/stores/book-store';
-import { User, UsersStore } from '../../stores/users.store';
+import { User } from '../../stores/users.store';
+import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
+import { BOOK_STORE, BookStoreAbstraction } from '../../../books/stores/book-store-abstraction';
 
 @Component({
   selector: 'app-user-books',
@@ -13,7 +15,7 @@ import { User, UsersStore } from '../../stores/users.store';
 export class UserBooks {
   books$!: Observable<Book[]>;
 
-  constructor(private bookStore: BookStore , private userStore : UsersStore) {}
+  constructor(@Inject(BOOK_STORE) private bookStore: BookStoreAbstraction , @Inject(USER_STORE) public userStore: UserStoreAbstraction,) {}
 
   ngOnInit() {
     this.books$ = this.userStore.contextUser$.pipe(

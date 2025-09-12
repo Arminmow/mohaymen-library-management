@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import { User, UsersStore } from '../../stores/users.store';
+import { Inject, Injectable } from '@angular/core';
+import { User } from '../../stores/users.store';
+import { UserDataServiceAbstraction } from '../abstractions/user-data-service-abstraction';
+import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
 
 @Injectable()
-export class UserDataService {
-  constructor(private usersStore: UsersStore) {}
+export class UserDataService implements UserDataServiceAbstraction {
+  constructor(@Inject(USER_STORE) public userStore: UserStoreAbstraction,) {}
 
   editUser(user: User) {
-    this.usersStore.updateUser(user);
+    this.userStore.updateUser(user);
   }
 
   addUser(newUser: User) {
-    this.usersStore.addUser(newUser);
+    this.userStore.addUser(newUser);
   }
 
   deleteUser(userId: number) {
-    this.usersStore.deleteUser(userId);
+    this.userStore.deleteUser(userId);
   }
 
   setContextUser(user: User | null) {
-    this.usersStore.setContextUser(user);
+    this.userStore.setContextUser(user);
   }
 }

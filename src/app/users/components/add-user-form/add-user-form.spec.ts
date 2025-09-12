@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddUserForm } from './add-user-form';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
+import { USER_DATA_SERVICE } from '../../services/abstractions/user-data-service-abstraction';
 
 describe('AddUserForm', () => {
   let component: AddUserForm;
@@ -14,7 +15,7 @@ describe('AddUserForm', () => {
     await TestBed.configureTestingModule({
       declarations: [AddUserForm],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [{ provide: UserDataService, useValue: userServiceSpy }],
+      providers: [{ provide: USER_DATA_SERVICE, useValue: userServiceSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddUserForm);
