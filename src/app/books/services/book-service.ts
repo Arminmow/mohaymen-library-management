@@ -5,6 +5,7 @@ import {
   BOOK_STORE,
   BookStoreAbstraction,
 } from '../stores/book-store-abstraction';
+import { BookFormData, mapFormDataToBook } from './book-mapper';
 
 @Injectable()
 export class BookService implements BookServiceAbstraction {
@@ -22,37 +23,13 @@ export class BookService implements BookServiceAbstraction {
     this.bookStore.editBook(book);
   }
 
-  addBookFromFormData(formData: {
-    title: string;
-    author_info: { id: number; name: string };
-    publishedDate: Date;
-    tags: string[];
-  }) {
-    const newBook: Omit<Book, 'id'> = {
-      title: formData.title,
-      author: formData.author_info.name,
-      author_id: formData.author_info.id,
-      publishedDate: formData.publishedDate,
-      tags: formData.tags,
-    };
+  addBookFromFormData(formData: BookFormData) {
+    const newBook = mapFormDataToBook(formData) as Omit<Book, 'id'>;
     this.bookStore.addBook(newBook);
   }
 
-  editBookFromFormData(formData: {
-    id: number;
-    title: string;
-    author_info: { id: number; name: string };
-    publishedDate: Date;
-    tags: string[];
-  }) {
-    const updatedBook: Book = {
-      id: formData.id,
-      title: formData.title,
-      author: formData.author_info.name,
-      author_id: formData.author_info.id,
-      publishedDate: formData.publishedDate,
-      tags: formData.tags,
-    };
+  editBookFromFormData(formData: BookFormData) {
+    const updatedBook = mapFormDataToBook(formData) as Book;
     this.bookStore.editBook(updatedBook);
   }
 }
