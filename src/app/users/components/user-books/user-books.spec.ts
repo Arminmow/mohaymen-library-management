@@ -10,6 +10,8 @@ import { UsersStore, User } from '../../stores/users.store';
 import { of, BehaviorSubject } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { BOOK_STORE } from '../../../books/stores/book-store-abstraction';
+import { USER_STORE } from '../../stores/user-store-abstraction';
 
 describe('UserBooks', () => {
   let component: UserBooks;
@@ -64,8 +66,8 @@ describe('UserBooks', () => {
       imports: [CommonModule],
       declarations: [UserBooks],
       providers: [
-        { provide: BookStore, useValue: mockBookStore },
-        { provide: UsersStore, useValue: mockUserStore },
+        { provide: BOOK_STORE, useValue: mockBookStore },
+        { provide: USER_STORE, useValue: mockUserStore },
       ],
     }).compileComponents();
 

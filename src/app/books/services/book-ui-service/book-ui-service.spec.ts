@@ -3,6 +3,7 @@ import { BookUiService } from './book-ui-service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BookStore } from '../../stores/book-store';
 import { Book } from '../../stores/book-store';
+import { BOOK_STORE } from '../../stores/book-store-abstraction';
 
 describe('BookUiService', () => {
   let service: BookUiService;
@@ -19,7 +20,7 @@ describe('BookUiService', () => {
       providers: [
         BookUiService,
         { provide: NzModalService, useValue: modalSpy },
-        { provide: BookStore, useValue: bookStoreSpy },
+        { provide: BOOK_STORE, useValue: bookStoreSpy },
       ],
     });
 
