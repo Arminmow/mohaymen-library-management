@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
 
-import { UserActions } from './user-actions';
+import { UserActionsComponent } from './user-actions.component';
 import { User } from '../../stores/users.store';
 import { UserUiService } from '../../services/user-ui-service/user-ui-service';
 import { MODAL_ABSTRACTION } from '../../services/abstractions/modal-service-abstraction';
@@ -32,8 +32,8 @@ class EditUserFormStub {
 }
 
 describe('UserActions', () => {
-  let component: UserActions;
-  let fixture: ComponentFixture<UserActions>;
+  let component: UserActionsComponent;
+  let fixture: ComponentFixture<UserActionsComponent>;
   let userServiceSpy: jasmine.SpyObj<UserUiService>;
 
   const mockUser: User = {
@@ -51,7 +51,7 @@ describe('UserActions', () => {
 
     await TestBed.configureTestingModule({
       declarations: [
-        UserActions, 
+        UserActionsComponent, 
         NzDropDownMenuStub, 
         UserGenericModalStub, 
         EditUserFormStub
@@ -59,7 +59,7 @@ describe('UserActions', () => {
       providers: [{ provide: MODAL_ABSTRACTION, useValue: userServiceSpy }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserActions);
+    fixture = TestBed.createComponent(UserActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

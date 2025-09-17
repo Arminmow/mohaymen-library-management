@@ -13,11 +13,11 @@ import { MODAL_ABSTRACTION, ModalServiceAbstraction } from '../../services/abstr
 @Component({
   selector: 'app-user-actions',
   standalone: false,
-  templateUrl: './user-actions.html',
-  styleUrl: './user-actions.scss',
+  templateUrl: './user-actions.component.html',
+  styleUrl: './user-actions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserActions {
+export class UserActionsComponent {
   @Input() contextUser!: User | null;
 
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
