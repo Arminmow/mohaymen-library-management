@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TitleCasePipe } from '@angular/common';
-import { BookTable } from './book-table';
+import { BookTableComponent } from './book-table.component';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { Component, Input } from '@angular/core';
 import { Book, BookStore } from '../../stores/book-store';
@@ -38,8 +38,8 @@ class BookActionsStub {
 }
 
 describe('BookTable', () => {
-  let component: BookTable;
-  let fixture: ComponentFixture<BookTable>;
+  let component: BookTableComponent;
+  let fixture: ComponentFixture<BookTableComponent>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
   let mockStore: Partial<BookStore>;
 
@@ -73,7 +73,7 @@ describe('BookTable', () => {
     };
     await TestBed.configureTestingModule({
       declarations: [
-        BookTable,
+        BookTableComponent,
         NzTableStubComponent,
         NzDividerStubComponent,
         BookActionsStub,
@@ -84,7 +84,7 @@ describe('BookTable', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BookTable);
+    fixture = TestBed.createComponent(BookTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

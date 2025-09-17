@@ -6,11 +6,11 @@ import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstra
 @Component({
   selector: 'app-book-table',
   standalone: false,
-  templateUrl: './book-table.html',
-  styleUrl: './book-table.scss',
+  templateUrl: './book-table.component.html',
+  styleUrl: './book-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookTable {
+export class BookTableComponent {
   // yes i know i could create a generic table component 
   // instead of 2 nearly identical table components
   // but i think thats overkill for this scale
