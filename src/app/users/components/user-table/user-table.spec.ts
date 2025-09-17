@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
 import { of } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
-import { UserTable } from './user-table';
 import { User } from '../../stores/users.store';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
 import { USER_DATA_SERVICE, UserDataServiceAbstraction } from '../../services/abstractions/user-data-service-abstraction';
+import { UserTableComponent } from './user-table.component';
 
 // Stub Components
 @Component({
@@ -36,8 +36,8 @@ class NzDropdownMenuStubComponent {}
 class NzDividerStubComponent {}
 
 describe('UserTable', () => {
-  let component: UserTable;
-  let fixture: ComponentFixture<UserTable>;
+  let component: UserTableComponent;
+  let fixture: ComponentFixture<UserTableComponent>;
   let mockStore: Partial<UserStoreAbstraction>;
   let nzContextMenuSpy: jasmine.SpyObj<NzContextMenuService>;
   let userDataServiceSpy: jasmine.SpyObj<UserDataServiceAbstraction>;
@@ -62,7 +62,7 @@ describe('UserTable', () => {
 
     await TestBed.configureTestingModule({
       declarations: [
-        UserTable,
+        UserTableComponent,
         NzTableStubComponent,
         NzDividerStubComponent,
         NzDropdownMenuStubComponent,
@@ -75,7 +75,7 @@ describe('UserTable', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserTable);
+    fixture = TestBed.createComponent(UserTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

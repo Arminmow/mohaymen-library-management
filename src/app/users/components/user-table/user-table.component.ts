@@ -15,11 +15,11 @@ import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstra
 @Component({
   selector: 'app-user-table',
   standalone: false,
-  templateUrl: './user-table.html',
-  styleUrl: './user-table.scss',
+  templateUrl: './user-table.component.html',
+  styleUrl: './user-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTable {
+export class UserTableComponent {
   users$: Observable<User[]>;
 
   constructor(
