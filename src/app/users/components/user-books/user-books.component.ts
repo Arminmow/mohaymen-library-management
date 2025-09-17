@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
-import { Book, BookStore } from '../../../books/stores/book-store';
+import { Book } from '../../../books/stores/book-store';
 import { User } from '../../stores/users.store';
 import { USER_STORE, UserStoreAbstraction } from '../../stores/user-store-abstraction';
 import { BOOK_STORE, BookStoreAbstraction } from '../../../books/stores/book-store-abstraction';
@@ -8,11 +8,11 @@ import { BOOK_STORE, BookStoreAbstraction } from '../../../books/stores/book-sto
 @Component({
   selector: 'app-user-books',
   standalone: false,
-  templateUrl: './user-books.html',
-  styleUrl: './user-books.scss',
+  templateUrl: './user-books.component.html',
+  styleUrl: './user-books.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserBooks {
+export class UserBooksComponent {
   books$!: Observable<Book[]>;
 
   constructor(@Inject(BOOK_STORE) private bookStore: BookStoreAbstraction , @Inject(USER_STORE) public userStore: UserStoreAbstraction,) {}

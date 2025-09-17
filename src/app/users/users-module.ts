@@ -8,7 +8,7 @@ import { UsersLayout } from './containers/users-layout/users-layout';
 import { UserDataService } from './services/user-data-service/user-data-service';
 import { UserUiService } from './services/user-ui-service/user-ui-service';
 import { UsersRoutingModule } from './users-routing-module';
-import { UserBooks } from './components/user-books/user-books';
+import { UserBooksComponent } from './components/user-books/user-books.component';
 import { MODAL_ABSTRACTION } from './services/abstractions/modal-service-abstraction';
 import { USER_DATA_SERVICE } from './services/abstractions/user-data-service-abstraction';
 
@@ -19,7 +19,7 @@ import { USER_DATA_SERVICE } from './services/abstractions/user-data-service-abs
     UserActions,
     AddUserForm,
     EditUserForm,
-    UserBooks,
+    UserBooksComponent,
   ],
   imports: [UsersRoutingModule, SharedModule],
   providers: [
