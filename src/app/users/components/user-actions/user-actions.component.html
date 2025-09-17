@@ -1,5 +1,8 @@
 <nz-dropdown-menu #menu="nzDropdownMenu">
   <ul nz-menu>
+    <!-- these could be their own little components -->
+    <!-- like app-edit-user-action or app-delete-user-action -->
+    <!-- but its fine for now , i dont wanna overthink it -->
     <li nz-menu-item>
       <app-generic-modal #modal title="Edit User">
         <span modalTrigger class="edit-btn">Edit</span>
