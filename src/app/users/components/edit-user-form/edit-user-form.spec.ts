@@ -2,15 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 
-import { EditUserForm } from './edit-user-form';
+import { EditUserFormComponent } from './edit-user-form.component';
 import { User, UsersStore } from '../../stores/users.store';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { USER_DATA_SERVICE } from '../../services/abstractions/user-data-service-abstraction';
 import { USER_STORE } from '../../stores/user-store-abstraction';
 
 describe('EditUserForm', () => {
-  let component: EditUserForm;
-  let fixture: ComponentFixture<EditUserForm>;
+  let component: EditUserFormComponent;
+  let fixture: ComponentFixture<EditUserFormComponent>;
   let userServiceSpy: jasmine.SpyObj<UserDataService>;
 
   const mockUser: User = {
@@ -28,7 +28,7 @@ describe('EditUserForm', () => {
     userServiceSpy = jasmine.createSpyObj('UserDataService', ['editUser']);
 
     await TestBed.configureTestingModule({
-      declarations: [EditUserForm],
+      declarations: [EditUserFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: USER_DATA_SERVICE, useValue: userServiceSpy },
@@ -36,7 +36,7 @@ describe('EditUserForm', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EditUserForm);
+    fixture = TestBed.createComponent(EditUserFormComponent);
     component = fixture.componentInstance;
 
     fixture.detectChanges();
