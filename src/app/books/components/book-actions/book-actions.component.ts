@@ -7,11 +7,11 @@ import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstra
 @Component({
   selector: 'app-book-actions',
   standalone: false,
-  templateUrl: './book-actions.html',
-  styleUrl: './book-actions.scss',
+  templateUrl: './book-actions.component.html',
+  styleUrl: './book-actions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookActions {
+export class BookActionsComponent {
   @ViewChild('menu', { static: true, read: NzDropdownMenuComponent })
   public menu!: NzDropdownMenuComponent;
 
