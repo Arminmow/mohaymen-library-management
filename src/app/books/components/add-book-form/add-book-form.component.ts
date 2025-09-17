@@ -18,11 +18,11 @@ import { USER_STORE, UserStoreAbstraction } from '../../../users/stores/user-sto
 @Component({
   selector: 'app-add-book-form',
   standalone: false,
-  templateUrl: './add-book-form.html',
-  styleUrl: './add-book-form.scss',
+  templateUrl: './add-book-form.component.html',
+  styleUrl: './add-book-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddBookForm extends BaseFormComponent implements OnInit {
+export class AddBookFormComponent extends BaseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     @Inject(BOOK_SERVICE) private bookService: BookServiceAbstraction,

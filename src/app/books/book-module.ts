@@ -5,7 +5,7 @@ import { BookRoutingModule } from './book-routing-module';
 import { BooksLayout } from './containers/books-layout/books-layout';
 import { BookTable } from './components/book-table/book-table';
 import { SharedModule } from '../shared/shared-module';
-import { AddBookForm } from './components/add-book-form/add-book-form';
+import { AddBookFormComponent } from './components/add-book-form/add-book-form.component';
 import { BookService } from './services/book-service';
 import { BookActions } from './components/book-actions/book-actions';
 import { EditBookForm } from './components/edit-book-form/edit-book-form';
@@ -17,7 +17,7 @@ import { BOOK_UI_SERVICE } from './services/abstractions/book-ui-service-abstrac
   declarations: [
     BooksLayout,
     BookTable,
-    AddBookForm,
+    AddBookFormComponent,
     BookActions,
     EditBookForm,
   ],
