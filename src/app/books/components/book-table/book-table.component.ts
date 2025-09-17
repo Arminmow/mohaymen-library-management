@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { Book, BookStore } from '../../stores/book-store';
+import { Book } from '../../stores/book-store';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstraction';
 
