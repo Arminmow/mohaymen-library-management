@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 import {
   USER_DATA_SERVICE,
@@ -18,11 +18,11 @@ export type UserRole = 'admin' | 'user' | 'writer';
 @Component({
   selector: 'app-add-user-form',
   standalone: false,
-  templateUrl: './add-user-form.html',
-  styleUrl: './add-user-form.scss',
+  templateUrl: './add-user-form.component.html',
+  styleUrl: './add-user-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserForm extends BaseFormComponent implements OnInit {
+export class AddUserFormComponent extends BaseFormComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   roles: UserRole[] = ['admin', 'user', 'writer'];

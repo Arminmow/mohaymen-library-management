@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared-module';
-import { AddUserForm } from './components/add-user-form/add-user-form';
+import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 import { EditUserFormComponent } from './components/edit-user-form/edit-user-form.component';
 import { UserActionsComponent } from './components/user-actions/user-actions.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
@@ -17,7 +17,7 @@ import { USER_DATA_SERVICE } from './services/abstractions/user-data-service-abs
     UsersLayout,
     UserTableComponent,
     UserActionsComponent,
-    AddUserForm,
+    AddUserFormComponent,
     EditUserFormComponent,
     UserBooksComponent,
   ],
