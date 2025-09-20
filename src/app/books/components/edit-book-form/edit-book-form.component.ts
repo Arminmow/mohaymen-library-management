@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Book, BookStore } from '../../stores/book-store';
+import { Book } from '../../stores/book-store';
 import { BaseFormComponent } from '../../../shared/base-components/base-form-component/base-form-component';
 import { BOOK_TAGS } from '../../stores/book-tags';
 import {
@@ -20,11 +20,11 @@ import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstra
 @Component({
   selector: 'app-edit-book-form',
   standalone: false,
-  templateUrl: './edit-book-form.html',
-  styleUrl: './edit-book-form.scss',
+  templateUrl: './edit-book-form.component.html',
+  styleUrl: './edit-book-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditBookForm extends BaseFormComponent implements OnInit {
+export class EditBookFormComponent extends BaseFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     @Inject(BOOK_SERVICE) private bookService: BookServiceAbstraction,

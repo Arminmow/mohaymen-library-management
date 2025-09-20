@@ -1,4 +1,4 @@
-import { BOOK_SERVICE, BookServiceAbstraction } from '../../services/abstractions/book-service-abstraction';
+import { BOOK_SERVICE } from '../../services/abstractions/book-service-abstraction';
 import { USER_STORE, UserStoreAbstraction } from '../../../users/stores/user-store-abstraction';
 import { BOOK_STORE, BookStoreAbstraction } from '../../stores/book-store-abstraction';
 import { of } from 'rxjs';
@@ -6,11 +6,11 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Book } from '../../stores/book-store';
-import { EditBookForm } from './edit-book-form';
+import { EditBookFormComponent } from './edit-book-form.component';
 
 describe('EditBookForm', () => {
-  let component: EditBookForm;
-  let fixture: ComponentFixture<EditBookForm>;
+  let component: EditBookFormComponent;
+  let fixture: ComponentFixture<EditBookFormComponent>;
 
   // Shared mock book
   const mockBook: Book = {
@@ -33,7 +33,7 @@ describe('EditBookForm', () => {
     bookServiceMock = { editBookFromFormData: jasmine.createSpy('editBookFromFormData') };
 
     await TestBed.configureTestingModule({
-      declarations: [EditBookForm],
+      declarations: [EditBookFormComponent],
       providers: [
         { provide: BOOK_SERVICE, useValue: bookServiceMock },
         { provide: BOOK_STORE, useValue: bookStoreMock },
@@ -45,7 +45,7 @@ describe('EditBookForm', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditBookForm);
+    fixture = TestBed.createComponent(EditBookFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // ngOnInit runs here and contextBook$ patches the form
   });

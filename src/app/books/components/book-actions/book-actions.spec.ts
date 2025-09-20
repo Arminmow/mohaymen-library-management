@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookActions } from './book-actions';
+import { BookActionsComponent } from './book-actions.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Component } from '@angular/core';
 import { of } from 'rxjs';
-import { Book, BookStore } from '../../stores/book-store';
+import { Book } from '../../stores/book-store';
 import { BOOK_UI_SERVICE } from '../../services/abstractions/book-ui-service-abstraction';
 import { BOOK_STORE } from '../../stores/book-store-abstraction';
 
@@ -31,8 +31,8 @@ class GenericModalStub {}
 class EditBookFormStub {}
 
 describe('BookActions', () => {
-  let component: BookActions;
-  let fixture: ComponentFixture<BookActions>;
+  let component: BookActionsComponent;
+  let fixture: ComponentFixture<BookActionsComponent>;
   let modalServiceSpy: jasmine.SpyObj<NzModalService>;
 
   const mockData: Book = {
@@ -54,7 +54,7 @@ describe('BookActions', () => {
     modalServiceSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
     await TestBed.configureTestingModule({
       declarations: [
-        BookActions,
+        BookActionsComponent,
         NzDropDownMenuStub,
         GenericModalStub,
         EditBookFormStub,
@@ -65,7 +65,7 @@ describe('BookActions', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BookActions);
+    fixture = TestBed.createComponent(BookActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

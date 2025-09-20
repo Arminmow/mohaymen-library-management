@@ -23,11 +23,11 @@ import {
 @Component({
   selector: 'app-edit-user-form',
   standalone: false,
-  templateUrl: './edit-user-form.html',
-  styleUrl: './edit-user-form.scss',
+  templateUrl: './edit-user-form.component.html',
+  styleUrl: './edit-user-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditUserForm extends BaseFormComponent implements OnInit {
+export class EditUserFormComponent extends BaseFormComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   readonly user$!: Observable<User | null>;

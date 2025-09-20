@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddUserForm } from './add-user-form';
+import { AddUserFormComponent } from './add-user-form.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UserDataService } from '../../services/user-data-service/user-data-service';
 import { USER_DATA_SERVICE } from '../../services/abstractions/user-data-service-abstraction';
 
 describe('AddUserForm', () => {
-  let component: AddUserForm;
-  let fixture: ComponentFixture<AddUserForm>;
+  let component: AddUserFormComponent;
+  let fixture: ComponentFixture<AddUserFormComponent>;
   let userServiceSpy: jasmine.SpyObj<UserDataService>;
 
   beforeEach(async () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['addUser']);
 
     await TestBed.configureTestingModule({
-      declarations: [AddUserForm],
+      declarations: [AddUserFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [{ provide: USER_DATA_SERVICE, useValue: userServiceSpy }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddUserForm);
+    fixture = TestBed.createComponent(AddUserFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

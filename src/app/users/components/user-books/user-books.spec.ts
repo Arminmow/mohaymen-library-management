@@ -4,7 +4,7 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { UserBooks } from './user-books';
+import { UserBooksComponent } from './user-books.component';
 import { BookStore, Book } from '../../../books/stores/book-store';
 import { UsersStore, User } from '../../stores/users.store';
 import { of, BehaviorSubject } from 'rxjs';
@@ -14,8 +14,8 @@ import { BOOK_STORE } from '../../../books/stores/book-store-abstraction';
 import { USER_STORE } from '../../stores/user-store-abstraction';
 
 describe('UserBooks', () => {
-  let component: UserBooks;
-  let fixture: ComponentFixture<UserBooks>;
+  let component: UserBooksComponent;
+  let fixture: ComponentFixture<UserBooksComponent>;
   let mockBookStore: jasmine.SpyObj<BookStore>;
   let mockUserStore: jasmine.SpyObj<UsersStore>;
 
@@ -64,14 +64,14 @@ describe('UserBooks', () => {
 
     await TestBed.configureTestingModule({
       imports: [CommonModule],
-      declarations: [UserBooks],
+      declarations: [UserBooksComponent],
       providers: [
         { provide: BOOK_STORE, useValue: mockBookStore },
         { provide: USER_STORE, useValue: mockUserStore },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserBooks);
+    fixture = TestBed.createComponent(UserBooksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

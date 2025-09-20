@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AddBookForm } from './add-book-form';
+import { AddBookFormComponent } from './add-book-form.component';
 import { BOOK_SERVICE, BookServiceAbstraction } from '../../services/abstractions/book-service-abstraction';
 import { USER_STORE, UserStoreAbstraction } from '../../../users/stores/user-store-abstraction';
 import { FormBuilder } from '@angular/forms';
 
 describe('AddBookForm', () => {
-  let component: AddBookForm;
-  let fixture: ComponentFixture<AddBookForm>;
+  let component: AddBookFormComponent;
+  let fixture: ComponentFixture<AddBookFormComponent>;
   let bookServiceSpy: jasmine.SpyObj<BookServiceAbstraction>;
   let userStoreMock: Partial<UserStoreAbstraction>;
 
@@ -19,7 +19,7 @@ describe('AddBookForm', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [AddBookForm],
+      declarations: [AddBookFormComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         FormBuilder,
@@ -28,7 +28,7 @@ describe('AddBookForm', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddBookForm);
+    fixture = TestBed.createComponent(AddBookFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
