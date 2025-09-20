@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { BookUiService } from './book-ui-service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { BookStore } from '../../stores/book-store';
 import { Book } from '../../stores/book-store';
-import { BOOK_STORE } from '../../stores/book-store-abstraction';
+import { BOOK_SERVICE } from '../abstractions/book-service-abstraction';
+import { BookService } from '../book-service';
 
 describe('BookUiService', () => {
   let service: BookUiService;
   let modalSpy: jasmine.SpyObj<NzModalService>;
-  let bookStoreSpy: jasmine.SpyObj<BookStore>;
+  let bookServiceSpy: jasmine.SpyObj<BookService>;
 
   beforeEach(() => {
     modalSpy = jasmine.createSpyObj('NzModalService', ['confirm']);
-    bookStoreSpy = jasmine.createSpyObj('BookStore', ['deleteBook']);
+    bookServiceSpy = jasmine.createSpyObj('BookService', ['deleteBook']);
 
     modalSpy.confirm.and.callFake((options: any) => options.nzOnOk());
 
@@ -20,7 +20,7 @@ describe('BookUiService', () => {
       providers: [
         BookUiService,
         { provide: NzModalService, useValue: modalSpy },
-        { provide: BOOK_STORE, useValue: bookStoreSpy },
+        { provide: BOOK_SERVICE, useValue: bookServiceSpy },
       ],
     });
 
@@ -45,6 +45,6 @@ describe('BookUiService', () => {
       })
     );
 
-    expect(bookStoreSpy.deleteBook).toHaveBeenCalledWith(book);
+    expect(bookServiceSpy.deleteBook).toHaveBeenCalledWith(book);
   });
 });
